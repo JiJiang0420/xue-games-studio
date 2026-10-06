@@ -1,0 +1,1 @@
+{"name":"xue-games-studio","private":true,"type":"module","scripts":{"build":"node scripts/build-pages.mjs","build:offline":"node scripts/build-pages.mjs --offline"},"engines":{"node":">=22"}}
