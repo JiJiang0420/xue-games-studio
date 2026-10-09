@@ -16,7 +16,6 @@ if(settings){
  $('.closing>span').textContent=settings.closing;
  $('.footer-brand').textContent=settings.name;
  document.querySelector('footer p').textContent='© '+new Date().getFullYear()+' '+settings.name;
- const adminLink=document.createElement('a');adminLink.href=window.siteAdminUrl||'/admin';adminLink.target='_top';adminLink.textContent='管理网站';document.querySelector('footer').appendChild(adminLink);
  if(settings.contactUrl){const link=document.createElement('a');link.className='text-link';link.textContent=settings.contactLabel||'联系我';link.href=settings.contactUrl;link.target='_blank';link.rel='noopener noreferrer';$('.about-copy').appendChild(link);}
  try{if(!localStorage.getItem('xue-theme'))document.documentElement.dataset.theme=settings.defaultTheme;}catch(e){document.documentElement.dataset.theme=settings.defaultTheme;}
  $('.count').textContent=' / '+String(games.length).padStart(2,'0');
