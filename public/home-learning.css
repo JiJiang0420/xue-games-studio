@@ -1,5 +1,5 @@
 /* Homepage-only entry. Every rule is scoped to this module. */
-.home-learning{margin-block:32px;padding:24px 28px;border:1px solid var(--line);background:var(--surface);display:flex;justify-content:space-between;align-items:center;gap:24px;border-radius:var(--radius)}
+.home-learning{margin-block:0 30px;padding:20px 26px;border:1px solid var(--accent);background:var(--surface);display:flex;justify-content:space-between;align-items:center;gap:24px;border-radius:var(--radius)}
 .home-learning h2{font-size:24px;margin-top:7px}
 .home-learning p:not(.eyebrow){color:var(--muted);font-size:14px;margin-top:9px}
 .home-learning a{flex-shrink:0}

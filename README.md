@@ -36,7 +36,7 @@ GitHub 的公开仓库定时任务可能因长期没有仓库活动而停用；�
 
 ## 学习资源库
 
-首页保留原有导航、作品展示与样式，仅在开发手记下方增加学习入口模块，点击打开 `learning.html`。14 项资源与完整练习指南在站内阅读，支持搜索、分类、三个主题及手机布局；无需 JavaScript 也能展开全部指南。定制工具入口未提供，页面标注待补充。
+首页保留原有导航、作品展示与样式，仅在首页介绍区下方、主打作品上方增加学习入口模块，点击打开 `learning.html`。14 项资源与完整练习指南在站内阅读，支持搜索、分类、三个主题及手机布局；无需 JavaScript 也能展开全部指南。定制工具入口未提供，页面标注待补充。
 
 维护 `content/learning-resources.json` 后运行 `node scripts/build-learning.mjs` 更新生成的 `public/learning.html`；常规构建也会自动生成。CSS 与交互分别位于 `public/learning.css`、`public/learning.js`。网站数据独立保存在本仓库，不依赖另一仓库的本地路径。
 
