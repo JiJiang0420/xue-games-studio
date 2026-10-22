@@ -3,6 +3,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 const origin='https://xue-games-studio.xxhhxpg.chatgpt.site';
 const out='dist';
+await import('./build-learning.mjs');
 const offline=process.argv.includes('--offline');
 let data;
 if(offline)data=JSON.parse(await fs.readFile('content/site.json','utf8'));

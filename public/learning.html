@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="editorial"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>学习资源库 · XUE GAMES</title><meta name="description" content="14 份游戏开发学习指南，从引擎、编程到美术、音频与发行。用一个小练习，让想法向前一步。"><meta name="theme-color" content="#131715"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="learning.css"><script src="learning.js" defer></script></head><body>
+<a class="skip-link" href="#main">跳转到学习资源</a>
+<header class="site-header learning-header"><a class="brand" href="index.html"><span class="brand-icon" aria-hidden="true">✳</span><span>XUE GAMES<small>一个人的游戏宇宙</small></span></a><nav aria-label="主导航"><a href="index.html#games">游戏作品</a><a href="index.html#journal">开发手记</a><a href="learning.html" aria-current="page">学习资源</a></nav><label class="theme-label" for="learning-theme">主题 <select id="learning-theme"><option value="editorial">暗色杂志</option><option value="pixel">温暖像素</option><option value="terminal">工业科幻</option></select></label></header>
+<main id="main" class="wrap learning-main"><section class="learning-hero"><div><p class="eyebrow">THE DEVELOPER’S SHELF / 开发者书架</p><h1>收藏一个入口，<br><span class="accent">开始一场创造。</span></h1><p class="hero-description">把反复查阅的资料，变成可以动手的下一步。<br>从第一行代码，到第一个可玩的世界。</p><a class="hero-link" href="#library">探索学习指南 <span aria-hidden="true">↓</span></a></div><aside class="shelf-art" aria-label="14 份指南，5 个分类"><div class="shelf-label">FIELD NOTES — VOL. 01</div><div class="shelf-number">14<span>份学习指南</span></div><div class="shelf-books" aria-hidden="true"><span>CODE</span><span>BUILD</span><span>PLAY</span></div><p>引擎 · 编程 · 美术 · 音频 · 发布</p></aside></section>
+<section class="learning-path" aria-labelledby="path-title"><div><p class="eyebrow">START SMALL</p><h2 id="path-title">从一个小原型开始</h2></div><ol><li><span>01</span><strong>选择一个引擎</strong><p>Unity / Godot / Unreal 三选一</p></li><li><span>02</span><strong>完成核心循环</strong><p>操作、目标、反馈与重新开始</p></li><li><span>03</span><strong>打磨并分享</strong><p>补充美术、声音和发行准备</p></li></ol></section>
+<section id="library" aria-labelledby="library-title"><div class="library-heading"><div><p class="eyebrow">BROWSE THE COLLECTION</p><h2 id="library-title">需要的知识，就在这里。</h2></div><span class="library-total">14 GUIDES / 05 CATEGORIES</span></div>
+<div class="library-controls" hidden><label class="search-field" for="learning-search"><span>搜索资源</span><input id="learning-search" type="search" placeholder="搜索 Unity、音效、版本管理…" autocomplete="off"></label><label for="learning-category">选择分类<select id="learning-category"><option value="">全部分类 · 14</option><option value="引擎与编程">引擎与编程 · 4</option><option value="设计与架构">设计与架构 · 2</option><option value="美术与素材">美术与素材 · 3</option><option value="音频与音效">音频与音效 · 2</option><option value="工具与发布">工具与发布 · 3</option></select></label></div><div class="results-line"><p id="learning-status" role="status" aria-live="polite">共 14 项学习资源</p><span>按需学习，无需一次学完</span></div>
+<div class="learning-grid"><article class="learn-card" id="unity" data-category="引擎与编程">
+<div class="card-top"><span>引擎与编程</span><span class="resource-index">01 / 14</span></div>
+<h3>Unity Manual</h3><p class="card-description">Unity 官方手册：场景、组件、物理、渲染与构建。注意选择与项目一致的编辑器版本。</p>
+<p class="audience">准备使用 Unity 做 2D 或 3D 原型，具备基本 C# 语法。</p>
+<details><summary>阅读学习指南 <span aria-hidden="true">＋</span></summary><div class="guide-body"><h4>建议学习顺序</h4><ol><li>编辑器界面、Scene 与 Game 视图。</li><li>GameObject、Transform 与组件。</li><li>Prefab 与场景管理。</li><li>输入、物理碰撞与 UI。</li><li>目标平台的构建流程。</li></ol><h4>动手练习</h4><p>建立单场景收集原型：角色移动，触碰收集物后更新计数，完成后显示重开按钮。</p><h4>完成标准</h4><p>角色可以操作，收集物不会重复计数；重开后状态清零；目标平台构建可以启动。</p><h4>注意事项</h4><p>先记录编辑器版本。输入系统、渲染管线与包版本应与项目一致，不能直接混用不同版本教程。</p><p class="guide-note">建议将实践步骤、使用版本与实际结果记录为学习笔记。以上练习均待实践。</p></div></details>
+<div class="card-bottom"><a href="https://docs.unity3d.com/Manual/" target="_blank" rel="noopener noreferrer" aria-label="访问 Unity Manual 原始资料（新窗口）">打开原始资料 ↗</a><span>待实践</span></div></article>
+<article class="learn-card" id="godot" data-category="引擎与编程">
+<div class="card-top"><span>引擎与编程</span><span class="resource-index">02 / 14</span></div>
+<h3>Godot Docs</h3><p class="card-description">Godot 中文官方文档，从第一个 2D 游戏到节点、信号与脚本。</p>
+<p class="audience">希望从节点与脚本入门，制作轻量 2D 原型。</p>
+<details><summary>阅读学习指南 <span aria-hidden="true">＋</span></summary><div class="guide-body"><h4>建议学习顺序</h4><ol><li>节点、场景与场景树。</li><li>GDScript 基础与信号。</li><li>输入映射与角色移动。</li><li>碰撞层、遮罩与计时器。</li><li>项目导出与资源路径。</li></ol><h4>动手练习</h4><p>实现躲避障碍小游戏：角色移动，定时生成障碍，碰撞后结束并允许重开。</p><h4>完成标准</h4><p>障碍会生成；结束后停止计分；重开不残留旧障碍；导出版本可运行。</p><h4>注意事项</h4><p>确认文档与项目的主版本一致；Godot 3 与 4 的节点、API 存在差异。导出可能需要安装对应模板。</p><p class="guide-note">建议将实践步骤、使用版本与实际结果记录为学习笔记。以上练习均待实践。</p></div></details>
+<div class="card-bottom"><a href="https://docs.godotengine.org/zh-cn/stable/" target="_blank" rel="noopener noreferrer" aria-label="访问 Godot Docs 原始资料（新窗口）">打开原始资料 ↗</a><span>待实践</span></div></article>
+<article class="learn-card" id="unreal" data-category="引擎与编程">
+<div class="card-top"><span>引擎与编程</span><span class="resource-index">03 / 14</span></div>
+<h3>Unreal Engine Documentation</h3><p class="card-description">虚幻引擎官方文档，查阅蓝图、关卡与渲染工作流。</p>
+<p class="audience">希望用蓝图制作 3D 交互原型。</p>
+<details><summary>阅读学习指南 <span aria-hidden="true">＋</span></summary><div class="guide-body"><h4>建议学习顺序</h4><ol><li>编辑器、关卡与 Actor。</li><li>组件、蓝图变量与事件。</li><li>输入与角色控制。</li><li>碰撞、交互和 UI。</li><li>打包与目标平台配置。</li></ol><h4>动手练习</h4><p>制作开门原型：进入交互范围后显示提示，按键打开门，离开范围后隐藏提示。</p><h4>完成标准</h4><p>范围内外提示正确；连续按键不会导致门状态异常；打包后交互仍可用。</p><h4>注意事项</h4><p>记录引擎版本、模板与目标平台；开始前核对官方硬件要求和磁盘空间。先做蓝图原型，再按需要引入 C++。</p><p class="guide-note">建议将实践步骤、使用版本与实际结果记录为学习笔记。以上练习均待实践。</p></div></details>
+<div class="card-bottom"><a href="https://dev.epicgames.com/documentation/zh-cn/unreal-engine/" target="_blank" rel="noopener noreferrer" aria-label="访问 Unreal Engine Documentation 原始资料（新窗口）">打开原始资料 ↗</a><span>待实践</span></div></article>
+<article class="learn-card" id="csharp" data-category="引擎与编程">
+<div class="card-top"><span>引擎与编程</span><span class="resource-index">04 / 14</span></div>
+<h3>Microsoft C# 文档</h3><p class="card-description">学习 C# 语法、类型与异步编程，作为 Unity 脚本开发的语言参考。</p>
+<p class="audience">需要读懂并编写 Unity 脚本，或独立学习 C#。</p>
+<details><summary>阅读学习指南 <span aria-hidden="true">＋</span></summary><div class="guide-body"><h4>建议学习顺序</h4><ol><li>变量、类型与控制流。</li><li>方法、类、属性与访问控制。</li><li>集合、泛型与异常。</li><li>委托、事件与接口。</li><li>理解引用与值类型后再学习异步。</li></ol><h4>动手练习</h4><p>实现纯逻辑背包：添加物品、合并数量、移除物品，并拒绝负数或库存不足的操作。</p><h4>完成标准</h4><p>覆盖添加、合并、删除最后一件和非法输入；操作失败时库存保持一致；记录实际输出。</p><h4>注意事项</h4><p>Unity 支持的 C# 与 .NET 特性取决于编辑器和运行环境。不要把 async 用作所有问题的默认方案；注意游戏对象 API 的线程限制。</p><p class="guide-note">建议将实践步骤、使用版本与实际结果记录为学习笔记。以上练习均待实践。</p></div></details>
+<div class="card-bottom"><a href="https://learn.microsoft.com/zh-cn/dotnet/csharp/" target="_blank" rel="noopener noreferrer" aria-label="访问 Microsoft C# 文档 原始资料（新窗口）">打开原始资料 ↗</a><span>待实践</span></div></article>
+<article class="learn-card" id="patterns" data-category="设计与架构">
+<div class="card-top"><span>设计与架构</span><span class="resource-index">05 / 14</span></div>
+<h3>Game Programming Patterns</h3><p class="card-description">在线阅读游戏编程模式，理解状态机、对象池、组件与事件队列。</p>
+<p class="audience">已经写出一个小原型，开始遇到状态和模块耦合问题。</p>
+<details><summary>阅读学习指南 <span aria-hidden="true">＋</span></summary><div class="guide-body"><h4>建议学习顺序</h4><ol><li>先阅读 Introduction 与 Architecture, Performance, and Games。</li><li>State：表达角色或流程状态。</li><li>Observer：拆分事件发送者和接收者。</li><li>Object Pool：复用高频对象。</li><li>Component 与 Event Queue：按实际需要继续。</li></ol><h4>动手练习</h4><p>把原型中的待机、移动、受击改为显式状态；用事件更新 UI，避免 UI 直接管理角色状态。</p><h4>完成标准</h4><p>列出合法状态转换；重复受击、结束后输入等边界行为明确；改造前后玩法一致。</p><h4>注意事项</h4><p>先明确实际问题再引入模式。对象池需要重置状态，并不保证所有场景都更快；性能结论需要测量。</p><p class="guide-note">建议将实践步骤、使用版本与实际结果记录为学习笔记。以上练习均待实践。</p></div></details>
+<div class="card-bottom"><a href="https://gameprogrammingpatterns.com/" target="_blank" rel="noopener noreferrer" aria-label="访问 Game Programming Patterns 原始资料（新窗口）">打开原始资料 ↗</a><span>待实践</span></div></article>
+<article class="learn-card" id="shaders" data-category="设计与架构">
+<div class="card-top"><span>设计与架构</span><span class="resource-index">06 / 14</span></div>
+<h3>The Book of Shaders</h3><p class="card-description">从图形与交互示例学习片元着色器，适合探索程序化视觉效果。</p>
+<p class="audience">对程序化视觉感兴趣，掌握基础代数与坐标概念。</p>
+<details><summary>阅读学习指南 <span aria-hidden="true">＋</span></summary><div class="guide-body"><h4>建议学习顺序</h4><ol><li>片元着色器与归一化坐标。</li><li>颜色、插值与 shaping functions。</li><li>基本图形与距离。</li><li>平移、旋转与重复图案。</li><li>噪声与时间动画。</li></ol><h4>动手练习</h4><p>制作可调颜色与频率的脉冲圆环，先在书中示例环境练习，再记录如何迁移到所选引擎。</p><h4>完成标准</h4><p>能解释坐标和颜色的关系；调整参数可以改变效果；不同画面比例下形状表现可解释。</p><h4>注意事项</h4><p>示例以 GLSL 为主，不是可直接复制的 Unity Shader。迁移到 HLSL、Shader Graph 或其他引擎时需要适配坐标、变量与管线。</p><p class="guide-note">建议将实践步骤、使用版本与实际结果记录为学习笔记。以上练习均待实践。</p></div></details>
+<div class="card-bottom"><a href="https://thebookofshaders.com/?lan=ch" target="_blank" rel="noopener noreferrer" aria-label="访问 The Book of Shaders 原始资料（新窗口）">打开原始资料 ↗</a><span>待实践</span></div></article>
+<article class="learn-card" id="kenney" data-category="美术与素材">
+<div class="card-top"><span>美术与素材</span><span class="resource-index">07 / 14</span></div>
+<h3>Kenney</h3><p class="card-description">查找原型制作所需的 2D、3D 与界面素材；下载时检查具体资源包的许可。</p>
+<p class="audience">需要快速搭建原型的占位场景、角色或 UI。</p>
+<details><summary>阅读学习指南 <span aria-hidden="true">＋</span></summary><div class="guide-body"><h4>建议学习顺序</h4><ol><li>按 2D、3D 或 UI 筛选资源包。</li><li>阅读包内说明和许可。</li><li>检查尺寸、比例、格式和风格。</li><li>导入少量资源验证。</li><li>记录来源与改动。</li></ol><h4>动手练习</h4><p>选一个资源包，仅用同一套素材搭建小场景，并制作可交互按钮。</p><h4>完成标准</h4><p>资源比例与碰撞范围合理；UI 可读；记录资源包名称、下载页、许可及实际使用文件。</p><h4>注意事项</h4><p>以具体资源包附带许可为准；不要根据站点名推断所有内容的授权，也不要把付费工具与素材包混为一谈。</p><p class="guide-note">建议将实践步骤、使用版本与实际结果记录为学习笔记。以上练习均待实践。</p></div></details>
+<div class="card-bottom"><a href="https://kenney.nl/assets" target="_blank" rel="noopener noreferrer" aria-label="访问 Kenney 原始资料（新窗口）">打开原始资料 ↗</a><span>待实践</span></div></article>
+<article class="learn-card" id="opengameart" data-category="美术与素材">
+<div class="card-top"><span>美术与素材</span><span class="resource-index">08 / 14</span></div>
+<h3>OpenGameArt</h3><p class="card-description">社区游戏美术与音频素材。不同作品许可不同，使用前核对署名和分发要求。</p>
+<p class="audience">需要社区美术素材，并愿意逐项记录授权信息。</p>
+<details><summary>阅读学习指南 <span aria-hidden="true">＋</span></summary><div class="guide-body"><h4>建议学习顺序</h4><ol><li>按风格、格式与用途筛选。</li><li>打开作品页阅读作者说明。</li><li>核对许可版本和署名要求。</li><li>保存来源与许可记录。</li><li>导入并验证兼容性。</li></ol><h4>动手练习</h4><p>选择一个可用于目标用途的资源，制作小样，并写一段实际可用的署名文字。</p><h4>完成标准</h4><p>记录作品、作者、原链接、许可及修改；能说明是否满足商业使用和再分发条件；小样可运行。</p><h4>注意事项</h4><p>不同条目的许可不同，多个可选许可也需明确选用哪一个；不确定授权范围时先不用于发行版本。</p><p class="guide-note">建议将实践步骤、使用版本与实际结果记录为学习笔记。以上练习均待实践。</p></div></details>
+<div class="card-bottom"><a href="https://opengameart.org/" target="_blank" rel="noopener noreferrer" aria-label="访问 OpenGameArt 原始资料（新窗口）">打开原始资料 ↗</a><span>待实践</span></div></article>
+<article class="learn-card" id="blender" data-category="美术与素材">
+<div class="card-top"><span>美术与素材</span><span class="resource-index">09 / 14</span></div>
+<h3>Blender Manual</h3><p class="card-description">Blender 中文官方手册，覆盖建模、动画、材质与导出。</p>
+<p class="audience">希望制作简单 3D 道具供游戏原型使用。</p>
+<details><summary>阅读学习指南 <span aria-hidden="true">＋</span></summary><div class="guide-body"><h4>建议学习顺序</h4><ol><li>界面、视图与对象操作。</li><li>编辑模式与基础建模。</li><li>材质、UV 与贴图。</li><li>变换、原点与法线。</li><li>导出与引擎导入。</li></ol><h4>动手练习</h4><p>制作一只低面数箱子，设置原点与材质，导出后放进游戏场景。</p><h4>完成标准</h4><p>引擎内尺寸与方向正确；材质可见；没有明显反面或缩放异常；保留可编辑源文件。</p><h4>注意事项</h4><p>记录 Blender 版本及导出设置；单位、坐标轴与材质支持随目标引擎和格式变化，先用一个模型验证流程。</p><p class="guide-note">建议将实践步骤、使用版本与实际结果记录为学习笔记。以上练习均待实践。</p></div></details>
+<div class="card-bottom"><a href="https://docs.blender.org/manual/zh-hans/latest/" target="_blank" rel="noopener noreferrer" aria-label="访问 Blender Manual 原始资料（新窗口）">打开原始资料 ↗</a><span>待实践</span></div></article>
+<article class="learn-card" id="freesound" data-category="音频与音效">
+<div class="card-top"><span>音频与音效</span><span class="resource-index">10 / 14</span></div>
+<h3>Freesound</h3><p class="card-description">搜索环境声与音效。每条声音需要单独确认许可及商业使用条件。</p>
+<p class="audience">为交互、环境和反馈寻找声音素材。</p>
+<details><summary>阅读学习指南 <span aria-hidden="true">＋</span></summary><div class="guide-body"><h4>建议学习顺序</h4><ol><li>用具体声音事件而非泛称搜索。</li><li>试听并检查长度、噪声和动态。</li><li>核对每条声音的许可。</li><li>保存作者、来源与许可。</li><li>剪辑后导入原型。</li></ol><h4>动手练习</h4><p>为同一按钮准备悬停、点击与确认反馈，控制音量并测试快速重复触发。</p><h4>完成标准</h4><p>声音与动作对应；无明显削波；重复触发不过度叠加；每条音效都有来源和许可记录。</p><h4>注意事项</h4><p>CC 许可种类不同，含 NC 的授权不适合未经额外许可的商业用途。下载可能需要账号；访问与授权状态以原站为准。</p><p class="guide-note">建议将实践步骤、使用版本与实际结果记录为学习笔记。以上练习均待实践。</p></div></details>
+<div class="card-bottom"><a href="https://freesound.org/" target="_blank" rel="noopener noreferrer" aria-label="访问 Freesound 原始资料（新窗口）">打开原始资料 ↗</a><span>待实践</span></div></article>
+<article class="learn-card" id="audacity" data-category="音频与音效">
+<div class="card-top"><span>音频与音效</span><span class="resource-index">11 / 14</span></div>
+<h3>Audacity Support</h3><p class="card-description">学习录音、剪辑、降噪与导出，为游戏原型准备音频。</p>
+<p class="audience">需要剪辑、整理或清理录音，用于游戏原型。</p>
+<details><summary>阅读学习指南 <span aria-hidden="true">＋</span></summary><div class="guide-body"><h4>建议学习顺序</h4><ol><li>录音输入与电平。</li><li>选择、剪切、淡入和淡出。</li><li>按实际需要降噪。</li><li>检查峰值与静音。</li><li>导出并保留工程。</li></ol><h4>动手练习</h4><p>将一段自有录音裁成短音效，去掉多余静音，加入短淡入淡出，导出供引擎测试。</p><h4>完成标准</h4><p>首尾无明显爆音；播放无削波；导出文件能被引擎读取；工程文件与原录音保留。</p><h4>注意事项</h4><p>使用官方下载渠道；不要反复有损转码。过强降噪会引入失真，格式、采样率与声道按项目需要选择。</p><p class="guide-note">建议将实践步骤、使用版本与实际结果记录为学习笔记。以上练习均待实践。</p></div></details>
+<div class="card-bottom"><a href="https://support.audacityteam.org/" target="_blank" rel="noopener noreferrer" aria-label="访问 Audacity Support 原始资料（新窗口）">打开原始资料 ↗</a><span>待实践</span></div></article>
+<article class="learn-card" id="git" data-category="工具与发布">
+<div class="card-top"><span>工具与发布</span><span class="resource-index">12 / 14</span></div>
+<h3>Git 官方中文书</h3><p class="card-description">学习提交、分支与协作，让项目代码和开发记录可追踪。</p>
+<p class="audience">希望为代码、文档与实验建立可恢复的版本记录。</p>
+<details><summary>阅读学习指南 <span aria-hidden="true">＋</span></summary><div class="guide-body"><h4>建议学习顺序</h4><ol><li>起步：仓库与基本配置。</li><li>Git 基础：status、diff、add、commit、log。</li><li>忽略文件与撤销操作。</li><li>分支与合并冲突。</li><li>远程仓库与协作。</li></ol><h4>动手练习</h4><p>在单独练习目录提交两版文本，创建分支修改同一处内容，合并并手动解决一次冲突。</p><h4>完成标准</h4><p>能解释工作区、暂存区与提交；冲突标记已清除；日志能追溯改动；知道忽略文件不自动取消已跟踪内容。</p><h4>注意事项</h4><p>练习撤销先使用临时仓库；不要对现有项目盲目运行破坏性命令。不要提交密钥、缓存或大体积构建输出。</p><p class="guide-note">建议将实践步骤、使用版本与实际结果记录为学习笔记。以上练习均待实践。</p></div></details>
+<div class="card-bottom"><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener noreferrer" aria-label="访问 Git 官方中文书 原始资料（新窗口）">打开原始资料 ↗</a><span>待实践</span></div></article>
+<article class="learn-card" id="itchio" data-category="工具与发布">
+<div class="card-top"><span>工具与发布</span><span class="resource-index">13 / 14</span></div>
+<h3>itch.io 开发者文档</h3><p class="card-description">了解游戏页面、上传构建和发行流程，适合准备原型试玩页。</p>
+<p class="audience">准备给他人试玩原型，需要整理页面与构建文件。</p>
+<details><summary>阅读学习指南 <span aria-hidden="true">＋</span></summary><div class="guide-body"><h4>建议学习顺序</h4><ol><li>Creator 文档与项目页面。</li><li>平台与上传文件配置。</li><li>可下载构建与 HTML 游戏要求。</li><li>可见性、页面说明与截图。</li><li>更新流程和试玩反馈。</li></ol><h4>动手练习</h4><p>先在本地准备发行包与页面文案，写明平台、操作、当前版本和已知问题；按需要在账号中建立非公开测试页。</p><h4>完成标准</h4><p>从干净目录解压可运行；依赖文件齐全；页面操作说明与实际一致；若进行非公开测试，检查访问权限。</p><h4>注意事项</h4><p>账号、上传与发布是独立操作，本指南没有执行。HTML 游戏有特定打包和运行限制；价格与分发条件以平台当前说明为准。</p><p class="guide-note">建议将实践步骤、使用版本与实际结果记录为学习笔记。以上练习均待实践。</p></div></details>
+<div class="card-bottom"><a href="https://itch.io/docs/creators/" target="_blank" rel="noopener noreferrer" aria-label="访问 itch.io 开发者文档 原始资料（新窗口）">打开原始资料 ↗</a><span>待实践</span></div></article>
+<article class="learn-card" id="steamworks" data-category="工具与发布">
+<div class="card-top"><span>工具与发布</span><span class="resource-index">14 / 14</span></div>
+<h3>Steamworks 文档</h3><p class="card-description">准备 Steam 商店页面与发行流程的官方参考，部分功能需要合作伙伴账号。</p>
+<p class="audience">计划在 Steam 发行，准备了解后台流程与材料要求。</p>
+<details><summary>阅读学习指南 <span aria-hidden="true">＋</span></summary><div class="guide-body"><h4>建议学习顺序</h4><ol><li>先读入门与入驻说明。</li><li>商店页面素材与产品说明。</li><li>应用构建、分支与 depots 概念。</li><li>测试、审核与发行准备。</li><li>按需求研究成就等接口。</li></ol><h4>动手练习</h4><p>制作发行准备清单：页面文案、截图、系统需求、目标平台、构建步骤、测试范围与缺失材料；先不提交。</p><h4>完成标准</h4><p>每项材料有负责人或待办状态；区分商店页与构建审核；列出需要账号和权限的操作；未执行审核保持未执行。</p><h4>注意事项</h4><p>合作伙伴功能、费用、时间要求与政策以平台当前规则为准。此处仅整理学习与准备事项，不代表完成入驻、上传或发行。</p><p class="guide-note">建议将实践步骤、使用版本与实际结果记录为学习笔记。以上练习均待实践。</p></div></details>
+<div class="card-bottom"><a href="https://partner.steamgames.com/doc/home?l=schinese" target="_blank" rel="noopener noreferrer" aria-label="访问 Steamworks 文档 原始资料（新窗口）">打开原始资料 ↗</a><span>待实践</span></div></article></div><div class="learning-empty" hidden><h3>暂时没有匹配的指南</h3><p>换个关键词，或清除筛选重新看看。</p><button type="button" id="learning-reset">清除筛选 ↗</button></div><noscript><p>当前展示全部资源，展开卡片即可阅读。搜索和分类筛选需启用 JavaScript。</p></noscript></section>
+<section class="custom-tools" aria-labelledby="custom-title"><div><p class="eyebrow">PERSONAL TOOLBOX</p><h2 id="custom-title">定制工具，等一个新灵感。</h2><p>个人项目工具单独整理；使用入口补齐后将在这里开放。</p></div><div class="tool-list"><div><strong>哼鸣识别作曲工具</strong><span>项目入口待补充</span></div><div><strong>Logo 设计工具</strong><span>项目入口待补充</span></div></div></section>
+<p class="learning-footnote">资料为学习整理，练习尚未逐项执行；外链尚未逐个联网核验。使用前请确认文档版本、费用与素材许可。收藏知识之后，也记得留下自己的实践记录。</p></main><footer class="wrap learning-footer"><a class="footer-brand" href="index.html">✳ XUE GAMES</a><span>从一个想法，到一个世界。</span><a href="#main">回到顶部 ↑</a></footer></body></html>

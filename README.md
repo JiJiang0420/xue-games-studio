@@ -33,3 +33,9 @@ GitHub 的公开仓库定时任务可能因长期没有仓库活动而停用；�
 ## 捐赠
 
 后台“捐赠设置”可上传自己的微信 / 支付宝收款二维码或填写赞助页链接。配置并公开后才显示可用收款入口。请核对收款方后发布。
+
+## 学习资源库
+
+首页导航和开发手记下方的入口打开 `learning.html`。14 项资源与完整练习指南在站内阅读，支持搜索、分类、三个主题及手机布局；无需 JavaScript 也能展开全部指南。定制工具入口未提供，页面标注待补充。
+
+维护 `content/learning-resources.json` 后运行 `node scripts/build-learning.mjs` 更新生成的 `public/learning.html`；常规构建也会自动生成。CSS 与交互分别位于 `public/learning.css`、`public/learning.js`。网站数据独立保存在本仓库，不依赖另一仓库的本地路径。
