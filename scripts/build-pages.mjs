@@ -28,7 +28,7 @@ for(const entry of await fs.readdir('public',{withFileTypes:true})){
 const media=new Map();
 async function localize(value){
  if(!value)return value;
- if(/^\/?assets\/[\w.-]+$/.test(value))return value.replace(/^\//,'');
+ if(/^\/?assets\/[\w.-]+$/.test(value)){const relative=value.replace(/^\//,'');try{await fs.access(path.join(out,relative));return relative;}catch{}const r=await fetch(origin+'/'+relative,{signal:AbortSignal.timeout(30000),redirect:'error'});if(!r.ok||!/^image\//.test(r.headers.get('content-type')||''))throw Error('封面无法读取：'+relative);const bytes=Buffer.from(await r.arrayBuffer());if(bytes.length>8*1024*1024)throw Error('封面过大');await fs.mkdir(path.dirname(path.join(out,relative)),{recursive:true});await fs.writeFile(path.join(out,relative),bytes);return relative;}
  if(!/^\/media\/[a-f0-9-]+\.(png|jpg|webp|gif|mp3|wav|ogg|m4a)$/.test(value))return value;
  if(media.has(value))return media.get(value);
  const response=await fetch(origin+value,{signal:AbortSignal.timeout(60000),redirect:'error'});
@@ -37,7 +37,8 @@ async function localize(value){
  const bytes=Buffer.from(await response.arrayBuffer());if(bytes.length>26*1024*1024)throw Error('媒体超过大小限制');
  const relative=value.slice(1);await fs.mkdir(path.dirname(path.join(out,relative)),{recursive:true});await fs.writeFile(path.join(out,relative),bytes);media.set(value,relative);return relative;
 }
-for(const game of data.games)game.image=await localize(game.image);
+data.settings.logo=await localize(data.settings.logo);
+for(const game of data.games){game.image=await localize(game.image);game.gallery=await Promise.all((game.gallery||[]).map(localize));}
 for(const track of data.music.tracks)track.src=await localize(track.src);
 for(const channel of data.donation.channels)channel.image=await localize(channel.image);
 await fs.writeFile(path.join(out,'content.js'),'window.siteAdminUrl = '+JSON.stringify(origin+'/admin')+';\nwindow.siteContent = '+JSON.stringify(data).replace(/</g,'\\u003c')+';\n');
@@ -54,3 +55,4 @@ const live='https://jijiang0420.github.io/xue-games-studio/build.json';
 if(process.env.GITHUB_EVENT_NAME==='schedule'){try{const r=await fetch(live,{cache:'no-store',signal:AbortSignal.timeout(10000)});if(r.ok)changed=(await r.json()).contentHash!==contentHash;}catch{}}
 if(process.env.GITHUB_OUTPUT)await fs.appendFile(process.env.GITHUB_OUTPUT,`changed=${changed}\n`);
 console.log(`Pages ready: ${data.games.length} games, ${data.posts.length} posts, ${data.music.tracks.length} music tracks; ${media.size} uploaded files mirrored; changed=${changed}`);
+
