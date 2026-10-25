@@ -14,7 +14,8 @@
     ],
     "exercise": "写一页核心玩法说明：目标玩家、主要体验、30 秒核心循环、规则与一个待验证假设。",
     "acceptance": "明确区分规则和实际行为；列出至少一个可能违背预期的行为，并设计试玩观察方法。",
-    "caution": "原文为英文论文；框架用于提出和讨论假设，不能替代实际试玩。"
+    "caution": "原文为英文论文；框架用于提出和讨论假设，不能替代实际试玩。",
+    "type": "learning"
   },
   {
     "id": "level-design",
@@ -31,7 +32,8 @@
     ],
     "exercise": "制作一个含教学区、变化区和挑战区的小关卡，先使用占位几何，不投入最终美术。",
     "acceptance": "试玩者不依赖口头提示能找到目标；记录迷路和失败位置；根据观察完成一轮白盒修改。",
-    "caution": "教材以英文为主；不同游戏的移动能力和镜头会改变尺度，不要直接照搬其他项目的尺寸。"
+    "caution": "教材以英文为主；不同游戏的移动能力和镜头会改变尺度，不要直接照搬其他项目的尺寸。",
+    "type": "learning"
   },
   {
     "id": "twine",
@@ -48,7 +50,8 @@
     ],
     "exercise": "制作一个有两次关键选择、至少两个结局的短故事，用状态变量记录一个选择后果。",
     "acceptance": "所有可达节点无意外断路；重开后状态正确；至少一次早期选择影响后续反馈；导出 HTML 可运行。",
-    "caution": "Harlowe、SugarCube 等格式语法不同，不能混用；使用的素材和故事文本需要拥有相应权限。"
+    "caution": "Harlowe、SugarCube 等格式语法不同，不能混用；使用的素材和故事文本需要拥有相应权限。",
+    "type": "tool"
   },
   {
     "id": "machinations",
@@ -65,7 +68,8 @@
     ],
     "exercise": "设计一个包含获取金币、购买升级、提升获取效率的循环，记录三组参数下的预期行为。",
     "acceptance": "说明输入、消耗与库存关系；指出是否存在无限增长或停滞；记录模型结果与实际试玩之间的差异。",
-    "caution": "工具账号、方案限制与功能以官网为准；模拟结果依赖假设。数值表也能先验证简单模型，不必把工具作为前置门槛。"
+    "caution": "工具账号、方案限制与功能以官网为准；模拟结果依赖假设。数值表也能先验证简单模型，不必把工具作为前置门槛。",
+    "type": "tool"
   },
   {
     "id": "accessibility",
@@ -82,7 +86,8 @@
     ],
     "exercise": "为原型制作一页检查清单，落实可读文字、不只依赖颜色传递状态和可理解的操作提示。",
     "acceptance": "列出已落实和暂未落实的检查项；关键状态至少有清晰文字或图形提示；记录设备、输入方式与实际问题。",
-    "caution": "这是一组设计建议，不代表合规认证；应结合目标玩家反馈，不要用健全用户模拟代替相关玩家的实际测试。"
+    "caution": "这是一组设计建议，不代表合规认证；应结合目标玩家反馈，不要用健全用户模拟代替相关玩家的实际测试。",
+    "type": "learning"
   },
   {
     "id": "gdc-design",
@@ -99,7 +104,8 @@
     ],
     "exercise": "选择一篇可访问的设计演讲，写一页案例笔记，并为自己的原型提出一个可试玩验证的小改动。",
     "acceptance": "笔记包含来源、背景、设计取舍与观察证据；不把个例当普遍结论；明确自己的实验成功标准。",
-    "caution": "部分内容需要账号或付费权限；优先选择可公开访问的案例。演讲经验受团队规模、类型与发行背景限制。"
+    "caution": "部分内容需要账号或付费权限；优先选择可公开访问的案例。演讲经验受团队规模、类型与发行背景限制。",
+    "type": "learning"
   },
   {
     "title": "Unity Manual",
@@ -117,7 +123,8 @@
     ],
     "exercise": "建立单场景收集原型：角色移动，触碰收集物后更新计数，完成后显示重开按钮。",
     "acceptance": "角色可以操作，收集物不会重复计数；重开后状态清零；目标平台构建可以启动。",
-    "caution": "先记录编辑器版本。输入系统、渲染管线与包版本应与项目一致，不能直接混用不同版本教程。"
+    "caution": "先记录编辑器版本。输入系统、渲染管线与包版本应与项目一致，不能直接混用不同版本教程。",
+    "type": "learning"
   },
   {
     "title": "Godot Docs",
@@ -135,7 +142,8 @@
     ],
     "exercise": "实现躲避障碍小游戏：角色移动，定时生成障碍，碰撞后结束并允许重开。",
     "acceptance": "障碍会生成；结束后停止计分；重开不残留旧障碍；导出版本可运行。",
-    "caution": "确认文档与项目的主版本一致；Godot 3 与 4 的节点、API 存在差异。导出可能需要安装对应模板。"
+    "caution": "确认文档与项目的主版本一致；Godot 3 与 4 的节点、API 存在差异。导出可能需要安装对应模板。",
+    "type": "learning"
   },
   {
     "title": "Unreal Engine Documentation",
@@ -153,7 +161,8 @@
     ],
     "exercise": "制作开门原型：进入交互范围后显示提示，按键打开门，离开范围后隐藏提示。",
     "acceptance": "范围内外提示正确；连续按键不会导致门状态异常；打包后交互仍可用。",
-    "caution": "记录引擎版本、模板与目标平台；开始前核对官方硬件要求和磁盘空间。先做蓝图原型，再按需要引入 C++。"
+    "caution": "记录引擎版本、模板与目标平台；开始前核对官方硬件要求和磁盘空间。先做蓝图原型，再按需要引入 C++。",
+    "type": "learning"
   },
   {
     "title": "Microsoft C# 文档",
@@ -171,7 +180,8 @@
     ],
     "exercise": "实现纯逻辑背包：添加物品、合并数量、移除物品，并拒绝负数或库存不足的操作。",
     "acceptance": "覆盖添加、合并、删除最后一件和非法输入；操作失败时库存保持一致；记录实际输出。",
-    "caution": "Unity 支持的 C# 与 .NET 特性取决于编辑器和运行环境。不要把 async 用作所有问题的默认方案；注意游戏对象 API 的线程限制。"
+    "caution": "Unity 支持的 C# 与 .NET 特性取决于编辑器和运行环境。不要把 async 用作所有问题的默认方案；注意游戏对象 API 的线程限制。",
+    "type": "learning"
   },
   {
     "title": "Game Programming Patterns",
@@ -189,7 +199,8 @@
     ],
     "exercise": "把原型中的待机、移动、受击改为显式状态；用事件更新 UI，避免 UI 直接管理角色状态。",
     "acceptance": "列出合法状态转换；重复受击、结束后输入等边界行为明确；改造前后玩法一致。",
-    "caution": "先明确实际问题再引入模式。对象池需要重置状态，并不保证所有场景都更快；性能结论需要测量。"
+    "caution": "先明确实际问题再引入模式。对象池需要重置状态，并不保证所有场景都更快；性能结论需要测量。",
+    "type": "learning"
   },
   {
     "title": "The Book of Shaders",
@@ -207,7 +218,8 @@
     ],
     "exercise": "制作可调颜色与频率的脉冲圆环，先在书中示例环境练习，再记录如何迁移到所选引擎。",
     "acceptance": "能解释坐标和颜色的关系；调整参数可以改变效果；不同画面比例下形状表现可解释。",
-    "caution": "示例以 GLSL 为主，不是可直接复制的 Unity Shader。迁移到 HLSL、Shader Graph 或其他引擎时需要适配坐标、变量与管线。"
+    "caution": "示例以 GLSL 为主，不是可直接复制的 Unity Shader。迁移到 HLSL、Shader Graph 或其他引擎时需要适配坐标、变量与管线。",
+    "type": "learning"
   },
   {
     "title": "Kenney",
@@ -225,7 +237,8 @@
     ],
     "exercise": "选一个资源包，仅用同一套素材搭建小场景，并制作可交互按钮。",
     "acceptance": "资源比例与碰撞范围合理；UI 可读；记录资源包名称、下载页、许可及实际使用文件。",
-    "caution": "以具体资源包附带许可为准；不要根据站点名推断所有内容的授权，也不要把付费工具与素材包混为一谈。"
+    "caution": "以具体资源包附带许可为准；不要根据站点名推断所有内容的授权，也不要把付费工具与素材包混为一谈。",
+    "type": "asset"
   },
   {
     "title": "OpenGameArt",
@@ -243,7 +256,8 @@
     ],
     "exercise": "选择一个可用于目标用途的资源，制作小样，并写一段实际可用的署名文字。",
     "acceptance": "记录作品、作者、原链接、许可及修改；能说明是否满足商业使用和再分发条件；小样可运行。",
-    "caution": "不同条目的许可不同，多个可选许可也需明确选用哪一个；不确定授权范围时先不用于发行版本。"
+    "caution": "不同条目的许可不同，多个可选许可也需明确选用哪一个；不确定授权范围时先不用于发行版本。",
+    "type": "asset"
   },
   {
     "title": "Blender Manual",
@@ -261,7 +275,8 @@
     ],
     "exercise": "制作一只低面数箱子，设置原点与材质，导出后放进游戏场景。",
     "acceptance": "引擎内尺寸与方向正确；材质可见；没有明显反面或缩放异常；保留可编辑源文件。",
-    "caution": "记录 Blender 版本及导出设置；单位、坐标轴与材质支持随目标引擎和格式变化，先用一个模型验证流程。"
+    "caution": "记录 Blender 版本及导出设置；单位、坐标轴与材质支持随目标引擎和格式变化，先用一个模型验证流程。",
+    "type": "learning"
   },
   {
     "title": "Freesound",
@@ -279,7 +294,8 @@
     ],
     "exercise": "为同一按钮准备悬停、点击与确认反馈，控制音量并测试快速重复触发。",
     "acceptance": "声音与动作对应；无明显削波；重复触发不过度叠加；每条音效都有来源和许可记录。",
-    "caution": "CC 许可种类不同，含 NC 的授权不适合未经额外许可的商业用途。下载可能需要账号；访问与授权状态以原站为准。"
+    "caution": "CC 许可种类不同，含 NC 的授权不适合未经额外许可的商业用途。下载可能需要账号；访问与授权状态以原站为准。",
+    "type": "asset"
   },
   {
     "title": "Audacity Support",
@@ -297,7 +313,8 @@
     ],
     "exercise": "将一段自有录音裁成短音效，去掉多余静音，加入短淡入淡出，导出供引擎测试。",
     "acceptance": "首尾无明显爆音；播放无削波；导出文件能被引擎读取；工程文件与原录音保留。",
-    "caution": "使用官方下载渠道；不要反复有损转码。过强降噪会引入失真，格式、采样率与声道按项目需要选择。"
+    "caution": "使用官方下载渠道；不要反复有损转码。过强降噪会引入失真，格式、采样率与声道按项目需要选择。",
+    "type": "learning"
   },
   {
     "title": "Git 官方中文书",
@@ -315,7 +332,8 @@
     ],
     "exercise": "在单独练习目录提交两版文本，创建分支修改同一处内容，合并并手动解决一次冲突。",
     "acceptance": "能解释工作区、暂存区与提交；冲突标记已清除；日志能追溯改动；知道忽略文件不自动取消已跟踪内容。",
-    "caution": "练习撤销先使用临时仓库；不要对现有项目盲目运行破坏性命令。不要提交密钥、缓存或大体积构建输出。"
+    "caution": "练习撤销先使用临时仓库；不要对现有项目盲目运行破坏性命令。不要提交密钥、缓存或大体积构建输出。",
+    "type": "learning"
   },
   {
     "title": "itch.io 开发者文档",
@@ -333,7 +351,8 @@
     ],
     "exercise": "先在本地准备发行包与页面文案，写明平台、操作、当前版本和已知问题；按需要在账号中建立非公开测试页。",
     "acceptance": "从干净目录解压可运行；依赖文件齐全；页面操作说明与实际一致；若进行非公开测试，检查访问权限。",
-    "caution": "账号、上传与发布是独立操作，本指南没有执行。HTML 游戏有特定打包和运行限制；价格与分发条件以平台当前说明为准。"
+    "caution": "账号、上传与发布是独立操作，本指南没有执行。HTML 游戏有特定打包和运行限制；价格与分发条件以平台当前说明为准。",
+    "type": "learning"
   },
   {
     "title": "Steamworks 文档",
@@ -351,7 +370,296 @@
     ],
     "exercise": "制作发行准备清单：页面文案、截图、系统需求、目标平台、构建步骤、测试范围与缺失材料；先不提交。",
     "acceptance": "每项材料有负责人或待办状态；区分商店页与构建审核；列出需要账号和权限的操作；未执行审核保持未执行。",
-    "caution": "合作伙伴功能、费用、时间要求与政策以平台当前规则为准。此处仅整理学习与准备事项，不代表完成入驻、上传或发行。"
+    "caution": "合作伙伴功能、费用、时间要求与政策以平台当前规则为准。此处仅整理学习与准备事项，不代表完成入驻、上传或发行。",
+    "type": "learning"
+  },
+  {
+    "id": "ldtk",
+    "title": "LDtk 2D 关卡编辑器",
+    "type": "tool",
+    "category": "策划与设计",
+    "url": "https://github.com/deepnight/ldtk",
+    "description": "制作 2D 关卡，配置实体、图块与关卡数据。",
+    "audience": "按项目需要选用，先确认平台与版本。",
+    "steps": [
+      "阅读原始项目说明，确认用途、前置知识与版本",
+      "选择一个最小目标，按文档准备所需环境",
+      "完成下方练习，保存实际结果和设置",
+      "记录限制、问题与可复现步骤"
+    ],
+    "exercise": "创建包含起点、终点与障碍的关卡，保存项目后验证目标引擎的导入流程。",
+    "acceptance": "完成上述最小任务，保留源文件、所用版本和实际输出；能够复现过程，并明确尚未验证的部分。",
+    "caution": "第三方引擎导入器的兼容性需单独核对，编辑器能保存不代表游戏能正确载入。",
+    "source_check": {
+      "date": "2026-10-23",
+      "url": "https://raw.githubusercontent.com/deepnight/ldtk/master/README.md",
+      "status": "README 或文档原文 HTTP 200；未安装运行",
+      "sha256": "71d4480dbab809d5686ab87222ba483c0cd651bbf219ad1a16bb94ea90f66325"
+    }
+  },
+  {
+    "id": "tiled",
+    "title": "Tiled 地图编辑器",
+    "type": "tool",
+    "category": "策划与设计",
+    "url": "https://github.com/mapeditor/tiled",
+    "description": "编辑图块地图、对象层与自定义属性。",
+    "audience": "按项目需要选用，先确认平台与版本。",
+    "steps": [
+      "阅读原始项目说明，确认用途、前置知识与版本",
+      "选择一个最小目标，按文档准备所需环境",
+      "完成下方练习，保存实际结果和设置",
+      "记录限制、问题与可复现步骤"
+    ],
+    "exercise": "建立地图与对象层，给交互对象添加属性，再验证程序能读取保存的数据。",
+    "acceptance": "完成上述最小任务，保留源文件、所用版本和实际输出；能够复现过程，并明确尚未验证的部分。",
+    "caution": "导出格式、地图方向与引擎导入支持应在选择工作流前确认。",
+    "source_check": {
+      "date": "2026-10-23",
+      "url": "https://raw.githubusercontent.com/mapeditor/tiled/master/README.md",
+      "status": "README 或文档原文 HTTP 200；未安装运行",
+      "sha256": "efa9fdd799e196d6c5239f7a8283d58cffa539dc12ee7a9929003eb100ec09f8"
+    }
+  },
+  {
+    "id": "pixelorama",
+    "title": "Pixelorama 像素美术工具",
+    "type": "tool",
+    "category": "美术与素材",
+    "url": "https://github.com/Orama-Interactive/Pixelorama",
+    "description": "制作像素角色、图块与逐帧动画。",
+    "audience": "按项目需要选用，先确认平台与版本。",
+    "steps": [
+      "阅读原始项目说明，确认用途、前置知识与版本",
+      "选择一个最小目标，按文档准备所需环境",
+      "完成下方练习，保存实际结果和设置",
+      "记录限制、问题与可复现步骤"
+    ],
+    "exercise": "绘制一个小角色的两帧动画，导出精灵图并检查透明背景和帧尺寸。",
+    "acceptance": "完成上述最小任务，保留源文件、所用版本和实际输出；能够复现过程，并明确尚未验证的部分。",
+    "caution": "记录版本、画布尺寸与导出设置；软件许可不等同于外部素材许可。",
+    "source_check": {
+      "date": "2026-10-23",
+      "url": "https://raw.githubusercontent.com/Orama-Interactive/Pixelorama/master/README.md",
+      "status": "README 或文档原文 HTTP 200；未安装运行",
+      "sha256": "9826a3a9d17f6c12fd3b885ba11271a34dafa98a43bd1e281475f640dcb733d5"
+    }
+  },
+  {
+    "id": "godot-tool",
+    "title": "Godot Engine 编辑器",
+    "type": "tool",
+    "category": "引擎与编程",
+    "url": "https://github.com/godotengine/godot",
+    "description": "用于创建、运行和导出 2D 与 3D 游戏的引擎编辑器。",
+    "audience": "按项目需要选用，先确认平台与版本。",
+    "steps": [
+      "阅读原始项目说明，确认用途、前置知识与版本",
+      "选择一个最小目标，按文档准备所需环境",
+      "完成下方练习，保存实际结果和设置",
+      "记录限制、问题与可复现步骤"
+    ],
+    "exercise": "使用适配的稳定版创建空场景，再完成一次目标平台导出。",
+    "acceptance": "完成上述最小任务，保留源文件、所用版本和实际输出；能够复现过程，并明确尚未验证的部分。",
+    "caution": "开发分支不等于稳定发行版；导出模板、目标平台限制与所需 SDK 以官方说明为准。",
+    "source_check": {
+      "date": "2026-10-23",
+      "url": "https://raw.githubusercontent.com/godotengine/godot/master/README.md",
+      "status": "README 或文档原文 HTTP 200；未安装运行",
+      "sha256": "999955511e1d54b0abe323ad899633a5a22c14c4899d46e31d06de2175bd19f0"
+    }
+  },
+  {
+    "id": "audacity-tool",
+    "title": "Audacity 音频编辑器",
+    "type": "tool",
+    "category": "音频与音效",
+    "url": "https://github.com/audacity/audacity",
+    "description": "多轨录音与音频编辑，适合剪辑音效和录音。",
+    "audience": "按项目需要选用，先确认平台与版本。",
+    "steps": [
+      "阅读原始项目说明，确认用途、前置知识与版本",
+      "选择一个最小目标，按文档准备所需环境",
+      "完成下方练习，保存实际结果和设置",
+      "记录限制、问题与可复现步骤"
+    ],
+    "exercise": "导入自有录音，裁剪静音并淡入淡出，导出后在原型中播放。",
+    "acceptance": "完成上述最小任务，保留源文件、所用版本和实际输出；能够复现过程，并明确尚未验证的部分。",
+    "caution": "官方仓库说明开发分支正在结构调整；普通使用优先选择官方稳定发行版，而非照搬开发分支构建步骤。",
+    "source_check": {
+      "date": "2026-10-23",
+      "url": "https://raw.githubusercontent.com/audacity/audacity/master/README.md",
+      "status": "README 或文档原文 HTTP 200；未安装运行",
+      "sha256": "c84ab5991133706a2899c20539df624ecaa124b7be9d4aff6d2b20986978d121"
+    }
+  },
+  {
+    "id": "blender-tool",
+    "title": "Blender 3D 创作工具",
+    "type": "tool",
+    "category": "美术与素材",
+    "url": "https://github.com/blender/blender",
+    "description": "建模、绑定、动画与渲染等 3D 内容创作。",
+    "audience": "按项目需要选用，先确认平台与版本。",
+    "steps": [
+      "阅读原始项目说明，确认用途、前置知识与版本",
+      "选择一个最小目标，按文档准备所需环境",
+      "完成下方练习，保存实际结果和设置",
+      "记录限制、问题与可复现步骤"
+    ],
+    "exercise": "建模简单道具，应用必要变换，导出后核对引擎中的方向、比例和材质。",
+    "acceptance": "完成上述最小任务，保留源文件、所用版本和实际输出；能够复现过程，并明确尚未验证的部分。",
+    "caution": "Blender 源码镜像与官方开发平台用途不同；下载与平台要求请从 README 所指的官方网站确认。",
+    "source_check": {
+      "date": "2026-10-23",
+      "url": "https://raw.githubusercontent.com/blender/blender/main/README.md",
+      "status": "README 或文档原文 HTTP 200；未安装运行",
+      "sha256": "1bbb333e5196ba3d5cdc42830e5f1db6b77c311da96d4ff4d9a6f8143d9821e1"
+    }
+  },
+  {
+    "id": "directxtk",
+    "title": "DirectX Tool Kit for DirectX 11",
+    "type": "tool",
+    "category": "引擎与编程",
+    "url": "https://github.com/microsoft/DirectXTK",
+    "description": "用于 Direct3D 11 C++ 项目的辅助库，包含常用图形与音频组件。",
+    "audience": "按项目需要选用，先确认平台与版本。",
+    "steps": [
+      "阅读原始项目说明，确认用途、前置知识与版本",
+      "选择一个最小目标，按文档准备所需环境",
+      "完成下方练习，保存实际结果和设置",
+      "记录限制、问题与可复现步骤"
+    ],
+    "exercise": "在独立 Windows C++ 示例项目中按官方文档接入组件，记录工具链和一个可运行的绘制示例。",
+    "acceptance": "完成上述最小任务，保留源文件、所用版本和实际输出；能够复现过程，并明确尚未验证的部分。",
+    "caution": "面向有 C++ 和 Direct3D 基础的开发者；需要支持的 Windows 工具链和 SDK，本环境未编译验证。",
+    "source_check": {
+      "date": "2026-10-23",
+      "url": "https://raw.githubusercontent.com/microsoft/DirectXTK/main/README.md",
+      "status": "README 或文档原文 HTTP 200；未安装运行",
+      "sha256": "69ddeaddb665a31edd031c9c2c5c7e47a300858ffe4c2097c51b3b3f0b8f2255"
+    }
+  },
+  {
+    "id": "gdscript",
+    "title": "GDQuest：从零学习 GDScript",
+    "type": "learning",
+    "category": "引擎与编程",
+    "url": "https://github.com/GDQuest/learn-gdscript",
+    "description": "面向初学者的交互式 GDScript 基础课程，学习编程概念。",
+    "audience": "希望按主题完成一个最小练习的开发者。",
+    "steps": [
+      "阅读原始项目说明，确认用途、前置知识与版本",
+      "选择一个最小目标，按文档准备所需环境",
+      "完成下方练习，保存实际结果和设置",
+      "记录限制、问题与可复现步骤"
+    ],
+    "exercise": "完成变量、函数与条件的练习，并写出一段自己的角色状态逻辑。",
+    "acceptance": "完成上述最小任务，保留源文件、所用版本和实际输出；能够复现过程，并明确尚未验证的部分。",
+    "caution": "README 明确这是一门基础入门模块，不是完整深入编程课程；对应语言与引擎版本需核对。",
+    "source_check": {
+      "date": "2026-10-23",
+      "url": "https://raw.githubusercontent.com/GDQuest/learn-gdscript/master/README.md",
+      "status": "README 或文档原文 HTTP 200；未安装运行",
+      "sha256": "ee7878e7f7419cc6173c7d4ea1d68f0445ffa800f843214e4986836517c93e52"
+    }
+  },
+  {
+    "id": "godot-demos",
+    "title": "Godot 官方示例项目",
+    "type": "learning",
+    "category": "引擎与编程",
+    "url": "https://github.com/godotengine/godot-demo-projects",
+    "description": "通过可运行的示例学习 2D、3D 和引擎功能的组织方式。",
+    "audience": "希望按主题完成一个最小练习的开发者。",
+    "steps": [
+      "阅读原始项目说明，确认用途、前置知识与版本",
+      "选择一个最小目标，按文档准备所需环境",
+      "完成下方练习，保存实际结果和设置",
+      "记录限制、问题与可复现步骤"
+    ],
+    "exercise": "选择一个与本机稳定版匹配的示例，运行后只修改一个行为，并记录对应节点与脚本。",
+    "acceptance": "完成上述最小任务，保留源文件、所用版本和实际输出；能够复现过程，并明确尚未验证的部分。",
+    "caution": "master 分支面向开发版本，应选择与本机引擎版本匹配的稳定分支；不要一次导入所有示例。",
+    "source_check": {
+      "date": "2026-10-23",
+      "url": "https://raw.githubusercontent.com/godotengine/godot-demo-projects/master/README.md",
+      "status": "README 或文档原文 HTTP 200；未安装运行",
+      "sha256": "4c121fc88a1412b8e381263146ac67937c485386e79641569117a6516dd64ba3"
+    }
+  },
+  {
+    "id": "learnopengl",
+    "title": "LearnOpenGL 教程与示例",
+    "type": "learning",
+    "category": "设计与架构",
+    "url": "https://github.com/JoeyDeVries/LearnOpenGL",
+    "description": "结合章节示例学习 OpenGL 图形管线、着色器和渲染。",
+    "audience": "希望按主题完成一个最小练习的开发者。",
+    "steps": [
+      "阅读原始项目说明，确认用途、前置知识与版本",
+      "选择一个最小目标，按文档准备所需环境",
+      "完成下方练习，保存实际结果和设置",
+      "记录限制、问题与可复现步骤"
+    ],
+    "exercise": "从窗口与三角形章节开始，修改颜色或顶点并解释屏幕结果。",
+    "acceptance": "完成上述最小任务，保留源文件、所用版本和实际输出；能够复现过程，并明确尚未验证的部分。",
+    "caution": "预编译依赖可能不兼容本机编译器；按当前工具链重新构建，不要关闭校验或随意下载二进制替代。",
+    "source_check": {
+      "date": "2026-10-23",
+      "url": "https://raw.githubusercontent.com/JoeyDeVries/LearnOpenGL/master/README.md",
+      "status": "README 或文档原文 HTTP 200；未安装运行",
+      "sha256": "1b49affd5e94de6f3a28e7bb9b68ea3485e500c830657da44f9547c761ba1df3"
+    }
+  },
+  {
+    "id": "mdn-games",
+    "title": "MDN Web 游戏开发",
+    "type": "learning",
+    "category": "引擎与编程",
+    "url": "https://github.com/mdn/content/blob/main/files/en-us/games/index.md",
+    "description": "浏览器游戏教程与技术指南，连接 HTML、CSS、JavaScript 和游戏 API。",
+    "audience": "希望按主题完成一个最小练习的开发者。",
+    "steps": [
+      "阅读原始项目说明，确认用途、前置知识与版本",
+      "选择一个最小目标，按文档准备所需环境",
+      "完成下方练习，保存实际结果和设置",
+      "记录限制、问题与可复现步骤"
+    ],
+    "exercise": "用 Canvas 实现移动物体与边界碰撞，添加开始和重开状态。",
+    "acceptance": "完成上述最小任务，保留源文件、所用版本和实际输出；能够复现过程，并明确尚未验证的部分。",
+    "caution": "先具备基本 Web 编程知识；源码中的宏由 MDN 文档站渲染，直接下载 Markdown 不会成为完整网页。",
+    "source_check": {
+      "date": "2026-10-23",
+      "url": "https://raw.githubusercontent.com/mdn/content/main/files/en-us/games/index.md",
+      "status": "README 或文档原文 HTTP 200；未安装运行",
+      "sha256": "4892b5464505743d7efa14653edc2b36dfa5870c582822623ea1eda01d79c396"
+    }
+  },
+  {
+    "id": "ink-writing",
+    "title": "Writing with ink 互动叙事指南",
+    "type": "learning",
+    "category": "策划与设计",
+    "url": "https://github.com/inkle/ink/blob/master/Documentation/WritingWithInk.md",
+    "description": "学习 ink 的选择、分支、变量与条件文本，用于互动故事。",
+    "audience": "希望按主题完成一个最小练习的开发者。",
+    "steps": [
+      "阅读原始项目说明，确认用途、前置知识与版本",
+      "选择一个最小目标，按文档准备所需环境",
+      "完成下方练习，保存实际结果和设置",
+      "记录限制、问题与可复现步骤"
+    ],
+    "exercise": "写一个包含选择、分支汇合与变量反馈的故事，遍历至少两条路径。",
+    "acceptance": "完成上述最小任务，保留源文件、所用版本和实际输出；能够复现过程，并明确尚未验证的部分。",
+    "caution": "这是 ink 叙事语言文档，不是 Twine 语法；引擎集成与编译工具要另外配置。",
+    "source_check": {
+      "date": "2026-10-23",
+      "url": "https://raw.githubusercontent.com/inkle/ink/master/Documentation/WritingWithInk.md",
+      "status": "README 或文档原文 HTTP 200；未安装运行",
+      "sha256": "0555b6ac648055967fd2c1b636d32e47180d6c4e69f2cb09144ecf5278fb5ecb"
+    }
   }
 ]
 

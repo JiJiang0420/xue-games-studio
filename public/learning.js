@@ -2,6 +2,10 @@
   const cards = [...document.querySelectorAll('.learn-card')];
   const search = document.querySelector('#learning-search');
   const category = document.querySelector('#learning-category');
+  const typeLinks = [...document.querySelectorAll('[data-resource-type]')];
+  const typeNames = {learning:'学习资料',tool:'工具',asset:'素材资源'};
+  const requestedType = new URL(location.href).searchParams.get('type');
+  let activeType = Object.hasOwn(typeNames, requestedType) ? requestedType : 'learning';
   const status = document.querySelector('#learning-status');
   const empty = document.querySelector('.learning-empty');
   const theme = document.querySelector('#learning-theme');
@@ -21,12 +25,22 @@
     const query = search.value.trim().toLocaleLowerCase();
     let count = 0;
     cards.forEach(card => {
-      card.hidden = !!((category.value && card.dataset.category !== category.value) || !card.textContent.toLocaleLowerCase().includes(query));
+      card.hidden = !!(card.dataset.type !== activeType || (category.value && card.dataset.category !== category.value) || !card.textContent.toLocaleLowerCase().includes(query));
       if (!card.hidden) count++;
     });
-    status.textContent = `显示 ${count} / ${cards.length} 项学习资源`;
+    status.textContent = `${typeNames[activeType]}：显示 ${count} / ${cards.filter(c=>c.dataset.type===activeType).length} 项`;
     empty.hidden = count !== 0;
+    typeLinks.forEach(link => {
+      if (link.dataset.resourceType === activeType) link.setAttribute('aria-current','true');
+      else link.removeAttribute('aria-current');
+    });
   }
+  typeLinks.forEach(link => link.addEventListener('click', event => {
+    event.preventDefault();
+    activeType = link.dataset.resourceType; category.value = ''; search.value = '';
+    const url = new URL(location.href); url.searchParams.set('type',activeType); url.hash = 'library';
+    history.replaceState(null,'',url); filter();
+  }));
   search.addEventListener('input', filter);
   category.addEventListener('change', filter);
   document.querySelector('#learning-reset').addEventListener('click', () => {
@@ -36,6 +50,7 @@
     const id = location.hash.slice(1);
     const card = cards.find(c => c.id === id);
     if (card) {
+      activeType = card.dataset.type;
       search.value = ''; category.value = ''; filter();
       card.querySelector('details').open = true;
       card.scrollIntoView({block:'start'});
@@ -43,6 +58,7 @@
   }
   document.querySelector('.library-controls').hidden = false;
   window.addEventListener('hashchange', openLinkedGuide);
+  filter();
   openLinkedGuide();
 })();
 
