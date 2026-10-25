@@ -86,3 +86,5 @@
 .gallery-thumbs button[aria-pressed=true]{border-color:var(--ink)}
 .gallery-thumbs img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
 @media(max-width:580px){.gallery-controls{padding:10px}.gallery-thumbs{padding:0 10px 12px}.gallery-thumbs button{flex-basis:80px}}
+
+.contact-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:24px}.contact-row .contact-link{margin:0;flex-shrink:0}.contact-details{white-space:pre-line;overflow-wrap:anywhere;min-width:0;max-width:100%;padding:12px 16px;border:1px solid var(--line);border-radius:var(--radius);background:var(--raised);color:var(--ink);font:inherit;line-height:1.7}@media(max-width:580px){.contact-row{align-items:flex-start;gap:12px}.contact-details{flex:1 1 220px}}

@@ -18,7 +18,11 @@ if(settings){
  $('.closing>span').textContent=settings.closing;
  $('.footer-brand').textContent=settings.name;const motto=document.createElement('span');motto.textContent='Good luck, have fun.';$('.footer-brand').appendChild(motto);
  document.querySelector('footer p').textContent='© '+new Date().getFullYear()+' '+settings.name;
- if(settings.contactUrl){const link=document.createElement('a');link.className='text-link';link.textContent=settings.contactLabel||'联系我';link.href=settings.contactUrl;link.target='_blank';link.rel='noopener noreferrer';$('.about-copy').appendChild(link);}
+ const contactRow=document.createElement('div');contactRow.className='contact-row';
+ const contactButton=document.createElement(settings.contactUrl?'a':'span');contactButton.className='text-link contact-link';contactButton.textContent=settings.contactLabel||'联系我';
+ if(settings.contactUrl){contactButton.href=settings.contactUrl;contactButton.target='_blank';contactButton.rel='noopener noreferrer';}
+ const contactDetails=document.createElement('div');contactDetails.className='contact-details';contactDetails.setAttribute('aria-label','联系方式');contactDetails.textContent=settings.contactDetails?.trim()||'联系方式待补充';
+ contactRow.append(contactButton,contactDetails);$('.about-copy').appendChild(contactRow);
  try{if(!localStorage.getItem('xue-theme'))document.documentElement.dataset.theme=settings.defaultTheme;}catch(e){document.documentElement.dataset.theme=settings.defaultTheme;}
  $('.count').textContent=' / '+String(games.length).padStart(2,'0');
  $('.collection-note').textContent=games.length?'开发中的玩法与美术会继续调整。点击卡片查看项目方向与当前阶段。':'新的作品正在准备中，欢迎再来看看。';
