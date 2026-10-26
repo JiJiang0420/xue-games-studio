@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "date": "2026-10-26",
+  "project": "GLHF Studio",
+  "character": "XPG 创造者化身",
+  "archive_status": "documentation_committed_images_pending",
+  "generation": "AI-assisted concept illustrations based on the approved GLHF logo",
+  "assets": [
+    {
+      "file": "xpg-mascot-theme-concepts-v1.png",
+      "design_status": "approved_character_direction",
+      "repository_status": "pending_upload",
+      "width": 1536,
+      "height": 1024,
+      "expected_bytes": 2509749,
+      "expected_sha256": "cda523287161a5566ffcd62a7518a7a36383f64898ade2b52e05e219263042df",
+      "expected_git_blob_sha": "0db0da448fa26d58c4d6354a0e2e8a22ba824b78",
+      "source_library_file_id": "libfile_be9b34c97b2c81919a092ed101f98bd8"
+    },
+    {
+      "file": "xpg-mascot-website-mockups-v1.png",
+      "design_status": "website_integration_proposal",
+      "repository_status": "pending_upload",
+      "width": 1642,
+      "height": 958,
+      "expected_bytes": 2175559,
+      "expected_sha256": "4421fc61f6f0e5af0d33eb234e62b06bbeaae3aabbf836ff2dbce3cbd0a3f479",
+      "expected_git_blob_sha": "b0c0370897b057d5629db8bf1671e053c87f248e"
+    }
+  ],
+  "pending_reason": "The Codex execution environment is disconnected; original PNG bytes are not currently accessible for GitHub upload."
+}
