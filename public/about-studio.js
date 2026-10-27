@@ -22,28 +22,28 @@
   scene.setAttribute('aria-label', '查看星光手柄彩蛋');
   scene.setAttribute('aria-pressed', 'false');
   scene.setAttribute('aria-describedby', 'creator-interaction-help');
-  for (const [state, file] of [['idle', 'creator-idle.webp'], ['magic', 'creator-stars.webp']]) {
+  for (const state of ['idle', 'magic']) {
     const crop = element('span', 'creator-crop creator-' + state);
     crop.setAttribute('aria-hidden', 'true');
     const image = element('img');
-    image.src = 'assets/' + file;
+    image.src = 'assets/xpg-mascot-atlas.png';
     image.alt = '';
-    image.width = 1448;
-    image.height = 1086;
+    image.width = 1536;
+    image.height = 1024;
     image.loading = 'lazy';
     image.decoding = 'async';
     image.draggable = false;
     crop.append(image);
     scene.append(crop);
   }
-  const canvas = element('canvas', 'creator-cosmos');
-  canvas.width = 1040;
-  canvas.height = 750;
-  canvas.setAttribute('aria-hidden', 'true');
-  scene.append(canvas);
+  const sparkles = element('span', 'creator-sparkles');
+  sparkles.setAttribute('aria-hidden', 'true');
+  scene.append(sparkles);
   const help = element('span', 'sr-only', '鼠标移入显示星光手柄，移开恢复角色插图。触屏轻触切换；键盘按回车或空格切换，按 Escape 关闭。');
   help.id = 'creator-interaction-help';
-  creator.append(scene, help, element('figcaption', 'sr-only', (settings.author || 'XPG') + ' · 独立游戏创作者'));
+  const signature = element('figcaption', 'creator-signature');
+  signature.append(element('strong', '', 'XPG'), element('span', '', '独立游戏创作者'));
+  creator.append(scene, help, signature);
   visual.append(creator);
   copy.querySelector('.signature')?.remove();
 

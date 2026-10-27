@@ -3,7 +3,7 @@
   "date": "2026-10-26",
   "project": "GLHF Studio",
   "character": "XPG 创造者化身",
-  "archive_status": "documentation_committed_images_pending",
+  "archive_status": "runtime_atlas_integrated_original_archives_pending",
   "generation": "AI-assisted concept illustrations based on the approved GLHF logo",
   "assets": [
     {
@@ -28,5 +28,26 @@
       "expected_git_blob_sha": "b0c0370897b057d5629db8bf1671e053c87f248e"
     }
   ],
-  "pending_reason": "The Codex execution environment is disconnected; original PNG bytes are not currently accessible for GitHub upload."
+  "pending_reason": "The two archival originals are visible as conversation references but their exact downloadable bytes are not available. Runtime atlas is separately generated from the supplied concept reference.",
+  "runtime_asset": {
+    "file": "public/assets/xpg-mascot-atlas.png",
+    "date": "2026-10-28",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2428878,
+    "sha256": "af45c2ac4742544c330814166861e3905db14eceb61bf90f2f8364dd15ab6271",
+    "source": "AI-assisted derivative from user-supplied approved concept board",
+    "layout": {
+      "columns": [
+        "pixel",
+        "editorial",
+        "terminal"
+      ],
+      "rows": [
+        "idle",
+        "magic"
+      ]
+    },
+    "status": "integrated"
+  }
 }

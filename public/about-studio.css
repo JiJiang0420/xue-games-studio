@@ -4,9 +4,9 @@
 .studio-visual .studio-identity{width:100%;max-width:430px;margin:0 auto}
 .studio-visual .studio-identity img{height:auto;width:100%;aspect-ratio:1}
 .creator-illustration{margin:0;width:100%;max-width:480px;align-self:center;min-width:0}
-.creator-scene{position:relative;display:block;width:100%;aspect-ratio:520/375;isolation:isolate;border:0;padding:0;background:#fff8ee;color:var(--ink);border-radius:12px;overflow:hidden;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
-.creator-crop{position:absolute;inset:0;overflow:hidden;pointer-events:none;transition:opacity 320ms ease,transform 420ms cubic-bezier(.2,.7,.2,1);mask-image:linear-gradient(to right,transparent,#000 2%,#000 98%,transparent),linear-gradient(to bottom,transparent,#000 2%,#000 98%,transparent);mask-composite:intersect}
-.creator-crop img{position:absolute;width:278.461538%;max-width:none;height:auto;left:-9.615385%;top:-173.333333%;user-select:none;object-fit:contain}
+.creator-scene{position:relative;display:block;width:100%;aspect-ratio:1;isolation:isolate;border:0;padding:0;background:#fff8ee;color:var(--ink);border-radius:12px;overflow:hidden;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.creator-crop{position:absolute;inset:0;overflow:hidden;pointer-events:none;transition:opacity 320ms ease,transform 420ms cubic-bezier(.2,.7,.2,1);}
+.creator-crop img{position:absolute;width:300%;max-width:none;height:200%;left:var(--xpg-atlas-x,0%);top:0;user-select:none;object-fit:fill}
 .creator-idle{opacity:1}.creator-magic{opacity:0;transform:translateY(2px) scale(.995)}
 .creator-scene.is-active .creator-idle{opacity:0}.creator-scene.is-active .creator-magic{opacity:1;transform:none}
 .creator-cosmos{mix-blend-mode:screen;position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity 320ms ease}
@@ -31,3 +31,15 @@
 @media(max-width:720px){.about-section[data-studio-enhanced]{display:flex;flex-direction:column;gap:28px}.studio-visual{display:contents}.studio-visual .studio-identity{order:0;max-width:360px}.about-section[data-studio-enhanced] .about-copy{order:1;width:100%}.creator-illustration{order:2;max-width:440px;margin-top:-5px}.studio-contact-header h3{font-size:clamp(21px,5.1vw,28px)}.studio-beliefs .studio-values>span{font-size:13px}.studio-contact-text dd{font-size:16px}.studio-contact-action{font-size:14px}.studio-beliefs{margin-top:25px}}
 @media(max-width:380px){.studio-contact-header{flex-wrap:wrap}.studio-contact-action{margin-top:2px}.studio-contact{padding:17px 13px 7px}.studio-contact-item{gap:8px}.studio-contact-text dd{font-size:13px}.studio-contact-icon{flex-basis:32px;width:32px;height:32px}.studio-contact-icon svg{width:23px;height:23px}.studio-contact-copy{min-width:44px;padding:7px}.studio-beliefs .studio-values>span{font-size:11px}}
 @media(prefers-reduced-motion:reduce){.creator-crop,.creator-cosmos{transition:none;transform:none}}
+
+/* One invariant mascot, three materials/environments, two interaction states. */
+.creator-scene{--xpg-atlas-x:0%;background:var(--surface)}
+[data-theme=editorial] .creator-scene{--xpg-atlas-x:-100%}
+[data-theme=terminal] .creator-scene{--xpg-atlas-x:-200%}
+.creator-magic img{top:-100%}
+.creator-sparkles{position:absolute;pointer-events:none;left:52%;top:10%;width:43%;height:48%;opacity:0;background:radial-gradient(circle at 25% 22%,#fff8ce 0 1px,transparent 3px),radial-gradient(circle at 65% 38%,#fff 0 1px,transparent 3px),radial-gradient(circle at 45% 65%,#ffe0ae 0 1px,transparent 3px);transition:opacity .3s}
+.creator-scene.is-active .creator-sparkles{opacity:.8;animation:xpg-twinkle 2.8s ease-in-out infinite alternate}
+@keyframes xpg-twinkle{from{opacity:.2;transform:scale(.97)}to{opacity:.9;transform:scale(1.02)}}
+@media(prefers-reduced-motion:reduce){.creator-scene .creator-sparkles{animation:none!important;transition:none}.creator-crop{transition:none!important;transform:none!important}}
+
+.creator-signature{display:flex;align-items:center;gap:18px;padding:14px 10px 0}.creator-signature strong{font:italic 700 38px/1.1 Georgia,serif;letter-spacing:-2px;transform:rotate(-9deg);color:#ff4b48;border-bottom:2px solid currentColor;padding:0 6px 4px}.creator-signature span{font-size:13px;color:var(--muted)}
