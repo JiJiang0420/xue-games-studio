@@ -33,37 +33,32 @@
   scene.setAttribute('aria-label', '查看 XPG 星光手柄彩蛋');
   scene.setAttribute('aria-pressed', 'false');
   scene.setAttribute('aria-describedby', 'creator-interaction-help');
-  // Every image is a lossless crop of the owner's original board. The default
-  // portrait keeps the mascot, ground and handwritten signature together.
-  const art = {
-    pixel: { magic: [544, 328] },
-    editorial: { magic: [545, 328] },
-    terminal: { magic: [544, 328] }
-  };
-  for (const [state, asset, size] of [
-    ['idle', 'portrait', [216, 244]],
-    ['magic', 'magic', null],
-    ['signature', 'signature', [216, 65]]
-  ]) {
-    const crop = element('span', 'creator-layer creator-' + state);
-    crop.setAttribute('aria-hidden', 'true');
-    for (const [theme, dimensions] of Object.entries(art)) {
+  // Place both poses in one coordinate system. The source artwork stays at
+  // or below its original pixel dimensions; compare the character, not the
+  // larger canvas needed by the portal. Keep the signature outside the toggle.
+  const art = {pixel: [544, 328], editorial: [545, 328], terminal: [544, 328]};
+  const signatureArt = element('span', 'creator-signature');
+  signatureArt.setAttribute('aria-hidden', 'true');
+  for (const [state, size] of [['idle', [216, 179]], ['magic', null], ['signature', [216, 65]]]) {
+    const layer = state === 'signature' ? signatureArt : element('span', 'creator-layer creator-' + state);
+    layer.setAttribute('aria-hidden', 'true');
+    for (const [theme, magicSize] of Object.entries(art)) {
       const image = element('img', 'creator-art');
       image.dataset.creatorTheme = theme;
-      image.src = `assets/xpg/${theme}-${asset}.png`;
+      image.src = `assets/xpg/${theme}-${state}.png`;
       image.alt = '';
-      [image.width, image.height] = size || dimensions.magic;
+      [image.width, image.height] = size || magicSize;
       image.loading = 'lazy';
       image.decoding = 'async';
       image.draggable = false;
-      crop.append(image);
+      layer.append(image);
     }
-    scene.append(crop);
+    if (state !== 'signature') scene.append(layer);
   }
   const help = element('span', 'sr-only', '鼠标移入显示星光手柄，移开恢复角色插图。触屏轻触切换；键盘按回车或空格切换，按 Escape 关闭。');
   help.id = 'creator-interaction-help';
   const signature = element('figcaption', 'sr-only', 'XPG，独立游戏创作者。珊瑚红的 g 形小精灵，带心形镂空与弯尾。');
-  creator.append(scene, help, signature);
+  creator.append(scene, signatureArt, help, signature);
   visual.append(creator);
   copy.querySelector('.signature')?.remove();
 

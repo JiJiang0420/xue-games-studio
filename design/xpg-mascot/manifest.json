@@ -380,5 +380,35 @@
     }
   ],
   "palette_note": "Samples are exact individual source pixels. The original illustration contains gradients and paper/grain/grid texture, so a sample is not a replacement for the artwork.",
-  "presentation_note": "Original PNG pixels unchanged. CSS masks soften empty outer margins and hide design annotations. Character specification PDF is not included on the website; side/back/thickness remain design proposals."
+  "presentation_note": "Shared 440x300 stage; idle216x179 at1x and magic at0.8x, reduced together responsively. One original signature node outside state toggle. No raster upscaling or alpha feathering over character. Source PNG pixels remain unchanged. No PDF on website.",
+  "display_geometry": {
+    "stage": [
+      440,
+      300
+    ],
+    "idle": {
+      "offset": [
+        40,
+        78
+      ],
+      "size": [
+        216,
+        179
+      ]
+    },
+    "magic": {
+      "offset": [
+        0,
+        28
+      ],
+      "scale": 0.8
+    },
+    "signature": {
+      "size": [
+        216,
+        65
+      ],
+      "shared_between_states": true
+    }
+  }
 }
