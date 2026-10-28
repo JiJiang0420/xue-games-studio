@@ -16,34 +16,59 @@
   const visual = element('div', 'studio-visual');
   identity.replaceWith(visual);
   visual.append(identity);
+  const aboutTitle = copy.querySelector('#about-title');
+  const titleLines = (settings.aboutTitle || '').split('\n');
+  if (aboutTitle && titleLines.length > 2) {
+    aboutTitle.textContent = titleLines.slice(0, 2).join('\n');
+    aboutTitle.after(element('p', 'studio-lead', titleLines.slice(2).join('\n')));
+  }
+  // Preserve the owner's current copy, allowing its line breaks to reflow on
+  // smaller screens instead of enlarging the panel around a small original.
+  for (const paragraph of copy.querySelectorAll('p:not(.eyebrow):not(.studio-lead)')) {
+    paragraph.style.whiteSpace = 'normal';
+  }
   const creator = element('figure', 'creator-illustration');
   const scene = element('button', 'creator-scene');
   scene.type = 'button';
-  scene.setAttribute('aria-label', '查看星光手柄彩蛋');
+  scene.setAttribute('aria-label', '查看 XPG 星光手柄彩蛋');
   scene.setAttribute('aria-pressed', 'false');
   scene.setAttribute('aria-describedby', 'creator-interaction-help');
-  for (const state of ['idle', 'magic']) {
-    const crop = element('span', 'creator-crop creator-' + state);
+  // Every image is a lossless crop of the owner's original board. The default
+  // portrait keeps the mascot, ground and handwritten signature together.
+  const art = {
+    pixel: { magic: [544, 328] },
+    editorial: { magic: [545, 328] },
+    terminal: { magic: [544, 328] }
+  };
+  for (const [state, asset, size] of [
+    ['idle', 'portrait', [216, 244]],
+    ['magic', 'magic', null],
+    ['signature', 'signature', [216, 65]]
+  ]) {
+    const crop = element('span', 'creator-layer creator-' + state);
     crop.setAttribute('aria-hidden', 'true');
-    const image = element('img');
-    image.src = 'assets/xpg-mascot-atlas.png';
-    image.alt = '';
-    image.width = 1536;
-    image.height = 1024;
-    image.loading = 'lazy';
-    image.decoding = 'async';
-    image.draggable = false;
-    crop.append(image);
+    for (const [theme, dimensions] of Object.entries(art)) {
+      const image = element('img', 'creator-art');
+      image.dataset.creatorTheme = theme;
+      image.src = `assets/xpg/${theme}-${asset}.png`;
+      image.alt = '';
+      [image.width, image.height] = size || dimensions.magic;
+      image.loading = 'lazy';
+      image.decoding = 'async';
+      image.draggable = false;
+      crop.append(image);
+    }
     scene.append(crop);
   }
-  const sparkles = element('span', 'creator-sparkles');
-  sparkles.setAttribute('aria-hidden', 'true');
-  scene.append(sparkles);
   const help = element('span', 'sr-only', '鼠标移入显示星光手柄，移开恢复角色插图。触屏轻触切换；键盘按回车或空格切换，按 Escape 关闭。');
   help.id = 'creator-interaction-help';
-  const signature = element('figcaption', 'creator-signature');
-  signature.append(element('strong', '', 'XPG'), element('span', '', '独立游戏创作者'));
+  const signature = element('figcaption', 'sr-only', 'XPG，独立游戏创作者。珊瑚红的 g 形小精灵，带心形镂空与弯尾。');
   creator.append(scene, help, signature);
+  const designLink = element('a', 'creator-design-link', 'XPG 角色设定 · PDF');
+  designLink.href = 'assets/xpg/xpg-character-specification.pdf';
+  designLink.target = '_blank';
+  designLink.rel = 'noopener';
+  creator.append(designLink);
   visual.append(creator);
   copy.querySelector('.signature')?.remove();
 

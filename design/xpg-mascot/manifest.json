@@ -1,10 +1,10 @@
 {
-  "version": 1,
-  "date": "2026-10-26",
+  "version": 2,
+  "date": "2026-10-28",
   "project": "GLHF Studio",
   "character": "XPG 创造者化身",
-  "archive_status": "runtime_atlas_integrated_original_archives_pending",
-  "generation": "AI-assisted concept illustrations based on the approved GLHF logo",
+  "archive_status": "website_mockups_received_concept_board_pending",
+  "generation": "User-approved original concept art; this integration creates only exact rectangular crops, with no newly generated art.",
   "assets": [
     {
       "file": "xpg-mascot-theme-concepts-v1.png",
@@ -20,34 +20,365 @@
     {
       "file": "xpg-mascot-website-mockups-v1.png",
       "design_status": "website_integration_proposal",
-      "repository_status": "pending_upload",
+      "repository_status": "archived",
       "width": 1642,
       "height": 958,
       "expected_bytes": 2175559,
       "expected_sha256": "4421fc61f6f0e5af0d33eb234e62b06bbeaae3aabbf836ff2dbce3cbd0a3f479",
-      "expected_git_blob_sha": "b0c0370897b057d5629db8bf1671e053c87f248e"
+      "expected_git_blob_sha": "b0c0370897b057d5629db8bf1671e053c87f248e",
+      "received_date": "2026-10-28",
+      "bytes": 2175559,
+      "sha256": "4421fc61f6f0e5af0d33eb234e62b06bbeaae3aabbf836ff2dbce3cbd0a3f479",
+      "checksum_matches_expected": true
     }
   ],
-  "pending_reason": "The two archival originals are visible as conversation references but their exact downloadable bytes are not available. Runtime atlas is separately generated from the supplied concept reference.",
-  "runtime_asset": {
-    "file": "public/assets/xpg-mascot-atlas.png",
-    "date": "2026-10-28",
-    "width": 1536,
-    "height": 1024,
-    "bytes": 2428878,
-    "sha256": "af45c2ac4742544c330814166861e3905db14eceb61bf90f2f8364dd15ab6271",
-    "source": "AI-assisted derivative from user-supplied approved concept board",
-    "layout": {
-      "columns": [
-        "pixel",
-        "editorial",
-        "terminal"
-      ],
-      "rows": [
-        "idle",
-        "magic"
-      ]
+  "pending_reason": "The original website mockup PNG has been received and verified. The separate 1536×1024 character concept-board PNG is still unavailable and remains pending.",
+  "runtime_assets_status": "integrated_original_crops_with_presentation_masks",
+  "runtime_assets": [
+    {
+      "file": "public/assets/xpg/pixel-idle.png",
+      "theme": "pixel",
+      "state": "idle",
+      "source_file": "design/xpg-mascot/xpg-mascot-website-mockups-v1.png",
+      "source_rect": {
+        "x": 16,
+        "y": 340,
+        "width": 216,
+        "height": 179
+      },
+      "width": 216,
+      "height": 179,
+      "bytes": 51872,
+      "sha256": "d316adcbf5d461bff8dfb16e9a1721d1d210d4f78d5c052180c62f4fab2c693f",
+      "transform": "lossless rectangular crop only; no resize, repaint, recolor or retouch",
+      "pixel_comparison": "8-bit RGB bytes identical to source rectangle"
     },
-    "status": "integrated"
-  }
+    {
+      "file": "public/assets/xpg/pixel-signature.png",
+      "theme": "pixel",
+      "state": "signature",
+      "source_file": "design/xpg-mascot/xpg-mascot-website-mockups-v1.png",
+      "source_rect": {
+        "x": 16,
+        "y": 519,
+        "width": 216,
+        "height": 65
+      },
+      "width": 216,
+      "height": 65,
+      "bytes": 16216,
+      "sha256": "98603135b1f9f8390a1f72a962cf6edc716bf2ca0b264d36e80e3975665604ab",
+      "transform": "lossless rectangular crop only; no resize, repaint, recolor or retouch",
+      "pixel_comparison": "8-bit RGB bytes identical to source rectangle"
+    },
+    {
+      "file": "public/assets/xpg/pixel-portrait.png",
+      "theme": "pixel",
+      "state": "portrait",
+      "source_file": "design/xpg-mascot/xpg-mascot-website-mockups-v1.png",
+      "source_rect": {
+        "x": 16,
+        "y": 340,
+        "width": 216,
+        "height": 244
+      },
+      "width": 216,
+      "height": 244,
+      "bytes": 68153,
+      "sha256": "2876f5b48aee6d2071839de319b9353462699e80d89637f4ae0d0c20d985bb13",
+      "transform": "lossless rectangular crop only; no resize, repaint, recolor or retouch",
+      "pixel_comparison": "8-bit RGB bytes identical to source rectangle"
+    },
+    {
+      "file": "public/assets/xpg/pixel-magic.png",
+      "theme": "pixel",
+      "state": "magic",
+      "source_file": "design/xpg-mascot/xpg-mascot-website-mockups-v1.png",
+      "source_rect": {
+        "x": 0,
+        "y": 630,
+        "width": 544,
+        "height": 328
+      },
+      "width": 544,
+      "height": 328,
+      "bytes": 263704,
+      "sha256": "e77756ab9bd27f1ad5a388ec8cd567ccbb2bdc783efb1dedda20cb634c4042fc",
+      "transform": "lossless rectangular crop only; no resize, repaint, recolor or retouch",
+      "pixel_comparison": "8-bit RGB bytes identical to source rectangle"
+    },
+    {
+      "file": "public/assets/xpg/pixel-logo.png",
+      "theme": "pixel",
+      "state": "logo",
+      "source_file": "design/xpg-mascot/xpg-mascot-website-mockups-v1.png",
+      "source_rect": {
+        "x": 27,
+        "y": 131,
+        "width": 194,
+        "height": 179
+      },
+      "width": 194,
+      "height": 179,
+      "bytes": 37164,
+      "sha256": "41be01c958a2b96c64bbdc1301907f5d63ad8e9748c5a878e02ff1f384e8ea94",
+      "transform": "lossless rectangular crop only; no resize, repaint, recolor or retouch",
+      "pixel_comparison": "8-bit RGB bytes identical to source rectangle"
+    },
+    {
+      "file": "public/assets/xpg/editorial-idle.png",
+      "theme": "editorial",
+      "state": "idle",
+      "source_file": "design/xpg-mascot/xpg-mascot-website-mockups-v1.png",
+      "source_rect": {
+        "x": 566,
+        "y": 340,
+        "width": 216,
+        "height": 179
+      },
+      "width": 216,
+      "height": 179,
+      "bytes": 60069,
+      "sha256": "a513872d0ab89d53c364d749bb421a9f545a156cc8c0349042a1544b096f07ca",
+      "transform": "lossless rectangular crop only; no resize, repaint, recolor or retouch",
+      "pixel_comparison": "8-bit RGB bytes identical to source rectangle"
+    },
+    {
+      "file": "public/assets/xpg/editorial-signature.png",
+      "theme": "editorial",
+      "state": "signature",
+      "source_file": "design/xpg-mascot/xpg-mascot-website-mockups-v1.png",
+      "source_rect": {
+        "x": 566,
+        "y": 519,
+        "width": 216,
+        "height": 65
+      },
+      "width": 216,
+      "height": 65,
+      "bytes": 19749,
+      "sha256": "5389e552d4f308a4f9e3ba4d147ec9345762b17422cf4fc7d8f36394eabe09f2",
+      "transform": "lossless rectangular crop only; no resize, repaint, recolor or retouch",
+      "pixel_comparison": "8-bit RGB bytes identical to source rectangle"
+    },
+    {
+      "file": "public/assets/xpg/editorial-portrait.png",
+      "theme": "editorial",
+      "state": "portrait",
+      "source_file": "design/xpg-mascot/xpg-mascot-website-mockups-v1.png",
+      "source_rect": {
+        "x": 566,
+        "y": 340,
+        "width": 216,
+        "height": 244
+      },
+      "width": 216,
+      "height": 244,
+      "bytes": 79588,
+      "sha256": "fa65bf0395f0716906c9a0f467c1f82aa60b2692de997eb5d64d8545f9a3b757",
+      "transform": "lossless rectangular crop only; no resize, repaint, recolor or retouch",
+      "pixel_comparison": "8-bit RGB bytes identical to source rectangle"
+    },
+    {
+      "file": "public/assets/xpg/editorial-magic.png",
+      "theme": "editorial",
+      "state": "magic",
+      "source_file": "design/xpg-mascot/xpg-mascot-website-mockups-v1.png",
+      "source_rect": {
+        "x": 549,
+        "y": 630,
+        "width": 545,
+        "height": 328
+      },
+      "width": 545,
+      "height": 328,
+      "bytes": 294363,
+      "sha256": "2019996c2bb8e49f66aafcac3fb7b10423910128a3921fb25f25e88ae2d28128",
+      "transform": "lossless rectangular crop only; no resize, repaint, recolor or retouch",
+      "pixel_comparison": "8-bit RGB bytes identical to source rectangle"
+    },
+    {
+      "file": "public/assets/xpg/editorial-logo.png",
+      "theme": "editorial",
+      "state": "logo",
+      "source_file": "design/xpg-mascot/xpg-mascot-website-mockups-v1.png",
+      "source_rect": {
+        "x": 573,
+        "y": 131,
+        "width": 198,
+        "height": 179
+      },
+      "width": 198,
+      "height": 179,
+      "bytes": 38074,
+      "sha256": "a6816bef18bb710a97b5cd61e2245135e6e4b6f14c4250fea233fc87638a3103",
+      "transform": "lossless rectangular crop only; no resize, repaint, recolor or retouch",
+      "pixel_comparison": "8-bit RGB bytes identical to source rectangle"
+    },
+    {
+      "file": "public/assets/xpg/terminal-idle.png",
+      "theme": "terminal",
+      "state": "idle",
+      "source_file": "design/xpg-mascot/xpg-mascot-website-mockups-v1.png",
+      "source_rect": {
+        "x": 1117,
+        "y": 340,
+        "width": 216,
+        "height": 179
+      },
+      "width": 216,
+      "height": 179,
+      "bytes": 58438,
+      "sha256": "67cb1100e34e2087c1d4b187be62272eb6776ec8b3164e149e5984563fbf3fca",
+      "transform": "lossless rectangular crop only; no resize, repaint, recolor or retouch",
+      "pixel_comparison": "8-bit RGB bytes identical to source rectangle"
+    },
+    {
+      "file": "public/assets/xpg/terminal-signature.png",
+      "theme": "terminal",
+      "state": "signature",
+      "source_file": "design/xpg-mascot/xpg-mascot-website-mockups-v1.png",
+      "source_rect": {
+        "x": 1117,
+        "y": 519,
+        "width": 216,
+        "height": 65
+      },
+      "width": 216,
+      "height": 65,
+      "bytes": 18858,
+      "sha256": "937d57342fe5ff0a4239b08fdb591dbba11b2f11f4cb2ae65dd2e7849974de18",
+      "transform": "lossless rectangular crop only; no resize, repaint, recolor or retouch",
+      "pixel_comparison": "8-bit RGB bytes identical to source rectangle"
+    },
+    {
+      "file": "public/assets/xpg/terminal-portrait.png",
+      "theme": "terminal",
+      "state": "portrait",
+      "source_file": "design/xpg-mascot/xpg-mascot-website-mockups-v1.png",
+      "source_rect": {
+        "x": 1117,
+        "y": 340,
+        "width": 216,
+        "height": 244
+      },
+      "width": 216,
+      "height": 244,
+      "bytes": 76996,
+      "sha256": "3200b1eba2b95ba8f2b3da478f25c03c25b8eaef09b3b132644a533fdc385cd1",
+      "transform": "lossless rectangular crop only; no resize, repaint, recolor or retouch",
+      "pixel_comparison": "8-bit RGB bytes identical to source rectangle"
+    },
+    {
+      "file": "public/assets/xpg/terminal-magic.png",
+      "theme": "terminal",
+      "state": "magic",
+      "source_file": "design/xpg-mascot/xpg-mascot-website-mockups-v1.png",
+      "source_rect": {
+        "x": 1098,
+        "y": 630,
+        "width": 544,
+        "height": 328
+      },
+      "width": 544,
+      "height": 328,
+      "bytes": 284206,
+      "sha256": "4680235af44a2012fdbb8403fdf4cb948b227bc42dcdd047d553feb979abf256",
+      "transform": "lossless rectangular crop only; no resize, repaint, recolor or retouch",
+      "pixel_comparison": "8-bit RGB bytes identical to source rectangle"
+    },
+    {
+      "file": "public/assets/xpg/terminal-logo.png",
+      "theme": "terminal",
+      "state": "logo",
+      "source_file": "design/xpg-mascot/xpg-mascot-website-mockups-v1.png",
+      "source_rect": {
+        "x": 1122,
+        "y": 131,
+        "width": 197,
+        "height": 179
+      },
+      "width": 197,
+      "height": 179,
+      "bytes": 37125,
+      "sha256": "13f6a36b9ad3a3bd76ee61a3def37e2d04699163dab401edc8f407c1c3af52aa",
+      "transform": "lossless rectangular crop only; no resize, repaint, recolor or retouch",
+      "pixel_comparison": "8-bit RGB bytes identical to source rectangle"
+    }
+  ],
+  "preservation_constraints": [
+    "Keep the archived 1642×958 PNG unchanged.",
+    "Use the original silhouette, heart cutout, curved tail, props and handwritten XPG signature.",
+    "Do not redraw, generate replacements, recolor, sharpen, blur or stretch the original art.",
+    "Display each crop at its intrinsic aspect ratio; prefer the single portrait crop to avoid seams between idle art and the signature.",
+    "The magic crops remove only surrounding board separators and retain their original upper-left design annotations.",
+    "Preserve the existing website project list, learning resources and configured contact data."
+  ],
+  "palette_samples": [
+    {
+      "theme": "pixel",
+      "role": "portrait backdrop",
+      "source_point": {
+        "x": 230,
+        "y": 400
+      },
+      "hex": "#FEF8EE"
+    },
+    {
+      "theme": "editorial",
+      "role": "portrait backdrop",
+      "source_point": {
+        "x": 780,
+        "y": 400
+      },
+      "hex": "#151A18"
+    },
+    {
+      "theme": "terminal",
+      "role": "portrait backdrop",
+      "source_point": {
+        "x": 1331,
+        "y": 400
+      },
+      "hex": "#011D33"
+    },
+    {
+      "theme": "pixel",
+      "role": "belief panel surface",
+      "source_point": {
+        "x": 250,
+        "y": 345
+      },
+      "hex": "#F9EDE0"
+    },
+    {
+      "theme": "editorial",
+      "role": "belief panel surface",
+      "source_point": {
+        "x": 800,
+        "y": 345
+      },
+      "hex": "#1D211F"
+    },
+    {
+      "theme": "terminal",
+      "role": "belief panel surface",
+      "source_point": {
+        "x": 1355,
+        "y": 345
+      },
+      "hex": "#06283E"
+    },
+    {
+      "theme": "editorial",
+      "role": "lime letter highlight",
+      "source_point": {
+        "x": 827,
+        "y": 357
+      },
+      "hex": "#DCF76E"
+    }
+  ],
+  "palette_note": "Samples are exact individual source pixels. The original illustration contains gradients and paper/grain/grid texture, so a sample is not a replacement for the artwork.",
+  "presentation_note": "Original PNG pixels unchanged. CSS masks soften empty outer margins and hide design annotations. Original character specification PDF linked from about section; side/back/thickness remain design proposals."
 }
