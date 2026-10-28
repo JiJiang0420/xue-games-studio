@@ -64,11 +64,6 @@
   help.id = 'creator-interaction-help';
   const signature = element('figcaption', 'sr-only', 'XPG，独立游戏创作者。珊瑚红的 g 形小精灵，带心形镂空与弯尾。');
   creator.append(scene, help, signature);
-  const designLink = element('a', 'creator-design-link', 'XPG 角色设定 · PDF');
-  designLink.href = 'assets/xpg/xpg-character-specification.pdf';
-  designLink.target = '_blank';
-  designLink.rel = 'noopener';
-  creator.append(designLink);
   visual.append(creator);
   copy.querySelector('.signature')?.remove();
 

@@ -1,14 +1,14 @@
 /* Approved GLHF about layout, editable contact details, and creator easter egg. */
 /* Match the reference locally; the project and resource pages keep their themes. */
-.about-section[data-studio-enhanced]{grid-template-columns:minmax(280px,.85fr) minmax(0,1.15fr);align-items:start;gap:24px;max-width:900px;margin-block:64px;padding:28px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+.about-section[data-studio-enhanced]{grid-template-columns:minmax(0,.9fr) minmax(0,1.35fr);align-items:start;gap:clamp(30px,4vw,64px);max-width:1280px;margin-block:64px;padding:clamp(24px,3vw,40px);border:1px solid var(--line);border-radius:12px;background:var(--bg)}
 [data-theme=pixel] .about-section{--bg:#fef8ee;--surface:#f8ecdf;--accent:#e72926;--accent-ink:#fff8ee}
 [data-theme=editorial] .about-section{--bg:#151a18;--surface:#1f2422;--accent:#dcf76e}
 [data-theme=terminal] .about-section{--bg:#011d33;--surface:#092b41;--accent:#71eff5;border-color:var(--accent)}
 .studio-visual{display:flex;flex-direction:column;align-items:center;gap:12px;min-width:0}
-.studio-visual .studio-identity{width:216px;max-width:100%;margin:0 auto}
+.studio-visual .studio-identity{width:100%;max-width:360px;margin:0 auto}
 .studio-visual .studio-identity img{height:auto;width:100%;aspect-ratio:1;box-shadow:none;border-radius:12px}
 .studio-visual .studio-identity figcaption{margin-top:12px;letter-spacing:0}
-.creator-illustration{margin:0;width:300px;max-width:100%;align-self:center;min-width:0}
+.creator-illustration{margin:0;width:420px;max-width:100%;align-self:center;min-width:0}
 /* Native-size portrait, complete signature and proportional artwork: no atlas
    offsets, filters, enlargement, artificial frame or animated scaling. */
 .creator-scene{position:relative;display:block;width:100%;aspect-ratio:300/244;isolation:isolate;border:0;padding:0;background:transparent;color:var(--ink);border-radius:0;overflow:visible;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
@@ -22,9 +22,9 @@
 .creator-signature{top:auto;height:26.639344%;visibility:hidden}
 .creator-scene.is-active .creator-idle{visibility:hidden}
 .creator-scene.is-active .creator-magic,.creator-scene.is-active .creator-signature{visibility:visible}
-.about-copy .studio-lead{font-weight:650;font-size:16px;line-height:1.7;margin:14px 0 16px;color:var(--ink);white-space:pre-line}
-.about-section .about-copy h2{font-size:clamp(27px,3vw,32px);line-height:1.4;letter-spacing:-.03em}
-.about-section .about-copy>p:not(.eyebrow):not(.studio-lead){font-size:14px;line-height:1.85}
+.about-copy .studio-lead{font-weight:650;font-size:18px;line-height:1.7;margin:14px 0 16px;color:var(--ink);white-space:pre-line}
+.about-section .about-copy h2{font-size:clamp(30px,3vw,42px);line-height:1.4;letter-spacing:-.03em}
+.about-section .about-copy>p:not(.eyebrow):not(.studio-lead){font-size:16px;line-height:1.85}
 .about-copy{min-width:0}.about-copy>p:not(.eyebrow){max-width:none}
 .studio-beliefs{margin-top:22px}.studio-beliefs-title{font:600 18px/1.5 var(--font);margin:0 0 12px}.studio-beliefs-title>span{color:var(--accent);letter-spacing:.03em}
 .studio-beliefs-panel{background:var(--surface);border-radius:12px;padding:16px 0 12px}
@@ -51,4 +51,3 @@
 .creator-magic .creator-art{width:auto;height:100%;clip-path:polygon(28.7% 0,100% 0,100% 100%,0 100%,0 24.4%,18.2% 24.4%,18.2% 18.3%,28.7% 18.3%);mask-image:radial-gradient(ellipse at 52% 44%,#000 52%,transparent 76%)}
 .creator-signature .creator-art{mask-image:linear-gradient(to right,transparent,#000 5px,#000 calc(100% - 5px),transparent)}
 [data-theme=terminal] .studio-visual{background-image:linear-gradient(#71eff509 1px,transparent 1px),linear-gradient(90deg,#71eff509 1px,transparent 1px);background-size:28px 28px;border-radius:10px}
-.creator-design-link{display:inline-block;margin-top:12px;font-size:12px;color:var(--muted);text-decoration:underline;text-underline-offset:4px}

@@ -380,5 +380,5 @@
     }
   ],
   "palette_note": "Samples are exact individual source pixels. The original illustration contains gradients and paper/grain/grid texture, so a sample is not a replacement for the artwork.",
-  "presentation_note": "Original PNG pixels unchanged. CSS masks soften empty outer margins and hide design annotations. Original character specification PDF linked from about section; side/back/thickness remain design proposals."
+  "presentation_note": "Original PNG pixels unchanged. CSS masks soften empty outer margins and hide design annotations. Character specification PDF is not included on the website; side/back/thickness remain design proposals."
 }
