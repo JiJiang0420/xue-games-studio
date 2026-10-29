@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "date": "2026-10-29",
   "project": "GLHF Studio",
   "character": "XPG 创造者化身",
@@ -108,39 +108,29 @@
     }
   ],
   "palette_note": "Samples are exact individual source pixels. The original illustration contains gradients and paper/grain/grid texture, so a sample is not a replacement for the artwork.",
-  "presentation_note": "Six RGBA cutouts share 1320x900 canvas. Both states occupy the entire 440x300 scene, uniformly enlarged 15% and responsively reduced. Coral body height about158 logical px; foot baseline about244 logical px. Signature stays separate and stationary, maximum216px. No exterior board background, CSS clipping or extra grid behind mascot.",
+  "presentation_note": "Unchanged 1320x900 RGBA cutouts share one CSS viewport: source rect x126 y48 w1134 h714, containing all nonzero-alpha pixels. Wider 1:1.15 desktop columns enlarge the body about22% over the previous layout. Both states have identical scaling and foot baseline. Visual-column gap4px; signature stays stationary with source RGB unchanged and maximum216px width. Mobile viewport uses28px of side padding and caps at428px. Only exterior transparent margins are clipped; no visible artwork is cropped.",
   "display_geometry": {
-    "stage": [
-      440,
-      300
-    ],
     "runtime_canvas": [
       1320,
       900
     ],
-    "stage_scale": 1.15,
-    "coral_body_height": 158,
-    "foot_baseline": 244,
-    "idle": {
-      "offset": [
-        0,
-        0
-      ],
-      "size": [
-        440,
-        300
-      ]
+    "visible_source_rect": {
+      "x": 126,
+      "y": 48,
+      "width": 1134,
+      "height": 714
     },
-    "magic": {
-      "offset": [
-        0,
-        0
-      ],
-      "size": [
-        440,
-        300
-      ]
-    },
+    "visible_design_stage": [
+      378,
+      238
+    ],
+    "desktop_grid_columns": [
+      1,
+      1.15
+    ],
+    "desktop_body_height_at_max_width": 222,
+    "mobile_figure_max_width": 428,
+    "shared_pose_geometry": true,
     "signature": {
       "size": [
         216,

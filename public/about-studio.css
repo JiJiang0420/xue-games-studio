@@ -1,26 +1,26 @@
 /* Approved GLHF about layout, editable contact details, and creator easter egg. */
 /* Match the reference locally; the project and resource pages keep their themes. */
-.about-section[data-studio-enhanced]{grid-template-columns:minmax(0,.9fr) minmax(0,1.35fr);align-items:start;gap:clamp(30px,4vw,64px);max-width:1280px;margin-block:64px;padding:clamp(24px,3vw,40px);border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+.about-section[data-studio-enhanced]{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);align-items:start;gap:clamp(30px,4vw,64px);max-width:1280px;margin-block:64px;padding:clamp(24px,3vw,40px);border:1px solid var(--line);border-radius:12px;background:var(--bg)}
 [data-theme=pixel] .about-section{--bg:#fef8ee;--surface:#f8ecdf;--accent:#e72926;--accent-ink:#fff8ee}
 [data-theme=editorial] .about-section{--bg:#151a18;--surface:#1f2422;--accent:#dcf76e}
 [data-theme=terminal] .about-section{--bg:#011d33;--surface:#092b41;--accent:#71eff5;border-color:var(--accent)}
-.studio-visual{display:flex;flex-direction:column;align-items:center;gap:12px;min-width:0}
+.studio-visual{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
 .studio-visual .studio-identity{width:100%;max-width:360px;margin:0 auto}
 .studio-visual .studio-identity img{height:auto;width:100%;aspect-ratio:1;box-shadow:none;border-radius:12px}
 .studio-visual .studio-identity figcaption{margin-top:12px;letter-spacing:0}
-.creator-illustration{margin:0;width:440px;max-width:100%;align-self:center;min-width:0}
-/* Both poses share the same 440 × 300 coordinates and foot baseline.
-   Enlarge this complete stage by 15%, using the surrounding visual-column
-   whitespace; never scale idle and magic independently. */
-.creator-scene{position:relative;display:block;width:115%;margin-left:-7.5%;aspect-ratio:440/300;isolation:isolate;border:0;padding:0;background:transparent;color:var(--ink);border-radius:0;overflow:visible;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.creator-illustration{margin:0;width:100%;align-self:center;min-width:0}
+/* Both 1320 × 900 images use the same transparent crop: x126 y48 w1134 h714.
+   It contains every nonzero-alpha pixel, enlarges both poses equally, and
+   brings the foot baseline close to the original stationary signature. */
+.creator-scene{position:relative;display:block;width:100%;aspect-ratio:1134/714;isolation:isolate;border:0;padding:0;background:transparent;color:var(--ink);border-radius:0;overflow:hidden;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .creator-layer{position:absolute;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.creator-idle,.creator-magic{inset:0;width:100%;height:100%}
+.creator-idle,.creator-magic{left:-11.111111%;top:-6.722689%;width:116.402116%;height:126.050420%}
 .creator-magic{visibility:hidden}
 .creator-art{display:none;width:100%;height:100%;max-width:100%;object-fit:contain;user-select:none}
 [data-theme=pixel] .creator-art[data-creator-theme=pixel],
 [data-theme=editorial] .creator-art[data-creator-theme=editorial],
 [data-theme=terminal] .creator-art[data-creator-theme=terminal]{display:block}
-.creator-signature{display:block;width:56.454545%;max-width:216px;aspect-ratio:216/65;margin-left:2.954545%}
+.creator-signature{display:block;width:56.454545%;max-width:216px;aspect-ratio:216/65;margin-left:1%}
 .creator-scene.is-active .creator-idle{visibility:hidden}
 .creator-scene.is-active .creator-magic{visibility:visible}
 .about-copy .studio-lead{font-weight:650;font-size:18px;line-height:1.7;margin:14px 0 16px;color:var(--ink);white-space:pre-line}
@@ -43,5 +43,5 @@
 .studio-contact-copy{flex:none;min-height:44px;min-width:52px;padding:7px 10px;font-size:13px;color:var(--accent);border:1px solid var(--line);border-radius:7px;background:var(--bg)}.studio-contact-copy:hover{border-color:var(--accent)}
 .studio-contact-empty{color:var(--muted);font-size:14px;margin:0 0 6px}.studio-copy-buffer{position:absolute;left:-9999px;top:0}
 @media(max-width:1000px){.studio-contact{padding:18px 17px 8px}.studio-contact-header{align-items:flex-start;gap:12px}.studio-contact-action{font-size:13px;padding:9px 12px;gap:7px}.studio-contact-header h3{font-size:22px}.studio-contact-item{gap:10px}.studio-contact-icon{flex-basis:36px;width:36px;height:36px}.studio-contact-text dd{font-size:14px}}
-@media(max-width:720px){.about-section[data-studio-enhanced]{display:flex;flex-direction:column;gap:28px;padding:22px 18px;margin-block:36px}.studio-visual{display:flex;width:100%;order:0}.studio-visual .studio-identity{order:0;max-width:216px}.about-section[data-studio-enhanced] .about-copy{order:1;width:100%}.creator-illustration{max-width:min(300px,100%);margin-top:0}.studio-contact-header h3{font-size:clamp(21px,5.1vw,28px)}.studio-beliefs .studio-values>span{font-size:13px}.studio-contact-text dd{font-size:16px}.studio-contact-action{font-size:14px}.studio-beliefs{margin-top:25px}}
+@media(max-width:720px){.about-section[data-studio-enhanced]{display:flex;flex-direction:column;gap:28px;padding:22px 18px;margin-block:36px}.studio-visual{display:flex;width:100%;order:0}.studio-visual .studio-identity{order:0;max-width:216px}.about-section[data-studio-enhanced] .about-copy{order:1;width:100%}.creator-illustration{width:calc(100% + 28px);max-width:428px;margin-top:0}.studio-contact-header h3{font-size:clamp(21px,5.1vw,28px)}.studio-beliefs .studio-values>span{font-size:13px}.studio-contact-text dd{font-size:16px}.studio-contact-action{font-size:14px}.studio-beliefs{margin-top:25px}}
 @media(max-width:380px){.studio-contact-header{flex-wrap:wrap}.studio-contact-action{margin-top:2px}.studio-contact{padding:17px 13px 7px}.studio-contact-item{gap:8px}.studio-contact-text dd{font-size:13px}.studio-contact-icon{flex-basis:32px;width:32px;height:32px}.studio-contact-icon svg{width:23px;height:23px}.studio-contact-copy{min-width:44px;padding:7px}.studio-beliefs .studio-values>span{font-size:11px}}

@@ -33,8 +33,8 @@
   scene.setAttribute('aria-label', '查看 XPG 星光手柄彩蛋');
   scene.setAttribute('aria-pressed', 'false');
   scene.setAttribute('aria-describedby', 'creator-interaction-help');
-  // Place both transparent poses in one coordinate system. The entire stage
-  // enlarges together, keeping character scale and the foot baseline aligned.
+  // Place both transparent poses in one coordinate system. CSS trims their
+  // shared transparent margins, keeping scale and the foot baseline aligned.
   // Keep the original signature outside the toggle.
   const themes = ['pixel', 'editorial', 'terminal'];
   const signatureArt = element('span', 'creator-signature');
