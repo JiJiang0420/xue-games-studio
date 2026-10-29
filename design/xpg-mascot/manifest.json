@@ -1,10 +1,10 @@
 {
-  "version": 2,
-  "date": "2026-10-28",
+  "version": 3,
+  "date": "2026-10-29",
   "project": "GLHF Studio",
   "character": "XPG 创造者化身",
   "archive_status": "website_mockups_received_concept_board_pending",
-  "generation": "User-approved original concept art; this integration creates only exact rectangular crops, with no newly generated art.",
+  "generation": "Original approved board and rectangular source crops remain unchanged. Runtime character assets are AI-assisted background-cleaned derivatives, followed by proportional normalization and detached alpha-noise removal. Signature derivatives change alpha only, preserving original RGB bytes.",
   "assets": [
     {
       "file": "xpg-mascot-theme-concepts-v1.png",
@@ -33,8 +33,124 @@
     }
   ],
   "pending_reason": "The original website mockup PNG has been received and verified. The separate 1536×1024 character concept-board PNG is still unavailable and remains pending.",
-  "runtime_assets_status": "integrated_original_crops_with_presentation_masks",
-  "runtime_assets": [
+  "runtime_assets_status": "transparent_cutouts_integrated",
+  "preservation_constraints": [
+    "Keep archived source board and all original crops unchanged.",
+    "Keep recognizable coral g silhouette, one heart aperture, curved tail, original props and theme palette.",
+    "Preserve signature source RGB; never replace handwriting with a font.",
+    "Use genuine alpha transparency; remove exterior floor, grid, labels and scattered decoration.",
+    "Normalize both states on one canvas with matching body height and foot baseline; uniform scaling only.",
+    "Preserve existing projects, learning resources, configured contacts and full about-section width; no PDF on website."
+  ],
+  "palette_samples": [
+    {
+      "theme": "pixel",
+      "role": "portrait backdrop",
+      "source_point": {
+        "x": 230,
+        "y": 400
+      },
+      "hex": "#FEF8EE"
+    },
+    {
+      "theme": "editorial",
+      "role": "portrait backdrop",
+      "source_point": {
+        "x": 780,
+        "y": 400
+      },
+      "hex": "#151A18"
+    },
+    {
+      "theme": "terminal",
+      "role": "portrait backdrop",
+      "source_point": {
+        "x": 1331,
+        "y": 400
+      },
+      "hex": "#011D33"
+    },
+    {
+      "theme": "pixel",
+      "role": "belief panel surface",
+      "source_point": {
+        "x": 250,
+        "y": 345
+      },
+      "hex": "#F9EDE0"
+    },
+    {
+      "theme": "editorial",
+      "role": "belief panel surface",
+      "source_point": {
+        "x": 800,
+        "y": 345
+      },
+      "hex": "#1D211F"
+    },
+    {
+      "theme": "terminal",
+      "role": "belief panel surface",
+      "source_point": {
+        "x": 1355,
+        "y": 345
+      },
+      "hex": "#06283E"
+    },
+    {
+      "theme": "editorial",
+      "role": "lime letter highlight",
+      "source_point": {
+        "x": 827,
+        "y": 357
+      },
+      "hex": "#DCF76E"
+    }
+  ],
+  "palette_note": "Samples are exact individual source pixels. The original illustration contains gradients and paper/grain/grid texture, so a sample is not a replacement for the artwork.",
+  "presentation_note": "Six RGBA cutouts share 1320x900 canvas. Both states occupy the entire 440x300 scene, uniformly enlarged 15% and responsively reduced. Coral body height about158 logical px; foot baseline about244 logical px. Signature stays separate and stationary, maximum216px. No exterior board background, CSS clipping or extra grid behind mascot.",
+  "display_geometry": {
+    "stage": [
+      440,
+      300
+    ],
+    "runtime_canvas": [
+      1320,
+      900
+    ],
+    "stage_scale": 1.15,
+    "coral_body_height": 158,
+    "foot_baseline": 244,
+    "idle": {
+      "offset": [
+        0,
+        0
+      ],
+      "size": [
+        440,
+        300
+      ]
+    },
+    "magic": {
+      "offset": [
+        0,
+        0
+      ],
+      "size": [
+        440,
+        300
+      ]
+    },
+    "signature": {
+      "size": [
+        216,
+        65
+      ],
+      "shared_between_states": true,
+      "rgb_matches_source": true
+    }
+  },
+  "original_crops": [
     {
       "file": "public/assets/xpg/pixel-idle.png",
       "theme": "pixel",
@@ -306,109 +422,120 @@
       "pixel_comparison": "8-bit RGB bytes identical to source rectangle"
     }
   ],
-  "preservation_constraints": [
-    "Keep the archived 1642×958 PNG unchanged.",
-    "Use the original silhouette, heart cutout, curved tail, props and handwritten XPG signature.",
-    "Do not redraw, generate replacements, recolor, sharpen, blur or stretch the original art.",
-    "Display each crop at its intrinsic aspect ratio; prefer the single portrait crop to avoid seams between idle art and the signature.",
-    "The magic crops remove only surrounding board separators and retain their original upper-left design annotations.",
-    "Preserve the existing website project list, learning resources and configured contact data."
-  ],
-  "palette_samples": [
+  "runtime_assets": [
     {
+      "file": "public/assets/xpg/cutout/editorial-idle.png",
+      "theme": "editorial",
+      "state": "idle",
+      "source_file": "public/assets/xpg/editorial-idle.png",
+      "width": 1320,
+      "height": 900,
+      "mode": "RGBA",
+      "bytes": 372940,
+      "sha256": "ed94a07b40496934666f46c56ee300d8423eda547d48985507a1c910f5573e58",
+      "transform": "imagegen background cleanup; detached alpha-noise removal; uniform scaling and transparent canvas placement, no nonuniform stretching",
+      "generated_source": "exec-4fc9122b-0129-494e-a8ff-f568a6bb054b.png"
+    },
+    {
+      "file": "public/assets/xpg/cutout/editorial-magic.png",
+      "theme": "editorial",
+      "state": "magic",
+      "source_file": "public/assets/xpg/editorial-magic.png",
+      "width": 1320,
+      "height": 900,
+      "mode": "RGBA",
+      "bytes": 836176,
+      "sha256": "8b64d61b02a6dd8e5daca2f72699be285fca90f1416c939e17ca8eb32981911a",
+      "transform": "imagegen background cleanup; detached alpha-noise removal; uniform scaling and transparent canvas placement, no nonuniform stretching",
+      "generated_source": "exec-762eaf11-928c-4227-b3c6-0a4eefc73cfe.png"
+    },
+    {
+      "file": "public/assets/xpg/cutout/editorial-signature.png",
+      "theme": "editorial",
+      "state": "signature",
+      "source_file": "public/assets/xpg/editorial-signature.png",
+      "width": 216,
+      "height": 65,
+      "mode": "RGBA",
+      "bytes": 23254,
+      "sha256": "18b150263820e3a2f5ba759ded1c3206d736170fae494ddd3a0d5d57c4592a7b",
+      "transform": "alpha-only extraction; every original RGB byte preserved"
+    },
+    {
+      "file": "public/assets/xpg/cutout/pixel-idle.png",
       "theme": "pixel",
-      "role": "portrait backdrop",
-      "source_point": {
-        "x": 230,
-        "y": 400
-      },
-      "hex": "#FEF8EE"
+      "state": "idle",
+      "source_file": "public/assets/xpg/pixel-idle.png",
+      "width": 1320,
+      "height": 900,
+      "mode": "RGBA",
+      "bytes": 359779,
+      "sha256": "0f4863a77c99c2e7ec7d58ac1a007e63a06b944b27db63b2c198bc1cc5d4c92a",
+      "transform": "imagegen background cleanup; detached alpha-noise removal; uniform scaling and transparent canvas placement, no nonuniform stretching",
+      "generated_source": "exec-5d7af79a-0186-4ed0-aac6-44ab195ab64d.png"
     },
     {
-      "theme": "editorial",
-      "role": "portrait backdrop",
-      "source_point": {
-        "x": 780,
-        "y": 400
-      },
-      "hex": "#151A18"
-    },
-    {
-      "theme": "terminal",
-      "role": "portrait backdrop",
-      "source_point": {
-        "x": 1331,
-        "y": 400
-      },
-      "hex": "#011D33"
-    },
-    {
+      "file": "public/assets/xpg/cutout/pixel-magic.png",
       "theme": "pixel",
-      "role": "belief panel surface",
-      "source_point": {
-        "x": 250,
-        "y": 345
-      },
-      "hex": "#F9EDE0"
+      "state": "magic",
+      "source_file": "public/assets/xpg/pixel-magic.png",
+      "width": 1320,
+      "height": 900,
+      "mode": "RGBA",
+      "bytes": 915343,
+      "sha256": "354afe22931ad72e4458958d24c57923ae1e67bea3b6ee2ccb275ae7878dbc31",
+      "transform": "imagegen background cleanup; detached alpha-noise removal; uniform scaling and transparent canvas placement, no nonuniform stretching",
+      "generated_source": "exec-366ca560-9f21-4003-9672-d1d4a58086b0.png"
     },
     {
-      "theme": "editorial",
-      "role": "belief panel surface",
-      "source_point": {
-        "x": 800,
-        "y": 345
-      },
-      "hex": "#1D211F"
+      "file": "public/assets/xpg/cutout/pixel-signature.png",
+      "theme": "pixel",
+      "state": "signature",
+      "source_file": "public/assets/xpg/pixel-signature.png",
+      "width": 216,
+      "height": 65,
+      "mode": "RGBA",
+      "bytes": 19215,
+      "sha256": "8ffc9c2b0c9032860e0fa2382d265548d0bc7a01e98f1384d7da0824748367fd",
+      "transform": "alpha-only extraction; every original RGB byte preserved"
     },
     {
+      "file": "public/assets/xpg/cutout/terminal-idle.png",
       "theme": "terminal",
-      "role": "belief panel surface",
-      "source_point": {
-        "x": 1355,
-        "y": 345
-      },
-      "hex": "#06283E"
+      "state": "idle",
+      "source_file": "public/assets/xpg/terminal-idle.png",
+      "width": 1320,
+      "height": 900,
+      "mode": "RGBA",
+      "bytes": 385453,
+      "sha256": "4f4806151a0a9defb34cffacb7637171ed688dc1a7512fae59e146490c11f0d8",
+      "transform": "imagegen background cleanup; detached alpha-noise removal; uniform scaling and transparent canvas placement, no nonuniform stretching",
+      "generated_source": "exec-0603a5f1-7496-45b0-ae06-3afc3b832772.png"
     },
     {
-      "theme": "editorial",
-      "role": "lime letter highlight",
-      "source_point": {
-        "x": 827,
-        "y": 357
-      },
-      "hex": "#DCF76E"
-    }
-  ],
-  "palette_note": "Samples are exact individual source pixels. The original illustration contains gradients and paper/grain/grid texture, so a sample is not a replacement for the artwork.",
-  "presentation_note": "Shared 440x300 stage; idle216x179 at1x and magic at0.8x, reduced together responsively. One original signature node outside state toggle. No raster upscaling or alpha feathering over character. Source PNG pixels remain unchanged. No PDF on website.",
-  "display_geometry": {
-    "stage": [
-      440,
-      300
-    ],
-    "idle": {
-      "offset": [
-        40,
-        78
-      ],
-      "size": [
-        216,
-        179
-      ]
+      "file": "public/assets/xpg/cutout/terminal-magic.png",
+      "theme": "terminal",
+      "state": "magic",
+      "source_file": "public/assets/xpg/terminal-magic.png",
+      "width": 1320,
+      "height": 900,
+      "mode": "RGBA",
+      "bytes": 876929,
+      "sha256": "d0a3f20c638fac720bd87992405b25f4739f8a71196aed01f00b35eb40ea2a05",
+      "transform": "imagegen background cleanup; detached alpha-noise removal; uniform scaling and transparent canvas placement, no nonuniform stretching",
+      "generated_source": "exec-7124cb02-3fd6-4ddc-a64f-c598845ceb4f.png"
     },
-    "magic": {
-      "offset": [
-        0,
-        28
-      ],
-      "scale": 0.8
-    },
-    "signature": {
-      "size": [
-        216,
-        65
-      ],
-      "shared_between_states": true
+    {
+      "file": "public/assets/xpg/cutout/terminal-signature.png",
+      "theme": "terminal",
+      "state": "signature",
+      "source_file": "public/assets/xpg/terminal-signature.png",
+      "width": 216,
+      "height": 65,
+      "mode": "RGBA",
+      "bytes": 22121,
+      "sha256": "f6adff559092d3fd2194ddd07ed6774a3b82f6a5528d40bfa5a8fb73c210cc72",
+      "transform": "alpha-only extraction; every original RGB byte preserved"
     }
-  }
+  ]
 }

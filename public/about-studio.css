@@ -9,19 +9,18 @@
 .studio-visual .studio-identity img{height:auto;width:100%;aspect-ratio:1;box-shadow:none;border-radius:12px}
 .studio-visual .studio-identity figcaption{margin-top:12px;letter-spacing:0}
 .creator-illustration{margin:0;width:440px;max-width:100%;align-self:center;min-width:0}
-/* Common 440 × 300 stage: idle is 216 × 179 (1×), magic is about
-   435 × 262 (.8×). Both red bodies are ~158px high and feet share a baseline.
-   The responsive stage only scales down; artwork is never stretched. */
-.creator-scene{position:relative;display:block;width:100%;aspect-ratio:440/300;isolation:isolate;border:0;padding:0;background:transparent;color:var(--ink);border-radius:0;overflow:visible;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+/* Both poses share the same 440 × 300 coordinates and foot baseline.
+   Enlarge this complete stage by 15%, using the surrounding visual-column
+   whitespace; never scale idle and magic independently. */
+.creator-scene{position:relative;display:block;width:115%;margin-left:-7.5%;aspect-ratio:440/300;isolation:isolate;border:0;padding:0;background:transparent;color:var(--ink);border-radius:0;overflow:visible;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .creator-layer{position:absolute;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.creator-idle{left:9.090909%;top:26%;width:49.090909%;height:59.666667%}
-.creator-magic{left:0;top:9.333333%;width:100%;height:87.466667%;visibility:hidden}
+.creator-idle,.creator-magic{inset:0;width:100%;height:100%}
+.creator-magic{visibility:hidden}
 .creator-art{display:none;width:100%;height:100%;max-width:100%;object-fit:contain;user-select:none}
 [data-theme=pixel] .creator-art[data-creator-theme=pixel],
 [data-theme=editorial] .creator-art[data-creator-theme=editorial],
 [data-theme=terminal] .creator-art[data-creator-theme=terminal]{display:block}
-.creator-magic .creator-art{width:auto;height:100%;clip-path:polygon(28.7% 0,100% 0,100% 100%,0 100%,0 24.4%,18.2% 24.4%,18.2% 18.3%,28.7% 18.3%)}
-.creator-signature{display:block;width:49.090909%;max-width:216px;aspect-ratio:216/65;margin-left:9.090909%}
+.creator-signature{display:block;width:56.454545%;max-width:216px;aspect-ratio:216/65;margin-left:2.954545%}
 .creator-scene.is-active .creator-idle{visibility:hidden}
 .creator-scene.is-active .creator-magic{visibility:visible}
 .about-copy .studio-lead{font-weight:650;font-size:18px;line-height:1.7;margin:14px 0 16px;color:var(--ink);white-space:pre-line}
@@ -44,7 +43,5 @@
 .studio-contact-copy{flex:none;min-height:44px;min-width:52px;padding:7px 10px;font-size:13px;color:var(--accent);border:1px solid var(--line);border-radius:7px;background:var(--bg)}.studio-contact-copy:hover{border-color:var(--accent)}
 .studio-contact-empty{color:var(--muted);font-size:14px;margin:0 0 6px}.studio-copy-buffer{position:absolute;left:-9999px;top:0}
 @media(max-width:1000px){.studio-contact{padding:18px 17px 8px}.studio-contact-header{align-items:flex-start;gap:12px}.studio-contact-action{font-size:13px;padding:9px 12px;gap:7px}.studio-contact-header h3{font-size:22px}.studio-contact-item{gap:10px}.studio-contact-icon{flex-basis:36px;width:36px;height:36px}.studio-contact-text dd{font-size:14px}}
-@media(max-width:720px){.about-section[data-studio-enhanced]{display:flex;flex-direction:column;gap:28px;padding:22px 18px;margin-block:36px}.studio-visual{display:flex;width:100%;order:0}.studio-visual .studio-identity{order:0;max-width:216px}.about-section[data-studio-enhanced] .about-copy{order:1;width:100%}.creator-illustration{max-width:300px;margin-top:0}.studio-contact-header h3{font-size:clamp(21px,5.1vw,28px)}.studio-beliefs .studio-values>span{font-size:13px}.studio-contact-text dd{font-size:16px}.studio-contact-action{font-size:14px}.studio-beliefs{margin-top:25px}}
+@media(max-width:720px){.about-section[data-studio-enhanced]{display:flex;flex-direction:column;gap:28px;padding:22px 18px;margin-block:36px}.studio-visual{display:flex;width:100%;order:0}.studio-visual .studio-identity{order:0;max-width:216px}.about-section[data-studio-enhanced] .about-copy{order:1;width:100%}.creator-illustration{max-width:min(300px,100%);margin-top:0}.studio-contact-header h3{font-size:clamp(21px,5.1vw,28px)}.studio-beliefs .studio-values>span{font-size:13px}.studio-contact-text dd{font-size:16px}.studio-contact-action{font-size:14px}.studio-beliefs{margin-top:25px}}
 @media(max-width:380px){.studio-contact-header{flex-wrap:wrap}.studio-contact-action{margin-top:2px}.studio-contact{padding:17px 13px 7px}.studio-contact-item{gap:8px}.studio-contact-text dd{font-size:13px}.studio-contact-icon{flex-basis:32px;width:32px;height:32px}.studio-contact-icon svg{width:23px;height:23px}.studio-contact-copy{min-width:44px;padding:7px}.studio-beliefs .studio-values>span{font-size:11px}}
-
-[data-theme=terminal] .studio-visual{background-image:linear-gradient(#71eff509 1px,transparent 1px),linear-gradient(90deg,#71eff509 1px,transparent 1px);background-size:28px 28px;border-radius:10px}

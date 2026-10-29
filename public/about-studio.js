@@ -33,21 +33,21 @@
   scene.setAttribute('aria-label', '查看 XPG 星光手柄彩蛋');
   scene.setAttribute('aria-pressed', 'false');
   scene.setAttribute('aria-describedby', 'creator-interaction-help');
-  // Place both poses in one coordinate system. The source artwork stays at
-  // or below its original pixel dimensions; compare the character, not the
-  // larger canvas needed by the portal. Keep the signature outside the toggle.
-  const art = {pixel: [544, 328], editorial: [545, 328], terminal: [544, 328]};
+  // Place both transparent poses in one coordinate system. The entire stage
+  // enlarges together, keeping character scale and the foot baseline aligned.
+  // Keep the original signature outside the toggle.
+  const themes = ['pixel', 'editorial', 'terminal'];
   const signatureArt = element('span', 'creator-signature');
   signatureArt.setAttribute('aria-hidden', 'true');
-  for (const [state, size] of [['idle', [216, 179]], ['magic', null], ['signature', [216, 65]]]) {
+  for (const [state, size] of [['idle', [1320, 900]], ['magic', [1320, 900]], ['signature', [216, 65]]]) {
     const layer = state === 'signature' ? signatureArt : element('span', 'creator-layer creator-' + state);
     layer.setAttribute('aria-hidden', 'true');
-    for (const [theme, magicSize] of Object.entries(art)) {
+    for (const theme of themes) {
       const image = element('img', 'creator-art');
       image.dataset.creatorTheme = theme;
-      image.src = `assets/xpg/${theme}-${state}.png`;
+      image.src = `assets/xpg/cutout/${theme}-${state}.png`;
       image.alt = '';
-      [image.width, image.height] = size || magicSize;
+      [image.width, image.height] = size;
       image.loading = 'lazy';
       image.decoding = 'async';
       image.draggable = false;
