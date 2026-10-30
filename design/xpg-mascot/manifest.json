@@ -1,10 +1,10 @@
 {
-  "version": 4,
-  "date": "2026-10-29",
+  "version": 5,
+  "date": "2026-10-30",
   "project": "GLHF Studio",
   "character": "XPG 创造者化身",
   "archive_status": "website_mockups_received_concept_board_pending",
-  "generation": "Original approved board and rectangular source crops remain unchanged. Runtime character assets are AI-assisted background-cleaned derivatives, followed by proportional normalization and detached alpha-noise removal. Signature derivatives change alpha only, preserving original RGB bytes.",
+  "generation": "Original approved board and rectangular source crops remain unchanged. Runtime character assets are AI-assisted background-cleaned derivatives, followed by proportional normalization and detached alpha-noise removal. Signature derivatives change alpha only, preserving original RGB bytes. The 2026-10-30 interaction preserves all existing character/signature PNG bytes. Independent portal layers are imagegen extractions with the previously occluded left rim completed, then proportionally normalized; SVG masks separate the existing raised character and cursor without repainting them.",
   "assets": [
     {
       "file": "xpg-mascot-theme-concepts-v1.png",
@@ -33,7 +33,7 @@
     }
   ],
   "pending_reason": "The original website mockup PNG has been received and verified. The separate 1536×1024 character concept-board PNG is still unavailable and remains pending.",
-  "runtime_assets_status": "transparent_cutouts_integrated",
+  "runtime_assets_status": "layered_interaction_integrated",
   "preservation_constraints": [
     "Keep archived source board and all original crops unchanged.",
     "Keep recognizable coral g silhouette, one heart aperture, curved tail, original props and theme palette.",
@@ -108,7 +108,7 @@
     }
   ],
   "palette_note": "Samples are exact individual source pixels. The original illustration contains gradients and paper/grain/grid texture, so a sample is not a replacement for the artwork.",
-  "presentation_note": "Unchanged 1320x900 RGBA cutouts share one CSS viewport: source rect x126 y48 w1134 h714, containing all nonzero-alpha pixels. Wider 1:1.15 desktop columns enlarge the body about22% over the previous layout. Both states have identical scaling and foot baseline. Visual-column gap4px; signature stays stationary with source RGB unchanged and maximum216px width. Mobile viewport uses28px of side padding and caps at428px. Only exterior transparent margins are clipped; no visible artwork is cropped.",
+  "presentation_note": "Compact 1134x600 viewport at source x126/y162. Idle composition translates223px right in the1320x900 source coordinates, then moves back left on activation. Both poses retain identical scale and foot baseline. Fixed centered original signature. A complete independent portal unfolds inside its own right-hand layer, followed by brief glints. No layout shift or text overlap. Reduced-motion resolves directly to resting/open state.",
   "display_geometry": {
     "runtime_canvas": [
       1320,
@@ -116,13 +116,23 @@
     ],
     "visible_source_rect": {
       "x": 126,
-      "y": 48,
+      "y": 162,
       "width": 1134,
-      "height": 714
+      "height": 600
     },
-    "visible_design_stage": [
-      378,
-      238
+    "idle_translation_source_px": [
+      223,
+      0
+    ],
+    "active_translation_source_px": [
+      0,
+      0
+    ],
+    "portal_frame_source_px": [
+      646.8,
+      162,
+      594,
+      558
     ],
     "desktop_grid_columns": [
       1,
@@ -130,14 +140,21 @@
     ],
     "desktop_body_height_at_max_width": 222,
     "mobile_figure_max_width": 428,
-    "shared_pose_geometry": true,
+    "shared_pose_scale_and_baseline": true,
     "signature": {
       "size": [
         216,
         65
       ],
       "shared_between_states": true,
-      "rgb_matches_source": true
+      "rgb_matches_source": true,
+      "centered": true
+    },
+    "motion_ms": {
+      "anticipation": 160,
+      "opening": 560,
+      "leave_grace": 80,
+      "closing": 360
     }
   },
   "original_crops": [
@@ -526,6 +543,45 @@
       "bytes": 22121,
       "sha256": "f6adff559092d3fd2194ddd07ed6774a3b82f6a5528d40bfa5a8fb73c210cc72",
       "transform": "alpha-only extraction; every original RGB byte preserved"
+    },
+    {
+      "file": "public/assets/xpg/layers/pixel-portal.png",
+      "theme": "pixel",
+      "state": "portal",
+      "source_file": "public/assets/xpg/cutout/pixel-magic.png",
+      "generated_source": "exec-aef419de-4bd8-4db8-9863-bdbf56390698.png",
+      "width": 768,
+      "height": 768,
+      "mode": "RGBA",
+      "bytes": 772954,
+      "sha256": "601f0eb654930c6229e908b5d534a1eeefc8efd775e1d5d8759fa8278eaa9722",
+      "transform": "imagegen portal-only extraction and completion of cursor-occluded rim; detached alpha-noise cleanup; uniform resize and transparent padding; no change to existing character files"
+    },
+    {
+      "file": "public/assets/xpg/layers/editorial-portal.png",
+      "theme": "editorial",
+      "state": "portal",
+      "source_file": "public/assets/xpg/cutout/editorial-magic.png",
+      "generated_source": "exec-080a4d09-965a-4314-9e84-2737eef07b61.png",
+      "width": 768,
+      "height": 768,
+      "mode": "RGBA",
+      "bytes": 705143,
+      "sha256": "03f8936741a6008c76e63b284cb759414f773ad1fabefd02f8bb6f481e70eb8e",
+      "transform": "imagegen portal-only extraction and completion of cursor-occluded rim; detached alpha-noise cleanup; uniform resize and transparent padding; no change to existing character files"
+    },
+    {
+      "file": "public/assets/xpg/layers/terminal-portal.png",
+      "theme": "terminal",
+      "state": "portal",
+      "source_file": "public/assets/xpg/cutout/terminal-magic.png",
+      "generated_source": "exec-84411a3c-4b29-4ab6-b7e4-ebc206d280bc.png",
+      "width": 768,
+      "height": 768,
+      "mode": "RGBA",
+      "bytes": 702345,
+      "sha256": "8b7724c9bf14660e5e3fec4f677ba5eff8f616cb7b70fc24f977e76c2f627b85",
+      "transform": "imagegen portal-only extraction and completion of cursor-occluded rim; detached alpha-noise cleanup; uniform resize and transparent padding; no change to existing character files"
     }
   ]
 }

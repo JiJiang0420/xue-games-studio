@@ -33,29 +33,74 @@
   scene.setAttribute('aria-label', '查看 XPG 星光手柄彩蛋');
   scene.setAttribute('aria-pressed', 'false');
   scene.setAttribute('aria-describedby', 'creator-interaction-help');
-  // Place both transparent poses in one coordinate system. CSS trims their
-  // shared transparent margins, keeping scale and the foot baseline aligned.
-  // Keep the original signature outside the toggle.
+  // The existing character pixels stay untouched. SVG masks separate the
+  // raised pose and pointer; a complete portal can unfold independently.
   const themes = ['pixel', 'editorial', 'terminal'];
-  const signatureArt = element('span', 'creator-signature');
-  signatureArt.setAttribute('aria-hidden', 'true');
-  for (const [state, size] of [['idle', [1320, 900]], ['magic', [1320, 900]], ['signature', [216, 65]]]) {
-    const layer = state === 'signature' ? signatureArt : element('span', 'creator-layer creator-' + state);
+  const geometry = {
+    pixel: {
+      body: '0,0 540,0 540,303 589,303 608,345 620,366 632,371 630,395 630,900 0,900',
+      pointer: '565,233 581,224 702,284 705,299 671,313 699,355 671,373 644,335 625,358 614,363',
+    },
+    editorial: {
+      body: '0,0 530,0 530,315 581,315 593,357 606,376 627,389 624,411 624,900 0,900',
+      pointer: '557,249 572,239 684,302 686,320 654,331 682,374 647,389 627,352 606,371 590,373',
+    },
+    terminal: {
+      body: '0,0 530,0 530,299 590,299 607,338 622,368 644,387 640,414 640,900 0,900',
+      pointer: '568,218 581,209 703,279 705,295 671,309 697,356 666,374 643,333 620,354 605,356',
+    },
+  };
+  const makeArt = (state, size) => {
+    const layer = element('span', 'creator-layer creator-' + state);
     layer.setAttribute('aria-hidden', 'true');
     for (const theme of themes) {
       const image = element('img', 'creator-art');
       image.dataset.creatorTheme = theme;
-      image.src = `assets/xpg/cutout/${theme}-${state}.png`;
+      image.src = `assets/xpg/${state === 'portal' ? 'layers' : 'cutout'}/${theme}-${state}.png`;
       image.alt = '';
       [image.width, image.height] = size;
-      image.loading = 'lazy';
       image.decoding = 'async';
       image.draggable = false;
       layer.append(image);
     }
-    if (state !== 'signature') scene.append(layer);
+    return layer;
+  };
+  const idle = makeArt('idle', [1320, 900]);
+  idle.append(element('span', 'creator-heart-light'));
+  scene.append(idle);
+  for (const state of ['character', 'pointer']) {
+    const layer = element('span', 'creator-layer creator-' + state);
+    layer.setAttribute('aria-hidden', 'true');
+    for (const theme of themes) {
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('class', 'creator-art');
+      svg.dataset.creatorTheme = theme;
+      svg.setAttribute('viewBox', '0 0 1320 900');
+      svg.setAttribute('focusable', 'false');
+      const id = `xpg-${theme}-${state}`;
+      const shape = geometry[theme];
+      // All polygon points and asset paths are fixed local design data.
+      svg.innerHTML = `<defs><mask id="${id}" maskUnits="userSpaceOnUse" x="0" y="0" width="1320" height="900"><rect width="1320" height="900" fill="black"/><polygon points="${state === 'character' ? shape.body : shape.pointer}" fill="white"/>${state === 'character' ? `<polygon points="${shape.pointer}" fill="black"/>` : ''}</mask></defs><image href="assets/xpg/cutout/${theme}-magic.png" width="1320" height="900" mask="url(#${id})"/>`;
+      layer.append(svg);
+    }
+    scene.append(layer);
   }
-  const help = element('span', 'sr-only', '鼠标移入显示星光手柄，移开恢复角色插图。触屏轻触切换；键盘按回车或空格切换，按 Escape 关闭。');
+  const portal = element('span', 'creator-layer creator-portal');
+  portal.setAttribute('aria-hidden', 'true');
+  const portalPosition = element('span', 'creator-portal-position');
+  const portalReveal = element('span', 'creator-portal-reveal');
+  const portalArt = makeArt('portal', [768, 768]);
+  portalArt.className = 'creator-portal-art';
+  portalReveal.append(portalArt);
+  for (let i = 1; i <= 3; i++) portalReveal.append(element('span', `creator-glint creator-glint-${i}`));
+  portalPosition.append(portalReveal);
+  portal.append(portalPosition);
+  scene.append(portal);
+  scene.append(element('span', 'creator-discovery-dot creator-discovery-dot-one'), element('span', 'creator-discovery-dot creator-discovery-dot-two'), element('span', 'creator-light-trail'));
+  const signatureArt = element('span', 'creator-signature');
+  signatureArt.setAttribute('aria-hidden', 'true');
+  signatureArt.append(...makeArt('signature', [216, 65]).children);
+  const help = element('span', 'sr-only', '鼠标靠近点亮心形，停留片刻展开星空彩蛋，移开恢复日常。触屏轻触切换；键盘按回车或空格切换，按 Escape 关闭。');
   help.id = 'creator-interaction-help';
   const signature = element('figcaption', 'sr-only', 'XPG，独立游戏创作者。珊瑚红的 g 形小精灵，带心形镂空与弯尾。');
   creator.append(scene, signatureArt, help, signature);

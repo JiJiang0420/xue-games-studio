@@ -9,20 +9,48 @@
 .studio-visual .studio-identity img{height:auto;width:100%;aspect-ratio:1;box-shadow:none;border-radius:12px}
 .studio-visual .studio-identity figcaption{margin-top:12px;letter-spacing:0}
 .creator-illustration{margin:0;width:100%;align-self:center;min-width:0}
-/* Both 1320 × 900 images use the same transparent crop: x126 y48 w1134 h714.
-   It contains every nonzero-alpha pixel, enlarges both poses equally, and
-   brings the foot baseline close to the original stationary signature. */
-.creator-scene{position:relative;display:block;width:100%;aspect-ratio:1134/714;isolation:isolate;border:0;padding:0;background:transparent;color:var(--ink);border-radius:0;overflow:hidden;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
-.creator-layer{position:absolute;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.creator-idle,.creator-magic{left:-11.111111%;top:-6.722689%;width:116.402116%;height:126.050420%}
-.creator-magic{visibility:hidden}
+/* Shared body scale and foot baseline; the compact viewport is 1134 × 600
+   inside the existing 1320 × 900 source, starting at x126/y162. */
+.creator-scene{position:relative;display:block;width:100%;aspect-ratio:1134/600;isolation:isolate;border:0;padding:0;background:transparent;color:var(--ink);border-radius:8px;overflow:hidden;-webkit-tap-highlight-color:transparent;touch-action:manipulation;cursor:pointer}
+.creator-scene:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.creator-layer{position:absolute;display:block;left:-11.111111%;top:-27%;width:116.402116%;height:150%;pointer-events:none}
 .creator-art{display:none;width:100%;height:100%;max-width:100%;object-fit:contain;user-select:none}
 [data-theme=pixel] .creator-art[data-creator-theme=pixel],
 [data-theme=editorial] .creator-art[data-creator-theme=editorial],
 [data-theme=terminal] .creator-art[data-creator-theme=terminal]{display:block}
-.creator-signature{display:block;width:56.454545%;max-width:216px;aspect-ratio:216/65;margin-left:1%}
-.creator-scene.is-active .creator-idle{visibility:hidden}
-.creator-scene.is-active .creator-magic{visibility:visible}
+.creator-idle{z-index:3;transform:translateX(16.893939%);opacity:1;transition:transform 380ms cubic-bezier(.22,.7,.2,1),opacity 140ms}
+.creator-character{z-index:3;transform:translateX(16.893939%);opacity:0;transition:transform 360ms cubic-bezier(.22,.7,.2,1),opacity 140ms}
+.creator-pointer{z-index:4;transform:translate(16.893939%,1%);opacity:0;transition:transform 360ms cubic-bezier(.22,.7,.2,1),opacity 100ms}
+[data-theme=terminal] .creator-pointer{filter:drop-shadow(0 0 3px #71eff5)}
+.creator-scene.is-active .creator-idle{transform:translateX(0);opacity:0;transition:transform 420ms cubic-bezier(.22,.7,.2,1),opacity 140ms 100ms}
+.creator-scene.is-active .creator-character{transform:translateX(0);opacity:1;transition:transform 420ms cubic-bezier(.22,.7,.2,1),opacity 140ms 100ms}
+.creator-scene.is-active .creator-pointer{transform:translate(0,0);opacity:1;transition:transform 440ms cubic-bezier(.22,.7,.2,1),opacity 140ms 150ms}
+.creator-heart-light{position:absolute;left:30.08%;top:48.44%;width:10.5%;height:12%;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,color-mix(in srgb,var(--accent) 50%,transparent),transparent 70%);opacity:0;filter:blur(2px);transition:opacity 160ms}
+[data-theme=pixel] .creator-heart-light{left:29.59%;top:48.37%}
+[data-theme=editorial] .creator-heart-light{left:30.43%;top:48.31%}
+.creator-scene[data-state=anticipating] .creator-heart-light{opacity:.85}
+.creator-portal{z-index:2}
+.creator-portal-position{position:absolute;left:49%;top:18%;width:45%;height:62%}
+.creator-portal-reveal,.creator-portal-art{position:absolute;inset:0}
+.creator-portal-reveal{opacity:0;clip-path:circle(0% at 8% 30%);transition:clip-path 280ms cubic-bezier(.4,0,.5,1),opacity 240ms}
+.creator-portal-art{filter:brightness(.7);transition:filter 180ms}
+.creator-scene.is-active .creator-portal-reveal{opacity:1;clip-path:circle(140% at 8% 30%);transition:clip-path 400ms 130ms cubic-bezier(.16,.75,.3,1),opacity 140ms 130ms}
+.creator-scene.is-active .creator-portal-art{filter:brightness(1);transition:filter 240ms 340ms}
+.creator-glint{position:absolute;width:6%;aspect-ratio:1;background:#fff7cb;clip-path:polygon(50% 0,59% 40%,100% 50%,59% 59%,50% 100%,41% 59%,0 50%,41% 41%);opacity:0;filter:drop-shadow(0 0 4px #ffd66b)}
+.creator-glint-1{left:33%;top:43%}.creator-glint-2{left:64%;top:39%}.creator-glint-3{left:70%;top:62%}
+.creator-scene.is-active .creator-glint{animation:creator-glint 700ms 390ms both}
+.creator-scene.is-active .creator-glint-2{animation-delay:460ms}.creator-scene.is-active .creator-glint-3{animation-delay:520ms}
+.creator-discovery-dot{position:absolute;z-index:1;width:4px;height:4px;border-radius:50%;background:var(--accent);opacity:.25;box-shadow:0 0 8px color-mix(in srgb,var(--accent) 25%,transparent);pointer-events:none;animation:creator-twinkle 6s infinite}
+.creator-discovery-dot-one{left:76%;top:25%}.creator-discovery-dot-two{left:22%;top:67%;width:3px;height:3px;animation-delay:2.8s}
+.creator-scene.is-active .creator-discovery-dot,.creator-scene[data-state=closing] .creator-discovery-dot{visibility:hidden}
+.creator-light-trail{position:absolute;z-index:5;left:43.56%;top:45.67%;width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 9px 2px color-mix(in srgb,var(--accent) 50%,transparent);opacity:0;pointer-events:none}
+.creator-scene:is([data-state=anticipating],[data-state=opening]) .creator-light-trail{animation:creator-flight 480ms ease-out both}
+.creator-scene[data-state=closing] .creator-light-trail{animation:creator-flight 300ms ease-in reverse both}
+.creator-signature{display:block;width:56.454545%;max-width:216px;aspect-ratio:216/65;margin:0 auto;transform:translateX(13%)}
+@keyframes creator-flight{0%{left:43.56%;top:45.67%;opacity:0}20%{opacity:.85}80%{opacity:.65}100%{left:62%;top:18%;opacity:0}}
+@keyframes creator-glint{0%,100%{opacity:0;transform:scale(.5)}45%{opacity:.85;transform:scale(1)}}
+@keyframes creator-twinkle{0%,78%,100%{opacity:.16}85%{opacity:.55}92%{opacity:.2}}
+@media(prefers-reduced-motion:reduce){.creator-scene *{animation:none!important;transition:none!important}.creator-light-trail,.creator-glint,.creator-heart-light{display:none}.creator-discovery-dot{opacity:.2}}
 .about-copy .studio-lead{font-weight:650;font-size:18px;line-height:1.7;margin:14px 0 16px;color:var(--ink);white-space:pre-line}
 .about-section .about-copy h2{font-size:clamp(30px,3vw,42px);line-height:1.4;letter-spacing:-.03em}
 .about-section .about-copy>p:not(.eyebrow):not(.studio-lead){font-size:16px;line-height:1.85}
