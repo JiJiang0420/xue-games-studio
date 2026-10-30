@@ -99,10 +99,20 @@
   scene.append(element('span', 'creator-discovery-dot creator-discovery-dot-one'), element('span', 'creator-discovery-dot creator-discovery-dot-two'), element('span', 'creator-light-trail'));
   const signatureArt = element('span', 'creator-signature');
   signatureArt.setAttribute('aria-hidden', 'true');
-  signatureArt.append(...makeArt('signature', [216, 65]).children);
+  for (const theme of themes) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'creator-art');
+    svg.dataset.creatorTheme = theme;
+    svg.setAttribute('viewBox', '0 0 96 65');
+    svg.setAttribute('focusable', 'false');
+    // Preserve the original handwriting pixels and hide its adjacent caption.
+    const id = `xpg-signature-only-${theme}`;
+    svg.innerHTML = `<defs><clipPath id="${id}"><polygon points="0,0 96,0 96,37 67,37 67,65 0,65"/></clipPath></defs><image href="assets/xpg/cutout/${theme}-signature.png" width="216" height="65" clip-path="url(#${id})"/></svg>`;
+    signatureArt.append(svg);
+  }
   const help = element('span', 'sr-only', '鼠标靠近点亮心形，停留片刻展开星空彩蛋，移开恢复日常。触屏轻触切换；键盘按回车或空格切换，按 Escape 关闭。');
   help.id = 'creator-interaction-help';
-  const signature = element('figcaption', 'sr-only', 'XPG，独立游戏创作者。珊瑚红的 g 形小精灵，带心形镂空与弯尾。');
+  const signature = element('figcaption', 'sr-only', 'XPG。珊瑚红的 g 形小精灵，带心形镂空与弯尾。');
   creator.append(scene, signatureArt, help, signature);
   visual.append(creator);
   copy.querySelector('.signature')?.remove();

@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 6,
   "date": "2026-10-30",
   "project": "GLHF Studio",
   "character": "XPG 创造者化身",
@@ -108,7 +108,7 @@
     }
   ],
   "palette_note": "Samples are exact individual source pixels. The original illustration contains gradients and paper/grain/grid texture, so a sample is not a replacement for the artwork.",
-  "presentation_note": "Compact 1134x600 viewport at source x126/y162. Idle composition translates223px right in the1320x900 source coordinates, then moves back left on activation. Both poses retain identical scale and foot baseline. Fixed centered original signature. A complete independent portal unfolds inside its own right-hand layer, followed by brief glints. No layout shift or text overlap. Reduced-motion resolves directly to resting/open state.",
+  "presentation_note": "Compact 1134x600 viewport at source x126/y162. Idle composition translates223px right in the1320x900 source coordinates, then moves back left on activation. Both poses retain identical scale and foot baseline. Fixed centered original signature. A complete independent portal unfolds inside its own right-hand layer, followed by brief glints. No layout shift or text overlap. Reduced-motion resolves directly to resting/open state. Signature presentation now hides only the adjacent role caption, using a96x65 SVG viewport and polygon0,0 96,0 96,37 67,37 67,65 0,65. Original PNG pixels and handwriting scale remain unchanged.",
   "display_geometry": {
     "runtime_canvas": [
       1320,
@@ -143,12 +143,19 @@
     "shared_pose_scale_and_baseline": true,
     "signature": {
       "size": [
-        216,
+        96,
         65
       ],
       "shared_between_states": true,
       "rgb_matches_source": true,
-      "centered": true
+      "centered": true,
+      "source_size": [
+        216,
+        65
+      ],
+      "visible_text": "XPG",
+      "caption_visible": false,
+      "clip_polygon": "0,0 96,0 96,37 67,37 67,65 0,65"
     },
     "motion_ms": {
       "anticipation": 160,

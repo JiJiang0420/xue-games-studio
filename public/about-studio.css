@@ -46,7 +46,7 @@
 .creator-light-trail{position:absolute;z-index:5;left:43.56%;top:45.67%;width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 9px 2px color-mix(in srgb,var(--accent) 50%,transparent);opacity:0;pointer-events:none}
 .creator-scene:is([data-state=anticipating],[data-state=opening]) .creator-light-trail{animation:creator-flight 480ms ease-out both}
 .creator-scene[data-state=closing] .creator-light-trail{animation:creator-flight 300ms ease-in reverse both}
-.creator-signature{display:block;width:56.454545%;max-width:216px;aspect-ratio:216/65;margin:0 auto;transform:translateX(13%)}
+.creator-signature{display:block;width:25.090909%;max-width:96px;aspect-ratio:96/65;margin:0 auto}
 @keyframes creator-flight{0%{left:43.56%;top:45.67%;opacity:0}20%{opacity:.85}80%{opacity:.65}100%{left:62%;top:18%;opacity:0}}
 @keyframes creator-glint{0%,100%{opacity:0;transform:scale(.5)}45%{opacity:.85;transform:scale(1)}}
 @keyframes creator-twinkle{0%,78%,100%{opacity:.16}85%{opacity:.55}92%{opacity:.2}}
