@@ -2,9 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
-import ts from 'typescript';
+import { stripTypeScriptTypes } from 'node:module';
 const source=readFileSync(new URL('../app/api/agent/route.ts',import.meta.url),'utf8').replace("import { env } from 'cloudflare:workers';","const env=globalThis.testEnv;").replace("import { getChatGPTUser } from '../../chatgpt-auth';","const getChatGPTUser=globalThis.testUser;").replaceAll('import.meta.env.DEV','false');
-const js=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
+// Run the real handlers with the mocked Worker bindings and network calls below.
+const js = stripTypeScriptTypes(source.replace(/^export /gm, '')) + '\nObject.assign(exports, { GET, POST });';
 function setup(fetch=async()=>Response.json({status:'completed',output:[{content:[{type:'output_text',text:'{"text":"正文","memory":"事实"}'}]}]}),user={userId:'owner'}){const ctx={exports:{},testEnv:{OPENAI_API_KEY:'test-private-value'},testUser:async()=>user,process:{env:{}},Response,Request,URL,AbortSignal,fetch,console:{error(){}}};vm.runInNewContext(js,ctx);return ctx.exports;}
 const request=body=>new Request('https://studio.test/api/agent',{method:'POST',headers:{origin:'https://studio.test','Content-Type':'application/json'},body:JSON.stringify(body)});
 const chapter={task:'chapter',context:{chapterCount:1},chapter:{segmentTarget:600}};

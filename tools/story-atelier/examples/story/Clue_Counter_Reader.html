@@ -1,0 +1,121 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>失物招领处 · 阅读版</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f0e7;color:#324337;font:17px/2 'Songti SC',SimSun,serif}
+main{max-width:720px;margin:25px auto;background:#fffcf2;padding:36px 45px;border:1px solid #ddd9c9}
+header,footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font:14px/1.5 sans-serif}
+h1{text-align:center;font-size:28px;font-weight:400;margin:40px 0}article{white-space:pre-wrap;overflow-wrap:anywhere}
+button{font:14px/1.5 sans-serif;padding:12px 15px;background:transparent;border:1px solid #a2ae98;color:inherit;border-radius:5px;cursor:pointer}
+button:disabled{opacity:.64;cursor:default}button:focus-visible{outline:3px solid #9e7937;outline-offset:3px}
+#choices button{display:block;width:100%;text-align:left;margin-top:10px}#choices p{text-align:center}
+#inventory{font:14px/1.6 sans-serif;border-left:3px solid #7d936e;margin:26px 0 16px;padding:6px 12px;overflow-wrap:anywhere}
+footer{margin-top:35px;padding-top:20px;border-top:1px solid #ddd9c9}body.dark{background:#222d29;color:#dce1d6}
+body.dark main{background:#28372e;border-color:#53624b}@media(max-width:600px){main{margin:0;padding:24px 20px}}
+</style></head><body><main><header><span id="book"></span><button id="theme">切换明暗</button></header>
+<h1 id="title"></h1><article id="text"></article><p id="inventory" hidden></p><div id="choices"></div>
+<footer><button id="back">返回</button><button id="restart">重新开始</button><small id="progress"></small></footer></main>
+<script>const book={"title":"失物招领处","type":"分支互动剧情","clues":[{"id":"claim-blue","name":"蓝色存根","initial":false}],"chapters":[{"id":"closing","title":"铁帘落到一半","text":"你拉下铁帘，帘外伸进来一只空琴盒，正好抵在横杠下面。\n\n“我不取琴。”一个女人蹲下来，从半截窗口看你，“我来领一卷磁带。上头没写名字，只画了三条鱼。”\n\n三条鱼你见过。那卷带子在抽屉里搁了一个夏天。值班桌上还摊着一本快要装订归档的交接簿，蓝布封皮底下露出一点不齐的纸边。","choices":[{"label":"先翻交接簿","target":"ledger"},{"label":"先到窗口接待她","target":"window"}]},{"id":"ledger","title":"夹在七月的纸","text":"七月十二日那页比别页厚。你从装订线旁挑出半张蓝纸，纸上画着鱼尾，撕口绕过一处小小的茶渍。\n\n背面是老站员的铅笔字。那天复写纸用完了，他把一张单子当中撕开，交给失主一半，另一半夹在簿里。门口传来琴盒轻轻磕在地砖上的声音。","choices":[{"label":"带上蓝色存根，回到窗口","target":"window","effect":{"clueId":"claim-blue","has":true}},{"label":"把纸夹回原处，回到窗口","target":"window"}]},{"id":"window","title":"隔着一扇窗","text":"女人打开空琴盒。原来里面并不全是空的：角落里，松香盒底下，压着一小片蓝纸。\n\n“我女儿拉琴前总要跺三下脚。别人录完都剪掉，她爸爸说那三下也要留。”她把纸推到窗口中央，拇指一直压着那道旧折痕。\n\n墙上的分针跳了一格。你把磁带放上柜台。","choices":[{"label":"核对两半存根，把磁带交给她","target":"return-tape","condition":{"clueId":"claim-blue","has":true},"effect":{"clueId":"claim-blue","has":false}},{"label":"开一张待领单，约好明天再来","target":"tomorrow"}]},{"id":"return-tape","title":"三下跺脚","text":"两片鱼尾合起来，茶渍成了一个不太圆的月亮。你在交接簿上签字，把两半蓝纸一同装进磁带盒。\n\n女人问能不能借一下窗口里的旧录音机。你按下播放键。先是三下跺脚，第三下特别响，接着有个男人很远地说：“好了，开始吧。”\n\n她听到这里就按了停止。“后面的，回家再放。”她把磁带放进琴盒，终于让你拉下了铁帘。","choices":[]},{"id":"tomorrow","title":"明早八点","text":"你把明天的第一行登记留给她，写上八点，用力描了两遍。\n\n“门口那家豆浆铺七点半开。”你把待领单递出去，“要是到早了，可以先坐一会儿。”\n\n“我知道。”她收好单子，“原来拉完琴，也是去那里。”\n\n闭站后，你拿一只干净的信封把磁带包起来，摆在下一班抬眼就能看见的地方。","choices":[]}]};(function mountStoryReader(book, engine) {
+  const byId = id => document.getElementById(id);
+  const run = engine.session();
+  function render() {
+    const { step, history } = run;
+    const chapter = book.chapters[step.index];
+    byId('book').textContent = book.title;
+    byId('title').textContent = chapter?.title || '暂无章节';
+    byId('text').textContent = chapter?.text || '';
+    byId('progress').textContent = `节点 ${chapter ? step.index + 1 : 0} / ${book.chapters.length}`;
+    const inventory = byId('inventory');
+    inventory.hidden = !book.clues.length;
+    inventory.textContent = `持有线索　${step.clues.map(engine.nameOf).join('、') || '无'}`;
+    const box = byId('choices');
+    box.replaceChildren();
+    const options = engine.options(step);
+    for (const [index, route] of options.entries()) {
+      const button = document.createElement('button');
+      button.textContent = route.reason ? `${route.label}　${route.reason}` : `${route.label} →`;
+      button.disabled = !route.next;
+      button.onclick = () => { if (run.choose(index)) refresh(); };
+      box.append(button);
+    }
+    if (!options.length || options.every(route => !route.next)) {
+      const message = document.createElement('p');
+      message.textContent = options.length ? '当前没有可走的选项，可以返回上一节点。' : '— 全文完 —';
+      box.append(message);
+    }
+    byId('back').disabled = !history.length;
+  }
+  function refresh() {
+    render();
+    window.scrollTo(0, 0);
+  }
+  byId('back').onclick = () => { if (run.back()) refresh(); };
+  byId('restart').onclick = () => { run.restart(); refresh(); };
+  byId('theme').onclick = () => document.body.classList.toggle('dark');
+  render();
+})(book,(function createStoryEngine(book) {
+  const chapters = book.chapters;
+  const clues = book.clues || [];
+  const names = new Map(clues.map(clue => [clue.id, clue.name]));
+  const chapterIndex = new Map(chapters.map((chapter, index) => [chapter.id, index]));
+  const startingClues = clues.filter(clue => clue.initial).map(clue => clue.id).sort();
+
+  function start() {
+    return { index: 0, clues: [...startingClues] };
+  }
+
+  function options(step) {
+    const chapter = chapters[step.index];
+    if (!chapter) return [];
+    const choices = chapter.choices || [];
+    if (!choices.length && book.type !== '分支互动剧情' && step.index + 1 < chapters.length) {
+      return [{ label: '下一章', next: { index: step.index + 1, clues: step.clues }, reason: '' }];
+    }
+    return choices.map(choice => {
+      const { condition, effect } = choice;
+      const index = chapterIndex.get(choice.target);
+      let reason = '';
+      if (index === undefined) reason = '目标章节不存在';
+      else if ([condition, effect].some(rule => rule && (!names.has(rule.clueId) || typeof rule.has !== 'boolean'))) {
+        reason = '选项引用的线索无效';
+      } else if (condition && step.clues.includes(condition.clueId) !== condition.has) {
+        const name = names.get(condition.clueId);
+        reason = condition.has ? `需要持有「${name}」` : `需要尚未持有「${name}」`;
+      }
+
+      if (reason) return { label: choice.label, reason, next: null };
+      let nextClues = step.clues;
+      if (effect && nextClues.includes(effect.clueId) !== effect.has) {
+        nextClues = effect.has
+          ? [...nextClues, effect.clueId].sort()
+          : nextClues.filter(id => id !== effect.clueId);
+      }
+      return { label: choice.label, reason: '', next: { index, clues: nextClues } };
+    });
+  }
+
+  function session() {
+    let step = start();
+    const history = [];
+    return {
+      get step() { return step; },
+      history,
+      choose(index) {
+        const next = options(step)[index]?.next;
+        if (!next) return false;
+        history.push(step);
+        step = next;
+        return true;
+      },
+      back() {
+        if (!history.length) return false;
+        step = history.pop();
+        return true;
+      },
+      restart() {
+        history.length = 0;
+        step = start();
+      }
+    };
+  }
+  return { start, options, session, nameOf: id => names.get(id) };
+})(book));</script></body></html>

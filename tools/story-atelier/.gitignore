@@ -54,3 +54,6 @@ yarn-error.log*
 /playwright-report/
 *.zip
 *.tar.gz
+
+# Versioned download for the offline editor
+!/offline/Story_Atelier_V1.1.zip

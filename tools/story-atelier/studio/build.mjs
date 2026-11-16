@@ -1,7 +1,17 @@
-import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
-const root=new URL('./',import.meta.url);
-let html=readFileSync(new URL('index.html',root),'utf8');
-html=html.replace('<!--STYLE-->',()=>'<style>'+readFileSync(new URL('style.css',root),'utf8')+'</style>');
-html=html.replace('<!--SCRIPT-->',()=>'<script>(()=>{'+readFileSync(new URL('knowledge.js',root),'utf8')+'\n'+readFileSync(new URL('app.js',root),'utf8')+'})();</script>');
-mkdirSync(new URL('../public',root),{recursive:true});writeFileSync(new URL('../public/studio.html',root),html);
-console.log('Built self-contained studio.html');
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+
+const read = relative => readFileSync(new URL(relative, import.meta.url), 'utf8');
+const files = ['knowledge.js', 'branches.js', 'clue-editor.js', 'reader.js', 'app.js'];
+const sample = JSON.stringify(JSON.parse(read('../examples/story/Clue_Counter.json')))
+  .replaceAll('<', '\\u003c').replaceAll('\u2028', '\\u2028').replaceAll('\u2029', '\\u2029');
+const script = 'const CLUE_EXAMPLE = ' + sample + ';\n' + files.map(read).join('\n');
+const html = read('index.html')
+  .replace('<!--STYLE-->', () => '<style>' + read('style.css') + '</style>')
+  .replace('<!--SCRIPT-->', () => '<script>(() => {\n' + script + '\n})();</script>');
+
+for (const path of ['../public/studio.html', '../offline/Story_Atelier_Offline.html']) {
+  const dest = new URL(path, import.meta.url);
+  mkdirSync(new URL('./', dest), { recursive: true });
+  writeFileSync(dest, html);
+}
+console.log('已生成工作台和离线编辑版');
