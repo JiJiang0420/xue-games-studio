@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 import {webcrypto} from 'node:crypto';
 const source=readFileSync(new URL('../studio/app.js',import.meta.url),'utf8').replace(/\ninit\(\);\s*$/,'');
-const studio = ['knowledge.js', 'branches.js', 'clue-editor.js', 'reader.js']
+const studio = ['knowledge.js', 'branches.js', 'clue-editor.js', 'reader.js', 'writing.js', 'writing-editor.js']
   .map(name => readFileSync(new URL('../studio/' + name, import.meta.url), 'utf8')).join('\n');
 const fixture = JSON.parse(readFileSync(new URL('../examples/story/Clue_Counter.json', import.meta.url), 'utf8'));
 function boot(){const ctx=vm.createContext({CLUE_EXAMPLE:structuredClone(fixture),crypto:webcrypto,URL,console,document:{addEventListener(){},querySelector(){return null}},window:{addEventListener(){}},setTimeout(){},clearTimeout(){}});vm.runInContext(studio+'\n'+source+'\nstate=seed();render=()=>{};toast=()=>{};save=()=>{};persistNow=async()=>true;',ctx);return{ctx,run:s=>vm.runInContext(s,ctx),get:s=>JSON.parse(vm.runInContext('JSON.stringify('+s+')',ctx))};}

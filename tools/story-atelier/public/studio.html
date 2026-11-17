@@ -14,6 +14,26 @@
 .reader-clues strong{font-size:12px}.reader-clues span{font-size:14px}
 .reader .choice small{display:block;font-size:12px}.reader .choice:disabled{opacity:.68;border-style:dashed}.reader-end{text-align:center}.reader.dark .choice:disabled{opacity:.8}
 @media(max-width:680px){.clue-fields{grid-template-columns:1fr;gap:4px}.clue-row{grid-template-columns:minmax(0,1fr) auto}.clue-name{grid-column:1/-1}.clue-initial{padding:4px 0}}
+
+.writing-start{position:relative;z-index:1;width:min(70%,660px)}
+.writing-start h2{margin:0 0 12px}.writing-start h2 label{font:inherit;color:inherit}
+.writing-start #writing-seed{resize:vertical;min-height:88px;background:#fffef8;font-family:var(--serif);font-size:17px;line-height:1.65}
+.writing-hero .hero-art{right:16px;pointer-events:none}
+.writing-controls{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin:12px 0 4px}
+.writing-controls label{display:grid;gap:4px;font-size:12px;color:#465a48;min-width:0;max-width:100%}
+.writing-controls select{padding:6px 9px;width:auto;max-width:100%;background:#fffef8;font-size:13px}
+.writing-note,.writing-hero p.writing-note{margin:6px 0 12px;font-size:12px;line-height:1.6;color:#536353}
+.chapter-writing{margin:20px 0 8px;padding:17px 18px;border:1px solid #c7d1bf;border-radius:8px;background:#f3f5ed;scroll-margin:22px}
+.chapter-writing h3{margin:0;font-size:18px}
+.chapter-writing [hidden]{display:none}
+.writing-status{margin:10px 0 0}
+.writing-status:empty{display:none}
+.writing-preview{margin-top:14px;padding-top:14px;border-top:1px solid #c7d1bf}
+.writing-preview label{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.writing-preview textarea{resize:vertical;margin:7px 0 10px;font-family:var(--serif);font-size:16px;line-height:1.8;background:#fffef8}
+#writing-stale{margin-bottom:10px}
+@media(max-width:950px){.writing-start{width:min(82%,620px)}.writing-hero .hero-art{opacity:.3}}
+@media(max-width:680px){.writing-start{width:100%}.chapter-writing{padding:13px}.writing-controls{gap:7px}.writing-controls label{flex:1 1 126px}.writing-controls select{width:100%}}
 </style></head><body><div id="app"></div><div id="modal-root"></div><div id="toast-root" role="status" aria-live="polite"></div><script>(() => {
 const CLUE_EXAMPLE = {"id":"sample-clue-counter","title":"失物招领处","idea":"小站即将打烊。一位提着空琴盒的老妇人来领一卷没有署名的录音带，交接簿里夹着当年的半张存根。","type":"分支互动剧情","styles":["简洁写实"],"tags":["抉择","亲情"],"target":1200,"chapterCount":5,"pov":"第二人称玩家视角","tone":"平静，克制","constraints":"","world":"末班车之后的小站，失物窗口即将关门。","characters":[],"scenes":[],"knowledge":[],"clues":[{"id":"claim-blue","name":"蓝色存根","initial":false}],"plan":"是否在关窗前翻阅交接簿，决定能不能当晚核对存根。","review":"","color":"blue","created":1794787200000,"updated":1794787200000,"job":null,"chapters":[{"id":"closing","title":"铁帘落到一半","outline":"决定直接接待来客，还是先查交接簿。","text":"你拉下铁帘，帘外伸进来一只空琴盒，正好抵在横杠下面。\n\n“我不取琴。”一个女人蹲下来，从半截窗口看你，“我来领一卷磁带。上头没写名字，只画了三条鱼。”\n\n三条鱼你见过。那卷带子在抽屉里搁了一个夏天。值班桌上还摊着一本快要装订归档的交接簿，蓝布封皮底下露出一点不齐的纸边。","memory":"来客要认领一卷画着三条鱼的磁带。","choices":[{"label":"先翻交接簿","target":"ledger"},{"label":"先到窗口接待她","target":"window"}]},{"id":"ledger","title":"夹在七月的纸","outline":"发现存根，决定是否带走。","text":"七月十二日那页比别页厚。你从装订线旁挑出半张蓝纸，纸上画着鱼尾，撕口绕过一处小小的茶渍。\n\n背面是老站员的铅笔字。那天复写纸用完了，他把一张单子当中撕开，交给失主一半，另一半夹在簿里。门口传来琴盒轻轻磕在地砖上的声音。","memory":"找到纸质领物存根。","choices":[{"label":"带上蓝色存根，回到窗口","target":"window","effect":{"clueId":"claim-blue","has":true}},{"label":"把纸夹回原处，回到窗口","target":"window"}]},{"id":"window","title":"隔着一扇窗","outline":"不同的调查经历在窗口汇合。","text":"女人打开空琴盒。原来里面并不全是空的：角落里，松香盒底下，压着一小片蓝纸。\n\n“我女儿拉琴前总要跺三下脚。别人录完都剪掉，她爸爸说那三下也要留。”她把纸推到窗口中央，拇指一直压着那道旧折痕。\n\n墙上的分针跳了一格。你把磁带放上柜台。","memory":"来客出示她保管的半张蓝纸。","choices":[{"label":"核对两半存根，把磁带交给她","target":"return-tape","condition":{"clueId":"claim-blue","has":true},"effect":{"clueId":"claim-blue","has":false}},{"label":"开一张待领单，约好明天再来","target":"tomorrow"}]},{"id":"return-tape","title":"三下跺脚","outline":"核对后将存根随磁带一起交给来客。","text":"两片鱼尾合起来，茶渍成了一个不太圆的月亮。你在交接簿上签字，把两半蓝纸一同装进磁带盒。\n\n女人问能不能借一下窗口里的旧录音机。你按下播放键。先是三下跺脚，第三下特别响，接着有个男人很远地说：“好了，开始吧。”\n\n她听到这里就按了停止。“后面的，回家再放。”她把磁带放进琴盒，终于让你拉下了铁帘。","memory":"磁带已经交还，蓝色存根随磁带交出。","choices":[]},{"id":"tomorrow","title":"明早八点","outline":"留存磁带，为来客开具待领单。","text":"你把明天的第一行登记留给她，写上八点，用力描了两遍。\n\n“门口那家豆浆铺七点半开。”你把待领单递出去，“要是到早了，可以先坐一会儿。”\n\n“我知道。”她收好单子，“原来拉完琴，也是去那里。”\n\n闭站后，你拿一只干净的信封把磁带包起来，摆在下一班抬眼就能看见的地方。","memory":"磁带仍在窗口，来客约好次日领取。","choices":[]}]};
 const KNOWLEDGE_SEED=[
@@ -659,6 +679,525 @@ body.dark main{background:#28372e;border-color:#53624b}@media(max-width:600px){m
 <script>const book=${data};(${mountStoryReader.toString()})(book,(${createStoryEngine.toString()})(book));<\/script></body></html>`;
 }
 
+function writingStamp(text) {
+  let value = 2166136261;
+  for (let i = 0; i < text.length; i++) value = Math.imul(value ^ text.charCodeAt(i), 16777619);
+  return `${text.length}.${value >>> 0}`;
+}
+
+function clipManuscript(text, head, tail) {
+  return text.length <= head + tail ? text : `${text.slice(0, head)}\n〔中段省略〕\n${text.slice(-tail)}`;
+}
+
+function writingInput(project, chapter, direction) {
+  let context;
+  try { context = contextFor(project, chapter); }
+  catch (error) {
+    if (error.code !== 'CYCLIC_BRANCHES') throw error;
+    context = contextFor(project);
+    context.branchContext = '本作包含循环，来路可能不同。只把当前章原文和作者的事实记录作为已经发生的事情。';
+  }
+  const trim = (value, limit) => String(value || '').slice(0, limit);
+  const cards = items => items.slice(0, 8).map(item => Object.fromEntries(
+    Object.entries(item).filter(([key, value]) => key !== 'id' && typeof value === 'string').map(([key, value]) => [key, trim(value, 350)])
+  ));
+  const sources = retrieve(project, [chapter.text.slice(-1600), chapter.outline, project.idea, project.constraints].join(' '), 3);
+  return {
+    mode: chapter.text.trim() ? '续写正文' : '写故事开头', direction,
+    idea: clipManuscript(project.idea, 2000, 1200),
+    chapter: {title: chapter.title, outline: trim(chapter.outline, 1700), memory: trim(chapter.memory, 1200)},
+    title: project.title, type: project.type, styles: project.styles, tags: project.tags, pov: project.pov, tone: project.tone,
+    world: trim(project.world, 1500), constraints: trim(project.constraints, 1500),
+    plan: trim(project.plan, 1500), characters: cards(context.characters), scenes: cards(context.scenes),
+    commonPast: context.pathFacts.slice(-4).map(c => ({title: c.title, facts: trim(c.memory, 650)})),
+    previousTail: context.previousTail.slice(-1400), branchGuidance: context.branchContext,
+    exits: context.outline[project.chapters.indexOf(chapter)]?.choices.map(({label, condition, effect}) => ({label, condition, effect})) || [],
+    ...(context.clueGuidance ? {clueGuidance: context.clueGuidance} : {}),
+    sources: sources.map(({title, excerpt}) => ({title, excerpt: trim(excerpt, 450)})),
+    manuscript: clipManuscript(chapter.text, 1400, 6800)
+  };
+}
+
+function protagonist(input, text) {
+  const narrative = text.replace(/[“「『"][^”」』"\n]*[”」』"]/gu, '');
+  if (/(?:^|[，。！？：、\s])我(?!们)|我(?:把|将|伸|听|看|走|问|摸|的|没|在|却|才|和|正|得|能|只|还|不)/u.test(narrative)) return '我';
+  if (/(?:^|[，。！？：、\s])你(?:把|将|伸|听|看|走|问|摸|的|没|在|却|才|正|得|能|只|还|不)/u.test(narrative)) return '你';
+  const known = input.characters.filter(c => c.name && narrative.includes(c.name)).sort((a,b) => narrative.lastIndexOf(b.name) - narrative.lastIndexOf(a.name));
+  if (known.length) return known[0].name;
+  const surnames = '赵钱孙李周吴郑王冯陈褚卫蒋沈韩杨朱秦尤许何吕施张孔曹严华金魏陶姜戚谢邹喻柏苏潘葛范彭郎鲁韦马苗方俞任袁柳唐费薛雷贺倪汤殷罗郝安傅常顾孟黄萧尹姚邵汪毛宋熊舒屈项董梁杜阮席季贾江郭林钟徐邱高夏蔡田胡霍黎叶余陆白程肖丁莫梅温齐岳池蔺裴闻段桑辛穆路蓝纪石岑洛';
+  const avoid = /^(?:钟声|钟表|钟面|钟楼|白天|白纸|白布|石头|石阶|石门|门口|雷声|风声|马车|江边|江水|陆地|雨水|余下|温度|金属|林子|林间|树林|叶子|黄灯|陈列|沈默|方才|方向|常常|高处|高台|段落|周围|最后|蓝色|宋体|桌上|手上|声响|桥上)$/u;
+  const names = [...narrative.matchAll(new RegExp(`(?:欧阳|司马|上官|诸葛|[${surnames}])[\\p{Script=Han}]{1,2}?(?=(?:忽然|终于|轻轻|慢慢|小心|悄悄|第一次|只好|正要|刚刚|已经|没有|正在|一把|把|将|在|是|来到|走|赶|站|推|守|听|看|问|说|伸|摸|从|抬|接|拆|打开|发现|转|递|按|坐|醒|捡|找到|拿|收|捏|写|翻|登|捧|试|跟|盯|拉|掀|攥|敲|皱|认|烧|烤|修|追|收到|决定|必须|想要|要在|要把|带着|听见|盼|等|发觉|拨|系|，|。|：))`, 'gu'))].map(m => m[0]).filter(n => !avoid.test(n) && !/[的在把着是了]/u.test(n));
+  if (names.length) return names.at(-1);
+  const nickname = narrative.match(/(?:阿[\p{Script=Han}]|小[满禾棠雨梨雪兰夏晴川安宁北洛六九七云星秋春冬梅岚鹿桃石竹])(?=把|在|将|走|站|问|说|拿|握|看|听|从|捧|来到|发现|打开|抬|推|翻|伸|蹲|捏|，|。)/gu);
+  if (nickname?.length) return nickname.at(-1);
+  const roles = narrative.match(/钟表匠|修钟人|守塔人|守夜人|面包师|糕点师|邮递员|邮差|宇航员|航天员|潜水员|修理工|调音师|园丁|厨师|船长|水手|医生|护士|老师|学生|女孩|男孩|少年|姑娘|外婆|奶奶|母亲|父亲|机器人|小狐狸|小兔子/gu);
+  if (roles?.length) return roles[0];
+  const pronouns = narrative.match(/[她他它](?!们)/gu);
+  if (pronouns?.length) return pronouns.at(-1);
+  if (input.characters[0]?.name) return input.characters[0].name;
+  if (input.pov?.includes('第一人称')) return '我';
+  if (input.pov?.includes('第二人称')) return '你';
+  return '那人';
+}
+
+function storyFrames() {
+  return [
+    {words:'信封 信纸 邮戳 邮票 邮筒 信箱 信件 回信 明信片 收件人 邮局 邮差 门牌 收信 封信 寄来 寄信 寄出 退信 退件', object:'信封 信纸 邮票 明信片 信件 邮戳 回信', defaultObject:'信封', focus:'地址', beats:[
+      '{人}把{物}斜向亮处。墨水下面还有一道笔痕，写到门牌号的最后一笔时，笔尖把纸划破了。',
+      '“按头一个地址投，还是按改过的投？”柜台里的人问。{人}取回邮资，在背面写下自己的地址。“送不到，就退给我。”',
+      '退件栏本来空着。{人}刚要填上日期，才看见底下垫着薄薄一层复写纸。上一行压出来的是今天，字迹却是小时候的。',
+      '门内的人只把信取走一半，留着一角给{人}捏着。隔了许久，那只手松开，把一张写满字的收条从门缝里推出来。'
+    ]},
+    {words:'面包 面团 酵母 酵种 烤炉 烤箱 吐司 面粉 发酵 饼干 糕点 馒头 烘焙 揉面',object:'面包 面团 酵种 酵母 吐司 面粉 饼干 馒头 糕点',defaultObject:'面团',focus:'炉温',beats:[
+      '{人}在案板上撒了两道面粉，一道留着比照，一道用手指轻轻推开。风从本该封死的炉底钻进来，把第二道吹成了缺口。',
+      '“先别卖。”{人}把头一炉掰开，脆皮在两人之间响了一声。等在门口的人掏钱的手停住了，伸出一根指头，指着里面那块没发起来的面。',
+      '{人}关掉炉火，把{物}留下了一小份。刚合上盖，盖沿便顶起一条细缝。隔壁案板上，同样一只空盒也跟着轻轻跳了一下。',
+      '最后一只烤盘刚好装得下两份。{人}空出一半，递过刮板。那双总在门外等着的手终于伸过来，在面粉里留下四个清楚的指印。'
+    ]},
+    {words:'信号 无线电 呼号 频率 通讯 通信 电台 电波 天线 宇航员 船舱 求救信号 求救声 失联 舱门 舱壁 太空 飞船 轨道 星舰 卫星 空间站 气闸 探测器',object:'电台 天线 话筒 接收器 耳机 呼叫器 探测器 舱门 终端',defaultObject:'接收器',focus:'回声',beats:[
+      '{人}在两声短响中间敲了一下，随即松手。下一轮，空白处多出相同的一拍。等到第三轮，那一拍先响了。',
+      '“收到的话，把最后一个数减一。”{人}等着。回答隔了很久才传来。报出的数字又小了一位，后面还有一道声音在数。',
+      '{人}断开电源，噪声停了。那组短响还在，沿着金属一格一格移近。等{人}把手贴上去，另一边也贴上来什么，不再敲了。',
+      '记录只剩最后一行。{人}没有填上约定的结束语，留了三个等长的空格。另一端先填满两个，停了一会儿，把最后一个还了回来。'
+    ]},
+    {words:'灯塔 海港 渔船 潮水 潮汐 退潮 涨潮 浮标 船锚 航道 海雾 海岛 码头 轮渡 海面 船长 海底 航海 船桨',object:'灯塔 浮标 船锚 船桨 船灯 渔船 罗盘 航标',defaultObject:'浮标',focus:'水线',beats:[
+      '{人}在石阶边刻下一道水痕。浪退了三次，每次都刚好露出那道刻痕。只有靠岸的那一小片水，反而越积越高。',
+      '“你数的是浪，还是浪中间的空当？”{人}重新数了一遍。在第三个空当里，有人用船桨轻轻叩了两声。离岸很近。',
+      '水线退到旧系缆桩下，露出一截绳头。{人}伸手去拾，绳上却传来一个活结收紧的力道。雾里有人先一步攥住了另一头。',
+      '{人}把那截绳在手腕上绕了一圈，又解下来，系到石桩上。对面试着扯了两下。直到第二下落稳，岸上的人才敢松手。'
+    ]},
+    {words:'钟表 怀表 挂钟 闹钟 钟楼 钟声 时针 分针 秒针 指针 表盘 齿轮 钟匠 修钟 修表 表匠 钟面 停摆',object:'怀表 挂钟 闹钟 秒针 时针 分针 表盘 钟面 齿轮',defaultObject:'钟面',focus:'刻度',beats:[
+      '{人}让{物}留在原处，用指节轻敲桌沿。第一声和滴答挨在一起，第二声已经错开半拍。慢的竟是自己的手。',
+      '“它上次准时是什么时候？”{人}问。对面的人张开嘴，先看了一眼空着的手腕，才说：“就是我把它交给你的那天。”',
+      '下一声报时迟迟没来。{人}俯身去听，听见停住的那一格里，齿轮还在独自走动。一张折得极窄的纸从背板下慢慢探出头来。',
+      '{人}用铅笔把两个时刻都记下，故意空出中间一行。过了一阵，那行纸轻轻鼓起来，纸背有支笔正一笔一画地写。'
+    ]},
+    {words:'琴弦 钢琴 小提琴 大提琴 乐谱 琴谱 音符 演奏 排练 调音师 节拍 合唱 琴键 笛子 乐器 歌声 八音盒',object:'琴弦 琴键 乐谱 琴谱 笛子 八音盒 节拍器',defaultObject:'乐谱',focus:'休止符',beats:[
+      '{人}把那小节又数了一遍，到该响的地方偏偏空着。等余音落尽，墙的另一面把空下的一拍送了回来。',
+      '“这里原来有个换气的地方。”{人}停下手。旁边的人先是摇头，随后很轻地吸了一口气，恰好赶在下一拍之前。',
+      '{人}故意早进了一拍。跟着的声音没有乱，仍按原来的速度往前走。直到这一刻，两条原本叠在一起的旋律才听得分明。',
+      '最后一小节空着。{人}先写下一枚休止符，把笔顺着桌面推过去。等了半晌，另一只手才添上第一个音。'
+    ]},
+    {words:'种子 种籽 花盆 树苗 苗圃 发芽 温室 根须 幼苗 种植 种花 园丁 栽树 果树 花园 菜园',object:'种子 种籽 树苗 花盆 幼苗 果核 花籽',defaultObject:'种子',focus:'土痕',beats:[
+      '{人}只浇了半边的土，另半边仍是干的。没过一会儿，一线深色却从干土里先洇出来，弯弯曲曲地，直通墙根。',
+      '“埋多深？”{人}问。对方用手指比了一截，又收回去。“浅一点。万一它想回来，还能找着路。”',
+      '{人}蹲下来把浮土慢慢拨开。那条看着像根的细线从土里伸出来，末梢竟打着一个活结。地底下有谁轻轻扯了一下。',
+      '旧标签翻过来，还有一面能写。{人}把日期留在自己这边，将名字那一面空给明天，再把标签牢牢压进湿土。'
+    ]},
+    {words:'车票 车厢 站台 月台 火车 列车 地铁 铁轨 末班车 车站 检票 候车 乘客',object:'车票 票根 站牌 时刻表 车门',defaultObject:'车票',focus:'站名',beats:[
+      '{人}把鞋尖移到白线后面。广播报到第三遍，吞掉的仍是同一个站名。月台边却有人起身，像是偏偏听懂了那段空白。',
+      '“这趟还停吗？”{人}问。检票的人没抬头，把掌心里的小圆孔递过来。“票打过了，你看孔的位置。”',
+      '车轮声从轨道远处传来，眼前的玻璃却先映出一节亮着灯的车厢。{人}往旁边让了一步，倒影里的那个位置还是满的。',
+      '发车铃响到一半，{人}折回长椅，把给另一个人留的地方擦干净。铃停了。身边的椅面轻轻向下沉了一点。'
+    ]},
+    {words:'账本 名册 档案 登记 编号 失物 柜台 存根 签收 名簿 账簿 名单 收据 卷宗',object:'账本 名册 档案 存根 名簿 收据 登记簿 名单 卷宗',defaultObject:'登记簿',focus:'空栏',beats:[
+      '{人}把{物}挪到亮处。那一栏擦得太干净，旁边的格线上反而留着半个字。笔画朝着空格外头，像是写字的人中途换过手。',
+      '“这笔是谁签的？”{人}用指腹压住日期。对面的人只看了笔画的走向，便把原本伸出来的右手藏到了背后。',
+      '下一行还没人填。{人}从背面摸到一道凸痕，翻过纸来，沿着凸起描了一遍。那是一个刚刚才听见的名字。',
+      '{人}另起一行，把看见的和猜到的分开记。轮到签名时，对面的手第一次没往后缩，慢慢在旁边添了一笔。'
+    ]}
+  ];
+}
+
+function wordHits(text, list) {
+  return list.split(' ').map(word => ({word, at: text.lastIndexOf(word)})).filter(hit => hit.at >= 0);
+}
+
+function mentionedObject(text) {
+  const found = [...text.matchAll(/(?:这|那|一)(?:件|只|枚|盏|把|张|串|盒|条|面|块|柄|支|扇|册|本|根|颗|顶|座|匹|扇|双|团)([\p{Script=Han}]{1,14})/gu)];
+  for (const match of found.reverse()) {
+    const phrase = match[1].split(/忽然|突然|正要|竟然|缓缓|轻轻|一动|里面|上面|底下|旁边|开始|躺在|出现|发出|落在|递给|装着|藏着|打开|贴在|滑进|滚到|停在|伸出|已经|不会|不见|还在|却|正|把|被|从|往|塞|拿|递|扔|放|掉|向|又|竟|就|会|在|已|和|与|朝|时|仍|也/u)[0].replace(/(?:了|着|的|里|上|下)$/u,'');
+    if (phrase.length >= 1 && phrase.length <= 8 && !/^[他她它我你这那第]/u.test(phrase)) return phrase;
+  }
+  const after = text.match(/(?:捡起|握紧|攥紧|握着|捏着|拿着|举起|拾起|递过|递来|递给我|翻开|戴上|推开|抽出|藏起)([\p{Script=Han}]{2,7})(?=[。，！？、“”\s]|$)/u);
+  return after?.[1]?.replace(/^(?:那|这)/u, '') || '';
+}
+
+function offlineDraft(input, variant = 0) {
+  const source = input.manuscript.trim() || input.idea.trim() || input.chapter.outline || input.previousTail || input.commonPast.at(-1)?.facts || input.world || [...input.characters, ...input.scenes].map(x => x.name).join('，');
+  const tail = source.slice(-500);
+  const basis = [input.idea, input.chapter.outline, input.previousTail, input.world, ...input.characters.map(c => c.role || ''), ...input.scenes.map(s => s.name || '')].filter(Boolean).join(' ');
+  const ranked = [...storyFrames(),familyDrafts()].map(frame => {
+    const hits = wordHits(tail, frame.words);
+    const score = hits.reduce((sum, h) => sum + 8 + (h.at > tail.length - 85 ? 3 : 0), 0) + Math.min(6, wordHits(basis,frame.words).length * 2);
+    return {frame, score};
+  }).sort((a,b) => b.score-a.score);
+  const frame = ranked[0].score ? ranked[0].frame : null;
+  const person = protagonist(input, source.slice(0, 200) + '。' + tail);
+  const objectHits = frame ? wordHits(tail, frame.object).sort((a,b) => b.at-a.at) : [];
+  const item = objectHits[0]?.word || mentionedObject(tail) || frame?.defaultObject || '';
+  const places = [...tail.matchAll(/灯塔|邮局|烘焙坊|面包房|面包店|厨房|琴房|剧院|温室|医务室|厨房|图书馆|驾驶舱|控制室|指挥室|空间站|船舱|码头|车站|月台|教室|医院|裁缝铺|公寓|阁楼|村口|茶馆|森林|山谷|天台|桥头|城门|山洞|雪原|沙漠|冰原|花园/gu)];
+  const place = places.at(-1)?.[0] || input.scenes.find(x => x.name && source.includes(x.name))?.name || input.scenes[0]?.name || '';
+  const detail = tail.split(/[，。；！？\n“”「」『』]/u).map(x => x.trim()).filter(x => x.length >= 2).at(-1) || tail.trim();
+  const subject = item || (place ? `${place}里的动静` : '这件事');
+  const quote = detail.length > 22 ? detail.slice(-22) : detail;
+  const generic = [
+    `{人}把注意力又放回${subject}上。方才所有人都在等一个答复，只有角落里的那位，在事情发生前就往旁边让了半步。`,
+    `“你什么时候知道的？”{人}问。对方起先说是刚才，说到一半又改口：“在你提起${item || place || '这件事'}以前。”那半句改掉的话，谁都听清了。`,
+    `有人试着复述刚才的经过，说到“${quote}”却卡住了。{人}请旁人再讲一次。两个人漏掉的恰好是同一处，目光却投向截然相反的方向。`,
+    `{人}没有催促，先把自己能做的那一步做了。一直等着看结果的人退开一点，让出位置。留下来的那位开了口，声音比方才低：“还来得及，跟我走。”`
+  ];
+  const beats = frame?.beats || generic;
+  const fill = line => line.replaceAll('{人}',person).replaceAll('{物}',item || frame?.defaultObject || '那件东西');
+  const start = {'顺势推进':0,'用对话推进':1,'加入转折':2}[input.direction] ?? 0;
+  const order = [0,1,2,3].map((_,i) => (start + variant + i) % beats.length);
+  const fresh = order.filter(i => !input.manuscript.includes(fill(beats[i])));
+  const specific = groundedBeat(input, tail, person, item, place, frame);
+  const grounded = specific && !input.manuscript.includes(specific);
+  const first = fresh[0] ?? order[0];
+  const second = fresh.find(i => i !== first && (i !== 2 || first !== 0)) ?? fresh.find(i => i !== first);
+  const paragraphs = [];
+  if (grounded) paragraphs.push(specific);
+  else if (!input.manuscript.trim() && place) paragraphs.push(`${place}。最先察觉异样的是${person === '那人' ? '那个一直没作声的人' : person}。`);
+  if (!fresh.length) {
+    // Once these beats have been used, stay with the writer's last new words instead of replaying the scene.
+    const other = generic.map(fill).filter(line => !input.manuscript.includes(line));
+    if (other.length) return [other[variant % other.length], other[(variant + 1) % other.length]].filter((line,i,a) => a.indexOf(line) === i).join('\n\n');
+    throw Error('这一段的离线规则已经用尽。可写入一个新动作，或选择本机模型继续发展情节。');
+  }
+  paragraphs.push(fill(beats[first]));
+  if (!grounded && second !== undefined) paragraphs.push(fill(beats[second]));
+  return paragraphs.join('\n\n');
+}
+
+function groundedBeat(input, source, person, item, place, frame) {
+  const tail = source.slice(-800);
+  const says = [...tail.matchAll(/[“「『"]([^”」』"\n]{2,75})[”」』"]/gu)].at(-1)?.[1];
+  const postal = frame?.focus === '地址';
+  if (postal && /明[天日]|未来|[十百两三五\d]+年后|下周|下星期/u.test(tail)) {
+    const date = tail.match(/明天|明日|未来|[十百两三五\d]+年后|下周[一二三四五六日]?|下星期[一二三四五六日]?/u)[0];
+    return `${person}先去翻戳记盒。标着${date}的那一格还封在纸套里，纸边连一点折痕也没有。再对照${item || '信封'}上的印子，缺的偏偏是旧戳才有的那一角。`;
+  }
+  if (postal && /搬走|搬离|迁走|迁出|查无此人|无人签收|已经去世|早已去世/u.test(tail)) {
+    return `${person}顺着旧门牌往下摸，摸出两个钉孔。新住户从门里递出一只饼干盒，里面每封退信都朝向同一面，等着谁来把它们一起带走。`;
+  }
+  if (/回到|送回|原封不动|回来了|重又出现|重新出现/u.test(tail) && /每[次天晚日周]|每天|总会|卖出|送出|又一次|第二天/u.test(tail) && item) {
+    const when = tail.match(/黎明|天亮|黄昏|午夜|清晨|傍晚|打烊|日落|子夜/u)?.[0] || '隔天';
+    if (frame?.focus === '炉温') return `${person}认得这只${item}，底下那粒烤焦的盐还是昨晚留下的。第二回把它卖出去前，${person}在底上点了两个眼。${when}再开炉门时，两个眼都在，里面却塞着顾客付的零钱。`;
+    return `${person}在${item}背面悄悄留下一道短线，亲手把它送了出去。${when}再看，短线还在，旁边却添了一道更浅的，像是有人也在用同一个法子做记号。`;
+  }
+  if (/自己|一模一样|我的声|小时候的我/u.test(tail) && /呼号|求救|录音|喊|声音|叫门|通话|电台|信号|敲门/u.test(tail)) {
+    if (/叫门|敲门|门外/u.test(tail)) return `${person}没有开门，隔着门板敲了两短一长。那是小时候怕叫醒大人时才用的暗号。外面安静了片刻，把最后一下补全了。`;
+    const identifier = tail.match(/呼号|求救声|求救信号|录音|声音/u)?.[0] || '声音';
+    return `${person}等那段${identifier}重来，专听换气的地方。短短一停里有一道轻响，是牙齿碰到话筒才会有的声音。${person}把话筒移远了些，这一遍，轻响消失了。`;
+  }
+  if (/(?:影子|倒影|影像)/u.test(tail) && /没有|消失|映不出|不映出|不见|不肯|留在|丢|慢了|先动/u.test(tail)) {
+    return `${person}换了个位置，让光从背后打过来。地上连衣角的轮廓都很清楚，挨着${item || '那东西'}的一小块却是空的。${person}挪开半步，那块空白还是留在原地。`;
+  }
+  if (/忘记|遗忘|记不起|不记得|忘掉|丢了名字|名字丢了|失去.{0,3}记忆/u.test(tail)) {
+    const word = /名字|姓名/u.test(tail) ? '名字' : '那段往事';
+    if (says && /[？?]$/u.test(says)) return `${person}本想回答，那个最熟悉的${word}到了嘴边，却只剩下第一个音。对方耐心地等着，竟替${person === '我' ? '我' : person}把第二个音也念了出来。`;
+    return `${person}摊开手，凭印象写下${word}，写到一半停住了。手指还知道下一笔该往哪里走，嘴里却已经说不出写的是什么。`;
+  }
+  if (/最后一班|末班|错过.{0,3}车/u.test(tail) && frame?.focus === '站名') return `${person}看着尾灯缩成一点。站牌背后有人在擦粉笔字，只剩下最后一个时刻还没擦掉，比刚才开走的那班还晚一分钟。`;
+  if (/停电|断电|熄灭|停水|冻住|熄火/u.test(tail)) {
+    const failure = tail.match(/停电|断电|熄灭|停水|冻住|熄火/u)[0];
+    if (['停电','断电','熄灭'].includes(failure)) return `${person}先站着没动。眼睛渐渐适应了黑暗，才看清最远处还有一点亮。那点光很低，随着一个人深一脚浅一脚地靠近。`;
+  }
+  if (says && /[?？]$/u.test(says)) {
+    const key = says.replace(/[?？]$/u,'').slice(-16);
+    return `${person}原先已经想好了回答。可那句“${key}”里，有个字听起来和往常不一样。${person}先问了一句：“是谁让你来问的？”`;
+  }
+  if (says && /别|不要|不许|千万|记得|一定要/u.test(says)) {
+    return `话音落下，${person}已经伸出去的手停在半空。方才说话的人却没有等答复，自己先往前跨了一步，把后面的话留得更难开口了。`;
+  }
+  const goal = tail.match(/(?:想要|决定|必须|一定要|盼着|答应要|只想)([^，。！？；“”\n]{2,20})/u)?.[1];
+  if (goal) return `${person}早先只想着${goal}。真到了要动手的时候，才发现有人已经替这件事做了开头，偏偏把最难开口的那一步留了下来。`;
+  return '';
+}
+
+function familyDrafts() {
+  return {words:'爸爸 父亲 爸妈 妈妈 母亲 外婆 外公 祖母 奶奶 爷爷 姐姐 弟弟 团圆 过年 家宴 饭桌 搬家 毕业 婚礼 散伙饭 围裙 饭盒',
+    object:'饭盒 围裙 旧照片 照片 空碗 行李箱 饭碗 相册',defaultObject:'照片',focus:'家人',beats:[
+      '{人}原本把话都准备好了，开口时却只问了一句吃过没有。对方应了一声，挪出手边一直空着的位置。',
+      '“这个你还留着？”{人}问。对方没回答，只把磨得发白的那一面翻过去，露出背后一道歪歪扭扭的铅笔印。',
+      '大家以为最惦记这件事的那个人早忘了。等{人}要走，对方才把当年的日子说出来，连星期几都没错。',
+      '{人}把要说的话咽回去一半，剩下的一半还是说了出来。许久，对面轻轻应了一声，把两把椅子拉近了一点。'
+    ]};
+}
+
+const WRITING_DIRECTIONS = ['顺势推进', '用对话推进', '加入转折'];
+const WRITING_ACTIONS = new Set(['spark-story','continue-story','generate-writing','accept-writing','detect-writer','cancel-writing','discard-writing']);
+const writingJobs = new WeakMap();
+const writingErrors = new WeakMap();
+let writerModels = [], writerBridge = false, writerModelMessage = '';
+
+function writingBase(project, chapter) {
+  return writingStamp(JSON.stringify([chapter.text, project.idea, chapter.outline]));
+}
+
+function writingContextStamp(input) {
+  const settings = {...input};
+  for (const key of ['manuscript','direction','title']) delete settings[key];
+  return writingStamp(JSON.stringify(settings));
+}
+
+function matchesWritingSource(project, chapter, draft) {
+  if (draft.base !== writingBase(project, chapter)) return false;
+  if (!draft.contextStamp) return true;
+  return draft.contextStamp === writingContextStamp(writingInput(project,chapter,draft.direction));
+}
+
+function savedProposal(raw) {
+  if (!raw || typeof raw.text !== 'string' || typeof raw.base !== 'string' || !/^\d+\.\d+$/.test(raw.base)) return null;
+  return {base:raw.base, ...(typeof raw.contextStamp === 'string' ? {contextStamp:raw.contextStamp.slice(0,40)} : {}), text:raw.text.slice(0, 20000), label:String(raw.label || '候选段落').slice(0,180), direction:String(raw.direction || '').slice(0,24),
+    variant:Math.max(0,Math.min(10000,Number(raw.variant) || 0))};
+}
+
+function cleanNewProse(text, source) {
+  if (typeof text !== 'string') throw Error('本次创作没有返回正文。');
+  let result = text.trim();
+  const before = source.trim();
+  if (before && result.startsWith(before)) result = result.slice(before.length).trimStart();
+  if (before.endsWith(result)) throw Error('本次创作只复述了原稿，请换一种写法。');
+  const end = before.slice(-8000);
+  let size = Math.min(end.length, result.length);
+  for (; size >= 5; size--) {
+    if (end.endsWith(result.slice(0,size))) {
+      result = result.slice(size).trimStart();
+      break;
+    }
+  }
+  if (!result || result.length > 20000) throw Error('候选段落为空或过长，请重试。');
+  return result;
+}
+
+function writerEngine() {
+  return state.settings.writerEngine || (writerModels[0] ? 'local:' + writerModels[0] : 'rules');
+}
+
+function writerEngineOptions() {
+  const selected = writerEngine();
+  const choices = writerModels.map(model => ['local:' + model, '本机模型 · ' + model]);
+  choices.push(['rules','离线规则草稿']);
+  if (apiReady || selected === 'service') choices.push(['service', '项目已配置的 OpenAI 服务']);
+  if (!choices.some(([value]) => value === selected)) choices.push([selected, '上次选择的模型（未连接）']);
+  return choices.map(([value,label]) => `<option value="${esc(value)}"${value === selected ? ' selected' : ''}>${esc(label)}</option>`).join('');
+}
+
+function writerControls() {
+  return `<div class="writing-controls">
+    <label>创作方式<select id="writer-engine">${writerEngineOptions()}</select></label>
+    <label>段落走向<select id="writer-direction">${WRITING_DIRECTIONS.map(d => option(d,state.settings.writerDirection || WRITING_DIRECTIONS[0])).join('')}</select></label>
+    </div><p id="writer-note" class="tiny muted writing-note">${esc(writerNote())}</p>`;
+}
+
+function writerNote() {
+  const engine = writerEngine();
+  if (engine === 'service') return '本段原稿及绑定设定会发送到项目的 OpenAI 服务。';
+  if (engine.startsWith('local:')) return '原稿和设定交给这台电脑上选定的 Ollama 模型。';
+  return '离线规则按原文中的人物、物件和场景组句。' + (writerBridge ? writerModelMessage : '使用本机大模型可运行离线包里的 local-writer.mjs。');
+}
+
+async function detectWriterModels() {
+  if (!['127.0.0.1','localhost'].includes(location.hostname) || !['http:','https:'].includes(location.protocol)) return;
+  try {
+    const resp = await fetch('/api/atelier/models',{signal:AbortSignal.timeout(5000)});
+    if (!resp.ok) return;
+    const data = await resp.json();
+    if (!Array.isArray(data.models)) return;
+    writerBridge = true;
+    writerModels = data.models.filter(name => typeof name === 'string');
+    writerModelMessage = typeof data.message === 'string' ? data.message : '';
+    refreshWriterControls();
+  } catch { /* A standalone file or an ordinary static server has no local model service. */ }
+}
+
+function refreshWriterControls() {
+  const select = $('#writer-engine');
+  if (select) select.innerHTML = writerEngineOptions();
+  const note = $('#writer-note');
+  if (note) note.textContent = writerNote();
+  const refresh = $('#writer-detect');
+  if (refresh) refresh.hidden = !writerBridge;
+}
+
+function storyStartBox() {
+  return `<div class="writing-start">
+    <h2><label for="writing-seed">从你写的这句开始</label></h2>
+    <textarea id="writing-seed" rows="3" maxlength="24000" required placeholder="写一句创意，或贴上你想接着写的原文。"></textarea>
+    ${writerControls()}
+    <div class="actions">${button('写成开头','spark-story','primary')}${button('接着原文写','continue-story','soft')}${button('试读《失物招领处》','clue-demo','ghost')}</div>
+  </div>`;
+}
+
+function beginWritingStory(kind) {
+  if (activeRun) return toast('请先停止当前的逐章生成任务。');
+  const field = $('#writing-seed');
+  if (!field) return;
+  const source = field.value;
+  if (!source.trim()) { field.focus(); return toast('先写下一句创意，或贴上一段原文。'); }
+  const project = emptyProject();
+  project.title = Array.from(source.trim().split(/[\n。！？；，]/u).find(s => s.trim()) || '新故事').slice(0,18).join('');
+  project.idea = kind === 'idea' ? source : '';
+  project.chapterCount = 1;
+  project.styles = [];
+  project.tags = [];
+  project.pov = '沿用原稿人称';
+  project.tone = '沿用原稿语气';
+  const chapter = {id:uid(),title:'第一章',text:kind === 'text' ? source : '',outline:'',memory:'',choices:[]};
+  project.chapters = [chapter];
+  state.projects.unshift(project);
+  state.active = project.id;
+  chapterId = chapter.id;
+  save();
+  go('editor');
+  $('#chapter-writing')?.scrollIntoView?.({block:'start'});
+  return generateWriting(project, chapter);
+}
+
+function writingPanel(project, chapter) {
+  const draft = chapter.writingDraft;
+  const running = writingJobs.has(chapter);
+  const error = writingErrors.get(chapter) || '';
+  const stale = draft && !matchesWritingSource(project,chapter,draft);
+  const blocked = activeRun || running;
+  return `<section id="chapter-writing" class="chapter-writing" aria-label="根据内容创作">
+    <div class="between"><h3>${chapter.text.trim() ? '接着正文写' : '从设定写开头'}</h3>
+      <button type="button" class="small ghost" id="writer-detect" data-action="detect-writer"${writerBridge ? '' : ' hidden'}>重新检测模型</button></div>
+    ${writerControls()}
+    <div class="actions">${button(draft ? '换一种写法' : '写下一段','generate-writing',draft ? 'soft' : 'primary',blocked ? 'disabled' : '')}
+      ${running ? button('取消本次生成','cancel-writing','ghost') : ''}</div>
+    <p class="${error ? 'danger-note' : 'tiny muted'} writing-status" role="status" aria-live="polite">${esc(error || (running ? '正在根据原文创作…' : ''))}</p>
+    ${draft ? `<div class="writing-preview"><label for="writing-candidate">候选段落 <span class="tiny muted">${esc(draft.label)}</span></label>
+      <textarea id="writing-candidate" rows="6" maxlength="20000"${running ? ' readonly' : ''}>${esc(draft.text)}</textarea>
+      <p id="writing-stale" class="danger-note"${stale ? '' : ' hidden'}>原稿或设定已修改。可复制这段文字，或按新内容重新生成。</p>
+      <div class="actions">${button('接入正文','accept-writing','primary',stale || blocked || !draft.text.trim() ? 'disabled' : '')}${button('舍弃候选','discard-writing','ghost',blocked ? 'disabled' : '')}</div></div>` : ''}
+  </section>`;
+}
+
+function repaintWriting(project, chapter) {
+  if (view !== 'editor' || current() !== project || chapterId !== chapter.id) return;
+  const panel = $('#chapter-writing');
+  if (panel) panel.outerHTML = writingPanel(project, chapter);
+}
+
+function refreshWritingGuard(project, chapter) {
+  const draft = chapter.writingDraft;
+  const panel = $('#chapter-writing');
+  if (!panel) return;
+  const heading = panel.querySelector('h3');
+  heading.textContent = chapter.text.trim() ? '接着正文写' : '从设定写开头';
+  if (!draft) return;
+  const stale = !matchesWritingSource(project,chapter,draft);
+  panel.querySelector('#writing-stale').hidden = !stale;
+  panel.querySelector('[data-action="accept-writing"]').disabled = stale || activeRun || writingJobs.has(chapter) || !draft.text.trim();
+}
+
+async function writeWithEngine(engine, input, previous, variant, signal) {
+  if (engine === 'rules') return {text:offlineDraft(input,variant),label:'离线规则草稿'};
+  if (engine === 'service') {
+    if (!apiReady) throw Error('尚未连上项目的 OpenAI 服务。可切换创作方式，或在设置中检查连接。');
+    const {manuscript, ...context} = input;
+    const chapter = {title:input.chapter.title, outline:input.chapter.outline, existing:manuscript, memory:input.chapter.memory,
+      segmentTarget:350, isFinal:false, direction:input.direction, previousDraft:previous.slice(-1600)};
+    const out = await api('chapter',{context:{...context, pathFacts:input.commonPast},chapter},state.settings.model,signal);
+    return {text:out.text,label:'OpenAI · ' + state.settings.model};
+  }
+  const model = engine.slice('local:'.length);
+  if (!engine.startsWith('local:') || !writerModels.includes(model)) throw Error('所选模型未连接。请重新检测，或切换到离线规则草稿。');
+  const response = await fetch('/api/atelier/draft',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model,input,previous:previous.slice(-1600)}),signal});
+  const data = await response.json();
+  if (!response.ok || data.error) throw Error(data.error || '本机模型响应失败，请重新检测。');
+  return {text:data.text,label:'本机模型 · ' + model};
+}
+
+async function generateWriting(project, chapter) {
+  if (!chapter || activeRun || writingJobs.has(chapter)) return;
+  const job = new AbortController();
+  writingJobs.set(chapter,job);
+  writingErrors.delete(chapter);
+  const old = chapter.writingDraft;
+  const base = writingBase(project,chapter);
+  const source = chapter.text.trim() ? chapter.text : project.idea;
+  const direction = state.settings.writerDirection || WRITING_DIRECTIONS[0];
+  repaintWriting(project,chapter);
+  try {
+    const input = writingInput(project,chapter,direction);
+    const contextStamp = writingContextStamp(input);
+    const sameSource = old && old.base === base && (!old.contextStamp || old.contextStamp === contextStamp);
+    const variant = sameSource && old.direction === direction ? old.variant + 1 : 0;
+    if (![input.manuscript,input.idea,input.chapter.outline,input.previousTail,input.world,...input.commonPast.map(c => c.facts)].some(s => s?.trim()) && !input.characters.length && !input.scenes.length) {
+      throw Error('写入一句创意、正文或本章目标，就可以开始。');
+    }
+    const result = await writeWithEngine(writerEngine(),input,sameSource ? old.text : '',variant,job.signal);
+    if (writingJobs.get(chapter) !== job || !state.projects.includes(project) || !project.chapters.includes(chapter)) return;
+    const text = cleanNewProse(result.text,source);
+    if (sameSource && text === old.text) throw Error('这次的写法与已有候选相同。已保留原候选，可换个走向再试。');
+    chapter.writingDraft = {base,contextStamp,text,variant,direction,label:result.label};
+    project.updated = Date.now();
+    await persistNow();
+  } catch (err) {
+    if (writingJobs.get(chapter) === job) writingErrors.set(chapter,err.message || '本次创作未完成，请重试。');
+  } finally {
+    if (writingJobs.get(chapter) === job) { writingJobs.delete(chapter); repaintWriting(project,chapter); }
+  }
+}
+
+async function acceptWriting(project, chapter) {
+  const draft = chapter?.writingDraft;
+  if (!draft || activeRun || writingJobs.has(chapter)) return;
+  if (!matchesWritingSource(project,chapter,draft)) return toast('原稿已修改，或设定已有变化，请按新内容重新生成。');
+  const added = draft.text.trim();
+  if (!added) return toast('候选段落为空。');
+  if (chapter.text.length + added.length + 2 > 300000) return toast('接入后会超过单章导入上限，请另起章节。');
+  const gap = !chapter.text.trim() || chapter.text.endsWith('\n\n') ? '' : chapter.text.endsWith('\n') ? '\n' : '\n\n';
+  chapter.text += gap + added;
+  chapter.generated = null;
+  delete chapter.writingDraft;
+  project.updated = Date.now();
+  writingErrors.delete(chapter);
+  render();
+  const ok = await persistNow();
+  toast(ok ? '已接入正文。' : '已接入当前窗口，浏览器保存失败，请导出备份。');
+}
+
+function writingAction(action, project, chapter) {
+  switch (action) {
+    case 'spark-story': return beginWritingStory('idea');
+    case 'continue-story': return beginWritingStory('text');
+    case 'generate-writing': return generateWriting(project,chapter);
+    case 'accept-writing': return acceptWriting(project,chapter);
+    case 'detect-writer': return detectWriterModels().then(() => toast(writerModels.length ? `检测到 ${writerModels.length} 个本机模型。` : writerModelMessage || '请从本机启动器打开工作台。'));
+    case 'cancel-writing': {
+      writingJobs.get(chapter)?.abort();
+      writingJobs.delete(chapter);
+      writingErrors.delete(chapter);
+      repaintWriting(project,chapter);
+      break;
+    }
+    case 'discard-writing':
+      if (!chapter || writingJobs.has(chapter) || activeRun) return;
+      delete chapter.writingDraft;
+      writingErrors.delete(chapter);
+      repaintWriting(project,chapter);
+      return persistNow();
+  }
+}
+
+function writingChange(target) {
+  if (target.id === 'writer-engine') {
+    state.settings.writerEngine = target.value;
+    refreshWriterControls();
+    save();
+  } else if (target.id === 'writer-direction') {
+    state.settings.writerDirection = target.value;
+    save();
+  }
+}
+
+function editWritingCandidate(target) {
+  if (target.id !== 'writing-candidate') return;
+  const project = current();
+  const chapter = project.chapters.find(c => c.id === chapterId);
+  if (!chapter?.writingDraft) return;
+  chapter.writingDraft.text = target.value;
+  project.updated = Date.now();
+  refreshWritingGuard(project,chapter);
+  save();
+}
+
 'use strict';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -686,15 +1225,15 @@ function closeModal(){$('#modal-root').innerHTML='';focusReturn?.focus();}
 const button=(text,action,cls='',extra='')=>`<button class="${cls}" data-action="${action}" ${extra}>${text}</button>`;
 const option=(v,c)=>`<option value="${esc(v)}" ${v===c?'selected':''}>${esc(v)}</option>`;
 function card(p,pub=false){const wc=p.chapters.reduce((n,c)=>n+count(c.text),0);return`<div class="book-card"><div class="cover ${esc(p.color)}"><span class="cover-badge">${pub?'本地发布版':p.id==='sample-rain'?'内置原创示例':'创作中'}</span><small>STORIES WORTH TELLING</small><h3>${esc(p.title)}</h3><small>${esc(p.type)} · ${p.chapters.length} 章</small></div><div class="book-info"><div class="between"><strong>${esc(p.title)}</strong><span class="pill">${esc(p.styles?.[0]||'自定义')}</span></div><p>${esc((p.idea||'一个故事，正在这里生长。').slice(0,48))}${(p.idea||'').length>48?'…':''}</p><div class="between tiny muted"><span>${wc.toLocaleString()} / ${(p.target||0).toLocaleString()} 字符</span><span>${new Date(p.updated||p.created).toLocaleDateString('zh-CN')}</span></div><div class="progress"><i style="width:${Math.min(100,wc/(p.target||1)*100)}%"></i></div><div class="between">${button(pub?'打开阅读':'继续创作',pub?'read-pub':'edit-project','small soft',`data-id="${esc(p.id)}"`)}${button(pub?'导出阅读页':'试读 →',pub?'export-pub':'read-project','small ghost',`data-id="${esc(p.id)}"`)}</div></div></div>`;}
-function shell(){const navs=[['home','home','创作工作台'],['projects','book','我的剧情集'],['assets','people','角色与场景'],['knowledge','knowledge','创作知识库'],['published','scene','本地发布'],['reader','reader','阅读模拟器'],['settings','gear','设置与备份']];return`<div class="app"><aside class="sidebar"><div class="brand"><div class="brandmark">N</div><div><strong>叙事工坊</strong><small>GLHF · STORY ATELIER</small></div></div>${button('＋ 开始新故事','new','primary new')}<div class="side-label">你的创作空间</div><nav>${navs.map(([v,i,l])=>`<button class="nav ${view===v?'active':''}" data-view="${v}">${icon(i)}<span>${l}</span></button>`).join('')}</nav><div class="side-bottom"><div class="sidebar-note">每一个世界，<br>都从一个念头开始。</div><div class="flex mt"><div class="avatar">G</div><div><strong class="tiny">GLHF 创作空间</strong><div class="tiny muted">版本 1.1 · 私人工作台</div></div></div></div></aside><section class="workspace"><header class="top"><div class="crumb">我的工作室 <span style="padding:0 12px">/</span><b>${navs.find(n=>n[0]===view)?.[2]||(view==='create'?'创作入口':'章节编辑')}</b></div><div class="flex"><span class="tiny badge-dot" id="save-status">${storageError?'保存异常':'浏览器本地保存'}</span>${button('备份','backup','small ghost')}</div></header><main class="main" id="main"></main></section></div>`;}
+function shell(){const navs=[['home','home','创作工作台'],['projects','book','我的剧情集'],['assets','people','角色与场景'],['knowledge','knowledge','创作知识库'],['published','scene','本地发布'],['reader','reader','阅读模拟器'],['settings','gear','设置与备份']];return`<div class="app"><aside class="sidebar"><div class="brand"><div class="brandmark">N</div><div><strong>叙事工坊</strong><small>GLHF · STORY ATELIER</small></div></div>${button('＋ 开始新故事','new','primary new')}<div class="side-label">你的创作空间</div><nav>${navs.map(([v,i,l])=>`<button class="nav ${view===v?'active':''}" data-view="${v}">${icon(i)}<span>${l}</span></button>`).join('')}</nav><div class="side-bottom"><div class="sidebar-note">每一个世界，<br>都从一个念头开始。</div><div class="flex mt"><div class="avatar">G</div><div><strong class="tiny">GLHF 创作空间</strong><div class="tiny muted">版本 1.2 · 私人工作台</div></div></div></div></aside><section class="workspace"><header class="top"><div class="crumb">我的工作室 <span style="padding:0 12px">/</span><b>${navs.find(n=>n[0]===view)?.[2]||(view==='create'?'创作入口':'章节编辑')}</b></div><div class="flex"><span class="tiny badge-dot" id="save-status">${storageError?'保存异常':'浏览器本地保存'}</span>${button('备份','backup','small ghost')}</div></header><main class="main" id="main"></main></section></div>`;}
 function render(){$('#app').innerHTML=shell();const funcs={home:homeView,projects:projectsView,create:createView,editor:editorView,assets:assetsView,knowledge:knowledgeView,published:publishedView,reader:readerView,settings:settingsView};$('#main').innerHTML=(funcs[view]||homeView)();if(storageError)$('#main').insertAdjacentHTML('afterbegin',`<div class="notice">${esc(storageError)}</div>`);if(view==='create')bindCreate();if(view==='editor')bindEditor();if(view==='settings')bindSettings();}
-function homeView(){const words=state.projects.reduce((n,p)=>n+p.chapters.reduce((m,c)=>m+count(c.text),0),0);return`<div class="between heading"><div><div class="eyebrow">A PLACE FOR YOUR IMAGINATION</div><h1 style="margin-top:6px">今天，写下一个好故事。</h1><p>让灵感有落点，让人物有去处。</p></div><span class="pill warm">${today()} · 创作日</span></div><section class="hero"><div class="hero-copy"><div class="eyebrow">YOUR NEXT CHAPTER STARTS HERE</div><h2>从一个念头，<br>走进整个故事。</h2><p>设定你的世界、文学风格与篇幅，让故事一步步成形。</p><div class="actions">${button('＋ 开始创作','new','primary')}${button('试读《失物招领处》','clue-demo','ghost')}</div></div><svg class="hero-art" viewBox="0 0 320 280" aria-hidden="true"><circle cx="180" cy="135" r="102" fill="none" stroke="#b9c8af"/><circle cx="180" cy="135" r="89" fill="none" stroke="#b9c8af" stroke-dasharray="2 10"/><path d="M55 210Q105 182 163 213V92Q112 59 55 84Z" fill="#fbfaf2" stroke="#9dad91"/><path d="M163 213Q215 183 270 203V80Q213 60 163 92Z" fill="#e1e6d4" stroke="#9dad91"/><path d="M163 213v18M60 222q50-27 103 9 60-35 111-17M72 105q40-14 72 7M72 125q40-14 72 7M72 145q40-14 72 7M184 112l61-11M184 132l61-11" fill="none" stroke="#b9c5ab"/><path d="M198 176Q207 86 283 31Q296 118 198 176Z" fill="#6d8b67"/><path d="m197 191 69-127" stroke="#f3f0da" stroke-width="2"/></svg></section><div class="quick-grid"><button class="quick" data-view="assets"><span class="icon">${icon('people')}</span><div><h3>让角色鲜活起来</h3><p>动机、秘密与成长弧线</p></div></button><button class="quick" data-view="knowledge"><span class="icon">${icon('knowledge')}</span><div><h3>给灵感一些养分</h3><p>写作方法与可追溯的资料</p></div></button><button class="quick" data-view="reader"><span class="icon">${icon('reader')}</span><div><h3>走进读者的视角</h3><p>试读文本，走通每个分支</p></div></button></div><div class="between section-head"><h2>正在生长的故事 <span class="tiny muted"> / ${state.projects.length}</span></h2>${button('查看全部 →','all-projects','small ghost')}</div><div class="books">${state.projects.slice(0,3).map(p=>card(p)).join('')}</div><div class="between mt tiny muted"><span>已落笔 ${words.toLocaleString()} 字符 · ${state.characters.length} 位角色 · ${state.scenes.length} 个场景</span><span>你的草稿由你掌握</span></div>`;}
+function homeView(){const words=state.projects.reduce((n,p)=>n+p.chapters.reduce((m,c)=>m+count(c.text),0),0);return`<div class="between heading"><div><div class="eyebrow">A PLACE FOR YOUR IMAGINATION</div><h1 style="margin-top:6px">今天，写下一个好故事。</h1><p>让灵感有落点，让人物有去处。</p></div><span class="pill warm">${today()} · 创作日</span></div><section class="hero writing-hero">${storyStartBox()}<svg class="hero-art" viewBox="0 0 320 280" aria-hidden="true"><circle cx="180" cy="135" r="102" fill="none" stroke="#b9c8af"/><circle cx="180" cy="135" r="89" fill="none" stroke="#b9c8af" stroke-dasharray="2 10"/><path d="M55 210Q105 182 163 213V92Q112 59 55 84Z" fill="#fbfaf2" stroke="#9dad91"/><path d="M163 213Q215 183 270 203V80Q213 60 163 92Z" fill="#e1e6d4" stroke="#9dad91"/><path d="M163 213v18M60 222q50-27 103 9 60-35 111-17M72 105q40-14 72 7M72 125q40-14 72 7M72 145q40-14 72 7M184 112l61-11M184 132l61-11" fill="none" stroke="#b9c5ab"/><path d="M198 176Q207 86 283 31Q296 118 198 176Z" fill="#6d8b67"/><path d="m197 191 69-127" stroke="#f3f0da" stroke-width="2"/></svg></section><div class="quick-grid"><button class="quick" data-view="assets"><span class="icon">${icon('people')}</span><div><h3>让角色鲜活起来</h3><p>动机、秘密与成长弧线</p></div></button><button class="quick" data-view="knowledge"><span class="icon">${icon('knowledge')}</span><div><h3>给灵感一些养分</h3><p>写作方法与可追溯的资料</p></div></button><button class="quick" data-view="reader"><span class="icon">${icon('reader')}</span><div><h3>走进读者的视角</h3><p>试读文本，走通每个分支</p></div></button></div><div class="between section-head"><h2>正在生长的故事 <span class="tiny muted"> / ${state.projects.length}</span></h2>${button('查看全部 →','all-projects','small ghost')}</div><div class="books">${state.projects.slice(0,3).map(p=>card(p)).join('')}</div><div class="between mt tiny muted"><span>已落笔 ${words.toLocaleString()} 字符 · ${state.characters.length} 位角色 · ${state.scenes.length} 个场景</span><span>你的草稿由你掌握</span></div>`;}
 function projectsView(){return`<div class="between heading"><div><h1>我的剧情集</h1><p>长篇、短篇与互动故事，都有自己的生长节奏。</p></div>${button('＋ 新建剧情集','new','primary')}</div><div class="books">${state.projects.map(p=>card(p)).join('')||'<div class="empty">从新建剧情集开始。</div>'}</div>`;}
 function createView(){return`<div class="heading"><div class="eyebrow">THE FIRST SPARK</div><h1>你想讲一个怎样的故事？</h1><p>先放下完整的答案。一句话、一个画面，或一段矛盾就够了。</p></div><div class="steps"><span class="current"><b>01</b>创意与方向</span><span><b>02</b>设定与章节</span><span><b>03</b>试读与发布</span></div><form id="create-form"><div class="split"><div class="panel"><div class="form-section"><h3>故事的起点</h3><div class="field"><label for="title">剧情集名称</label><input id="title" name="title" placeholder="给你的故事起个名字" maxlength="80" required></div><div class="field"><label for="idea">核心创意</label><textarea id="idea" name="idea" placeholder="例如：一位即将退休的守站人，在小站关闭前收到了一封来自未来的信……" required maxlength="12000"></textarea></div><div class="grid2"><div><label for="type">剧情类型</label><select id="type" name="type">${TYPES.map(t=>option(t,TYPES[0])).join('')}</select></div><div><label for="pov">叙事视角</label><select id="pov" name="pov">${['第三人称有限视角','第一人称','全知视角','多视角交替','第二人称玩家视角'].map(t=>option(t,'')).join('')}</select></div></div></div><div class="form-section"><div class="between"><h3>文学风格</h3><span class="tiny muted">可多选，最多 3 种</span></div><div class="style-grid">${STYLES.map(([s,d],i)=>`<label class="style-card"><input type="checkbox" name="styles" value="${s}" ${i===1?'checked':''}><strong>${s}</strong><small>${d}</small></label>`).join('')}</div><div class="field mt"><label for="style-note">语感、节奏与其他要求</label><input name="constraints" id="style-note" placeholder="例如：少用华丽名词，多写具体动作；对白克制。" maxlength="4000"></div></div><div class="form-section"><h3>剧情标签</h3><div class="chips">${TAGS.map(s=>`<label class="chip"><input name="tags" type="checkbox" value="${s}"><span>${s}</span></label>`).join('')}</div></div><div class="grid2"><div class="field"><label for="target">目标总量（非空白字符）</label><input name="target" id="target" type="number" min="500" max="300000" step="100" value="6000"></div><div class="field"><label for="chapterCount">章节 / 节点数量</label><input name="chapterCount" id="chapterCount" type="number" min="1" max="100" value="3"></div></div><div class="field"><label for="world">世界规则与故事背景</label><textarea name="world" id="world" placeholder="时代、地点、世界规则、不能改变的设定……" maxlength="12000"></textarea></div><div class="grid2"><div><label>绑定角色</label>${assetChecks('characters')}</div><div><label>绑定场景</label>${assetChecks('scenes')}</div></div><div class="field mt"><label>参与生成的参考资料</label><div class="scroll-box">${assetChecks('knowledge')}</div></div></div><aside class="panel summary-box"><span class="eyebrow">STORY BRIEF</span><h2 class="mt" id="brief-title">等待你的第一个念头</h2><div class="stat"><b id="brief-count">6,000</b><small>目标字符</small></div><div class="stat"><b id="brief-chapters">3</b><small>章节 / 节点</small></div><hr><p class="tiny muted">创建后可自由调整设定，先规划再分章创作。</p><ol style="padding-left:18px"><li>生成大纲与章节目标</li><li>检索已选资料，逐章写作</li><li>检查连续性与实际篇幅</li></ol><button class="primary" type="submit" style="width:100%">创建剧情集 →</button><p class="tiny muted mt">此步骤不调用模型。进入编辑后，你可以手动写作或启动创作智能体。</p></aside></div></form>`;}
 function assetChecks(k,selected=[]){return state[k].map(a=>`<label class="check-item"><input type="checkbox" name="${k}" value="${esc(a.id)}" ${selected.includes(a.id)?'checked':''}>${esc(a.name||a.title)}</label>`).join('')||'<p class="tiny muted">还没有内容，可稍后添加。</p>';}
 function bindCreate(){const f=$('#create-form');f.oninput=()=>{$('#brief-title').textContent=f.elements.namedItem('title').value||'等待你的第一个念头';$('#brief-count').textContent=Number(f.elements.namedItem('target').value).toLocaleString();$('#brief-chapters').textContent=f.elements.namedItem('chapterCount').value;};f.onchange=e=>{if(e.target.name==='styles'&&f.querySelectorAll('[name=styles]:checked').length>3){e.target.checked=false;toast('最多混合 3 种风格。');}};f.onsubmit=e=>{e.preventDefault();const d=new FormData(f),p=emptyProject();['title','idea','type','pov','world','constraints'].forEach(k=>p[k]=String(d.get(k)||'').trim());['styles','tags','characters','scenes','knowledge'].forEach(k=>p[k]=d.getAll(k));p.target=Number(d.get('target'));p.chapterCount=Number(d.get('chapterCount'));if(p.target/p.chapterCount<200||p.target/p.chapterCount>8000)return toast('每章目标请设在 200–8,000 字符之间。');if(!p.styles.length)return toast('请至少选择一种文学风格。');p.chapters=Array.from({length:p.chapterCount},(_,i)=>({id:uid(),title:`第 ${i+1} 章`,outline:'',text:'',choices:[],memory:''}));state.projects.unshift(p);state.active=p.id;chapterId=p.chapters[0].id;save();go('editor');};}
-function editorView(){const p=current();if(!p)return'<div class="empty">请先新建剧情集。</div>';let c=p.chapters.find(c=>c.id===chapterId)||p.chapters[0];chapterId=c?.id||'';const wc=p.chapters.reduce((s,c)=>s+count(c.text),0);return`<div class="between heading"><div><div class="eyebrow">YOUR MANUSCRIPT</div><h1>${esc(p.title)}</h1><p>${esc(p.type)} · ${esc(p.styles.join(' / '))} · <span id="word-total">${wc.toLocaleString()}</span> / ${p.target.toLocaleString()} 字符</p></div><div class="actions">${button('设定','project-settings')}${button('本作线索','clue-manager','',activeRun?'disabled':'')}${button('试读','read-current')}${button('本地发布','publish','primary')}</div></div>${p.job?jobBox(p):''}<div class="actions" style="margin-bottom:18px">${button('✧ 规划大纲','agent-plan','soft',activeRun?'disabled':'')}${button('✧ 逐章生成 / 续写','agent-write','primary',activeRun?'disabled':'')}${button('检查连续性','agent-review','',activeRun?'disabled':'')}${button('导出创作提示词','export-prompt','ghost')}${button('导入章节','import-chapters','ghost')}</div><div class="editor"><aside class="chapter-tree"><div class="between"><strong class="tiny">章节目录 / ${p.chapters.length}</strong>${button('＋','add-chapter','small ghost','aria-label="添加章节"')}</div><div style="margin-top:15px">${p.chapters.map((ch,i)=>`<button class="chapter ${ch.id===chapterId?'active':''}" data-action="chapter" data-id="${esc(ch.id)}"><span>${String(i+1).padStart(2,'0')} · ${esc(ch.title)}</span><small>${count(ch.text)} 字符${ch.text?' · 已有正文':' · 待创作'}</small></button>`).join('')}</div><div class="subtle-rule"></div>${button('导出 Markdown','export-md','small ghost')}${button('项目 JSON','export-project','small ghost')}</aside><section class="editor-body">${c?`<div class="between"><span class="eyebrow">CHAPTER ${p.chapters.indexOf(c)+1}</span><div class="actions">${button('↑','chapter-up','small ghost','aria-label="章节上移"')}${button('↓','chapter-down','small ghost','aria-label="章节下移"')}${button('删除','delete-chapter','small ghost danger')}</div></div><label class="visually-hidden" for="chapter-title">章节标题</label><input class="title-input" id="chapter-title" value="${esc(c.title)}"><label class="visually-hidden" for="manuscript">章节正文</label><textarea id="manuscript" class="manuscript" placeholder="在这里落下第一行文字。\n\n也可以先规划大纲，再让创作智能体逐章写作。">${esc(c.text)}</textarea><div class="between tiny muted"><span id="chapter-count">${count(c.text)} 字符</span><span>编辑自动保存 · 正文始终由你决定</span></div><div class="subtle-rule"></div><div class="between"><strong class="tiny">读者选项 / 分支出口</strong>${button('＋ 添加选项','add-choice','small ghost')}</div>${c.choices.map((ch,i)=>`<div class="branch-row"><input aria-label="选项 ${i+1} 文案" data-choice-label="${i}" value="${esc(ch.label)}"><select aria-label="选项 ${i+1} 跳转" data-choice-target="${i}"><option value="">选择目标章节</option>${p.chapters.map(t=>`<option value="${esc(t.id)}" ${ch.target===t.id?'selected':''}>${esc(t.title)}</option>`).join('')}</select>${button('×','delete-choice','small ghost',`data-index="${i}" aria-label="删除选项"`)}</div>${choiceRulesEditor(p,ch,i)}`).join('')}<p class="tiny muted mt">分支剧情无出口的节点是结局；线性剧情无选项时进入下一章。</p>`:'<div class="empty">请添加章节。</div>'}</section><aside class="editor-aside"><div class="between"><label class="tiny" for="chapter-outline">本章目标</label><span class="pill">设定面板</span></div><textarea id="chapter-outline" class="mt" style="min-height:140px;font-size:12px" placeholder="角色想要什么？阻碍是什么？本章发生什么变化？">${esc(c?.outline||'')}</textarea><label class="mt" for="chapter-memory">已发生事实 / 连续性记录</label><textarea id="chapter-memory" style="font-size:12px" placeholder="已揭示的秘密、物品归属、角色状态……">${esc(c?.memory||'')}</textarea><div class="subtle-rule"></div><strong class="tiny">剧情总纲</strong><p class="content-note">${esc(p.plan||'尚未规划。可以手动在设定中填写，或点击“规划大纲”。')}</p>${c?.sources?.length?`<div class="subtle-rule"></div><strong class="tiny">本章检索参考</strong><p class="tiny muted">列出生成时送入模型的资料，不代表正文引用了全部资料。</p>${c.sources.map(s=>`<p class="tiny">${safeURL(s.url)?`<a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title)}</a>`:esc(s.title)} · 片段 ${s.offset||0}</p>`).join('')}`:''}${p.review?`<div class="subtle-rule"></div><strong class="tiny">连续性审阅</strong><p class="content-note">${esc(p.review)}</p>`:''}<div class="subtle-rule"></div><p>已绑定 ${p.characters.length} 位角色 / ${p.scenes.length} 个场景 / ${p.knowledge.length} 份资料</p><p class="tiny">篇幅以非空白字符计。模型输出有偏差，生成完成后会显示实际达成情况。</p></aside></div>`;}
-function bindEditor(){const p=current(),c=p?.chapters.find(c=>c.id===chapterId);if(!c)return;const bind=(sel,key)=>{const e=$(sel);if(e)e.oninput=()=>{if(activeRun){toast('生成期间请先停止任务再修改正文。');e.value=c[key];return;}c[key]=e.value;p.updated=Date.now();save();if(key==='text'){c.generated=null;c.memory='';$('#chapter-count').textContent=count(c.text)+' 字符';$('#word-total').textContent=p.chapters.reduce((n,c)=>n+count(c.text),0).toLocaleString();}};};bind('#chapter-title','title');bind('#manuscript','text');bind('#chapter-outline','outline');bind('#chapter-memory','memory');$$('[data-choice-label]').forEach(e=>e.oninput=()=>{c.choices[+e.dataset.choiceLabel].label=e.value;save();});$$('[data-choice-target]').forEach(e=>e.onchange=()=>{c.choices[+e.dataset.choiceTarget].target=e.value;save();});bindChoiceRules(p,c);if(activeRun)$$('.editor input,.editor textarea,.editor select,.editor button').forEach(e=>e.disabled=true);}
+function editorView(){const p=current();if(!p)return'<div class="empty">请先新建剧情集。</div>';let c=p.chapters.find(c=>c.id===chapterId)||p.chapters[0];chapterId=c?.id||'';const wc=p.chapters.reduce((s,c)=>s+count(c.text),0);return`<div class="between heading"><div><div class="eyebrow">YOUR MANUSCRIPT</div><h1>${esc(p.title)}</h1><p>${esc(p.type)}${p.styles.length?' · '+esc(p.styles.join(' / ')):''} · <span id="word-total">${wc.toLocaleString()}</span> / ${p.target.toLocaleString()} 字符</p></div><div class="actions">${button('设定','project-settings')}${button('本作线索','clue-manager','',activeRun?'disabled':'')}${button('试读','read-current')}${button('本地发布','publish','primary')}</div></div>${p.job?jobBox(p):''}<div class="actions" style="margin-bottom:18px">${button('✧ 规划大纲','agent-plan','soft',activeRun?'disabled':'')}${button('✧ 按大纲逐章生成','agent-write','soft',activeRun?'disabled':'')}${button('检查连续性','agent-review','',activeRun?'disabled':'')}${button('导出创作提示词','export-prompt','ghost')}${button('导入章节','import-chapters','ghost')}</div><div class="editor"><aside class="chapter-tree"><div class="between"><strong class="tiny">章节目录 / ${p.chapters.length}</strong>${button('＋','add-chapter','small ghost','aria-label="添加章节"')}</div><div style="margin-top:15px">${p.chapters.map((ch,i)=>`<button class="chapter ${ch.id===chapterId?'active':''}" data-action="chapter" data-id="${esc(ch.id)}"><span>${String(i+1).padStart(2,'0')} · ${esc(ch.title)}</span><small>${count(ch.text)} 字符${ch.text?' · 已有正文':' · 待创作'}</small></button>`).join('')}</div><div class="subtle-rule"></div>${button('导出 Markdown','export-md','small ghost')}${button('项目 JSON','export-project','small ghost')}</aside><section class="editor-body">${c?`<div class="between"><span class="eyebrow">CHAPTER ${p.chapters.indexOf(c)+1}</span><div class="actions">${button('↑','chapter-up','small ghost','aria-label="章节上移"')}${button('↓','chapter-down','small ghost','aria-label="章节下移"')}${button('删除','delete-chapter','small ghost danger')}</div></div><label class="visually-hidden" for="chapter-title">章节标题</label><input class="title-input" id="chapter-title" value="${esc(c.title)}"><label class="visually-hidden" for="manuscript">章节正文</label><textarea id="manuscript" class="manuscript" placeholder="在这里落下第一行文字。\n\n写好后，点下方的「写下一段」预览续写。">${esc(c.text)}</textarea><div class="between tiny muted"><span id="chapter-count">${count(c.text)} 字符</span><span>编辑自动保存</span></div>${writingPanel(p,c)}<div class="subtle-rule"></div><div class="between"><strong class="tiny">读者选项 / 分支出口</strong>${button('＋ 添加选项','add-choice','small ghost')}</div>${c.choices.map((ch,i)=>`<div class="branch-row"><input aria-label="选项 ${i+1} 文案" data-choice-label="${i}" value="${esc(ch.label)}"><select aria-label="选项 ${i+1} 跳转" data-choice-target="${i}"><option value="">选择目标章节</option>${p.chapters.map(t=>`<option value="${esc(t.id)}" ${ch.target===t.id?'selected':''}>${esc(t.title)}</option>`).join('')}</select>${button('×','delete-choice','small ghost',`data-index="${i}" aria-label="删除选项"`)}</div>${choiceRulesEditor(p,ch,i)}`).join('')}<p class="tiny muted mt">分支剧情无出口的节点是结局；线性剧情无选项时进入下一章。</p>`:'<div class="empty">请添加章节。</div>'}</section><aside class="editor-aside"><div class="between"><label class="tiny" for="chapter-outline">本章目标</label><span class="pill">设定面板</span></div><textarea id="chapter-outline" class="mt" style="min-height:140px;font-size:12px" placeholder="角色想要什么？阻碍是什么？本章发生什么变化？">${esc(c?.outline||'')}</textarea><label class="mt" for="chapter-memory">已发生事实 / 连续性记录</label><textarea id="chapter-memory" style="font-size:12px" placeholder="已揭示的秘密、物品归属、角色状态……">${esc(c?.memory||'')}</textarea><div class="subtle-rule"></div><strong class="tiny">剧情总纲</strong><p class="content-note">${esc(p.plan||'尚未规划。可以手动在设定中填写，或点击“规划大纲”。')}</p>${c?.sources?.length?`<div class="subtle-rule"></div><strong class="tiny">本章检索参考</strong><p class="tiny muted">列出生成时送入模型的资料，不代表正文引用了全部资料。</p>${c.sources.map(s=>`<p class="tiny">${safeURL(s.url)?`<a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title)}</a>`:esc(s.title)} · 片段 ${s.offset||0}</p>`).join('')}`:''}${p.review?`<div class="subtle-rule"></div><strong class="tiny">连续性审阅</strong><p class="content-note">${esc(p.review)}</p>`:''}<div class="subtle-rule"></div><p>已绑定 ${p.characters.length} 位角色 / ${p.scenes.length} 个场景 / ${p.knowledge.length} 份资料</p><p class="tiny">篇幅以非空白字符计。模型输出有偏差，生成完成后会显示实际达成情况。</p></aside></div>`;}
+function bindEditor(){const p=current(),c=p?.chapters.find(c=>c.id===chapterId);if(!c)return;const bind=(sel,key)=>{const e=$(sel);if(e)e.oninput=()=>{if(activeRun){toast('生成期间请先停止任务再修改正文。');e.value=c[key];return;}c[key]=e.value;p.updated=Date.now();save();if(key==='text'||key==='outline'||key==='memory')refreshWritingGuard(p,c);if(key==='text'){c.generated=null;c.memory='';$('#chapter-count').textContent=count(c.text)+' 字符';$('#word-total').textContent=p.chapters.reduce((n,c)=>n+count(c.text),0).toLocaleString();}};};bind('#chapter-title','title');bind('#manuscript','text');bind('#chapter-outline','outline');bind('#chapter-memory','memory');$$('[data-choice-label]').forEach(e=>e.oninput=()=>{c.choices[+e.dataset.choiceLabel].label=e.value;save();});$$('[data-choice-target]').forEach(e=>e.onchange=()=>{c.choices[+e.dataset.choiceTarget].target=e.value;save();});bindChoiceRules(p,c);if(activeRun)$$('.editor input,.editor textarea,.editor select,.editor button').forEach(e=>e.disabled=true);}
 function jobBox(p){const j=p.job;return`<div class="job" id="job-box"><div class="between"><strong>${esc(j.status)} · ${j.calls||0} 次模型请求</strong>${activeRun?button('完成本次请求后停止','stop-agent','small'):button('收起','dismiss-job','small ghost')}</div><div class="progress"><i style="width:${Math.min(100,j.progress||0)}%"></i></div><pre>${esc((j.log||[]).slice(-5).join('\n'))}</pre></div>`;}
 function assetsView(){const k=assetTab;const filtered=state[k].filter(a=>JSON.stringify(a).toLowerCase().includes(search.toLowerCase()));return`<div class="between heading"><div><h1>让你的世界有迹可循。</h1><p>保存角色动机与场景细节，供不同剧情集复用。</p></div>${button(k==='characters'?'＋ 新角色':'＋ 新场景','add-asset','primary')}</div><div class="between"><div class="tabs">${button(`角色库 ${state.characters.length}`,'tab-characters',k==='characters'?'active':'')}${button(`场景库 ${state.scenes.length}`,'tab-scenes',k==='scenes'?'active':'')}</div><div class="searchbar"><input id="asset-search" aria-label="检索角色或场景" placeholder="搜索姓名、动机或场景细节…" value="${esc(search)}"></div></div><div class="asset-grid">${filtered.map(a=>`<article class="asset-card"><div class="between"><div class="portrait">${esc(a.name.slice(0,1))}</div><span class="pill">${esc(a.role||a.kind||'未分类')}</span></div><h2>${esc(a.name)}</h2><p>${esc(a.desire||a.description||'尚未填写设定')}</p><p><b>${k==='characters'?'成长弧线':'环境感官'}</b><br>${esc(a.arc||a.senses||'等待补充')}</p><div class="between">${button('编辑设定','edit-asset','small soft',`data-id="${esc(a.id)}"`)}${button('删除','delete-asset','small ghost danger',`data-id="${esc(a.id)}"`)}</div></article>`).join('')||'<div class="empty">还没有匹配的设定。</div>'}</div>`;}
 function assetModal(id){const k=assetTab,a=state[k].find(a=>a.id===id)||{};const fields=k==='characters'?[['name','角色姓名'],['role','身份 / 剧情职能'],['desire','想得到什么'],['fear','害怕失去什么'],['secret','秘密与内在矛盾'],['voice','语言习惯'],['arc','成长弧线'],['relations','人物关系']]:[['name','场景名称'],['kind','地点 / 时间类型'],['description','场景概述'],['senses','视觉、声音、气味与触感'],['objects','可用物件'],['conflict','阻碍与冲突'],['interaction','可发生的行动']];modal(id?'编辑设定':'建立新设定',`<form id="asset-form"><div class="grid2">${fields.map(([key,label],i)=>`<div class="field"><label for="asset-${key}">${label}</label>${i<2?`<input id="asset-${key}" name="${key}" value="${esc(a[key]||'')}" ${key==='name'?'required':''} maxlength="120">`:`<textarea id="asset-${key}" name="${key}" maxlength="5000">${esc(a[key]||'')}</textarea>`}</div>`).join('')}</div><button class="primary" type="submit">保存设定</button></form>`);$('#asset-form').onsubmit=e=>{e.preventDefault();const data=Object.fromEntries(new FormData(e.target));Object.assign(a,data);if(!a.id){a.id=uid();state[k].push(a);}save();closeModal();render();};}
@@ -707,7 +1246,7 @@ function knowledgeModal(id,initial={}){const a=state.knowledge.find(a=>a.id===id
 function publishedView(){return`<div class="between heading"><div><h1>本地发布书架</h1><p>发布保存独立快照。后续修改草稿，不会改变这里的版本。</p></div>${button('发布当前剧情集','publish','primary')}</div><div class="notice">这里的发布只写入当前浏览器，不会公开到互联网。导出独立 HTML 阅读页后，可离线阅读或自行分享。</div><div class="books mt">${state.publications.map(p=>card(p,true)).join('')||'<div class="empty">还没有发布作品。写好一章，就可以生成第一份阅读版。</div>'}</div>`;}
 function readerProject(){return state.publications.find(p=>p.id===readerId)||state.projects.find(p=>p.id===readerId)||current();}
 
-function settingsView(){return`<div class="heading"><h1>让工具适合你的习惯。</h1><p>模型负责起草，你保留判断、修改与最终发布权。</p></div><div class="split"><section class="panel"><h2>创作智能体</h2><div class="detail-row"><span>连接状态</span><strong id="connection-state">${apiReady?'服务端密钥已配置':'尚未检查'}</strong></div><div class="field mt"><label for="model">模型 ID</label><input id="model" value="${esc(state.settings.model)}" placeholder="gpt-5.4-mini"></div><div class="field"><label for="budget">每次任务最多模型请求数</label><input id="budget" type="number" min="1" max="100" value="${state.settings.budget}"><p class="tiny muted">达到上限后暂停，可继续任务。实际费用取决于模型、上下文与输出量；本工具不预充值。</p></div>${button('检查连接','check-api','soft')}<div class="notice">智能生成会把当前剧情设定、已有正文的相关部分与已绑定资料片段发送给模型服务。密钥只保存在服务端，浏览器不保存密钥。</div><div class="subtle-rule"></div><h2>数据与备份</h2><p class="muted mt">作品、角色、场景、资料和发布快照保存在此浏览器的 IndexedDB。不同设备或网址不会自动同步。</p><div class="actions mt">${button('导出完整备份 JSON','backup','primary')}${button('导入备份 / 项目','import-backup')}</div><p class="tiny muted mt">导入会合并数据。相同 ID 的项目会作为新副本保留，不会覆盖现有作品。</p></section><aside class="panel"><h2>工作台使用顺序</h2><ol class="muted" style="padding-left:20px;font-size:13px;line-height:2.4"><li>在创作入口写下想法与规模</li><li>绑定角色、场景和参考资料</li><li>规划大纲，检查后分章生成</li><li>编辑正文与选项，试跑分支</li><li>本地发布并导出阅读页</li></ol><div class="subtle-rule"></div><h3>知识范围说明</h3><p class="tiny muted mt">知识库提供精选方法卡和文献入口，不等于收录了全部人类知识，也不是对模型重新训练。检索采用关键词与中文双字匹配；可导入 TXT / MD 笔记或授权文本。</p><p class="tiny muted mt">长篇写作保留每章事实记录。分支剧情只取各条入站路径共有的前驱事实，避免把互斥结局混在一起。</p></aside></div>`;}
+function settingsView(){return`<div class="heading"><h1>让工具适合你的习惯。</h1><p>模型负责起草，你保留判断、修改与最终发布权。</p></div><div class="split"><section class="panel"><h2>OpenAI 创作服务</h2><div class="detail-row"><span>连接状态</span><strong id="connection-state">${apiReady?'服务端密钥已配置':'尚未检查'}</strong></div><div class="field mt"><label for="model">模型 ID</label><input id="model" value="${esc(state.settings.model)}" placeholder="gpt-5.4-mini"></div><div class="field"><label for="budget">每次任务最多模型请求数</label><input id="budget" type="number" min="1" max="100" value="${state.settings.budget}"><p class="tiny muted">达到上限后暂停，可继续任务。实际费用取决于模型、上下文与输出量；本工具不预充值。</p></div>${button('检查连接','check-api','soft')}<div class="notice">选择 OpenAI 服务时，相关剧情设定、原稿和绑定资料会发送给该服务。密钥只保存在服务端，浏览器不保存密钥。</div><div class="subtle-rule"></div><h2>数据与备份</h2><p class="muted mt">作品、角色、场景、资料和发布快照保存在此浏览器的 IndexedDB。不同设备或网址不会自动同步。</p><div class="actions mt">${button('导出完整备份 JSON','backup','primary')}${button('导入备份 / 项目','import-backup')}</div><p class="tiny muted mt">导入会合并数据。相同 ID 的项目会作为新副本保留，不会覆盖现有作品。</p></section><aside class="panel"><h2>工作台使用顺序</h2><ol class="muted" style="padding-left:20px;font-size:13px;line-height:2.4"><li>在首页写下创意或贴上一段原文</li><li>绑定角色、场景和参考资料</li><li>写下一段并接入正文，或按大纲逐章生成</li><li>编辑正文与选项，试跑分支</li><li>本地发布并导出阅读页</li></ol><div class="subtle-rule"></div><h3>知识范围说明</h3><p class="tiny muted mt">知识库提供精选方法卡和文献入口，不等于收录了全部人类知识，也不是对模型重新训练。检索采用关键词与中文双字匹配；可导入 TXT / MD 笔记或授权文本。</p><p class="tiny muted mt">长篇写作保留每章事实记录。分支剧情只取各条入站路径共有的前驱事实，避免把互斥结局混在一起。</p></aside></div>`;}
 function bindSettings(){$('#model').onchange=e=>{state.settings.model=e.target.value.trim()||'gpt-5.4-mini';save();};$('#budget').onchange=e=>{state.settings.budget=Math.max(1,Math.min(100,+e.target.value||30));save();};}
 function projectSettings(){const p=current();if(!p)return toast('请先创建剧情集。');modal('剧情集设定',`<form id="project-form"><div class="field"><label>名称<input name="title" value="${esc(p.title)}" required maxlength="80"></label></div><div class="field"><label>核心创意<textarea name="idea" maxlength="12000">${esc(p.idea)}</textarea></label></div><div class="grid2"><div class="field"><label>剧情类型<select name="type">${TYPES.map(t=>option(t,p.type)).join('')}</select></label></div><div class="field"><label>目标总字符<input name="target" type="number" min="500" max="300000" value="${p.target}"></label></div></div><div class="field"><label>世界规则<textarea name="world">${esc(p.world)}</textarea></label></div><div class="field"><label>写作要求<textarea name="constraints">${esc(p.constraints)}</textarea></label></div><div class="field"><label>剧情总纲<textarea name="plan">${esc(p.plan)}</textarea></label></div><label>文学风格（最多 3 项）</label><div class="chips">${STYLES.map(([s])=>`<label class="chip"><input type="checkbox" name="styles" value="${s}" ${p.styles.includes(s)?'checked':''}><span>${s}</span></label>`).join('')}</div><label class="mt">剧情标签</label><div class="chips">${TAGS.map(s=>`<label class="chip"><input type="checkbox" name="tags" value="${s}" ${p.tags.includes(s)?'checked':''}><span>${s}</span></label>`).join('')}</div><div class="grid2 mt"><div><label>绑定角色</label>${assetChecks('characters',p.characters)}</div><div><label>绑定场景</label>${assetChecks('scenes',p.scenes)}</div></div><div class="mt scroll-box"><label>参考资料</label>${assetChecks('knowledge',p.knowledge)}</div><div class="field mt"><label>封面色调<select name="color">${[['green','苔绿'],['gold','麦金'],['blue','雾蓝'],['rose','陶红']].map(([v,l])=>`<option value="${v}" ${p.color===v?'selected':''}>${l}</option>`).join('')}</select></label></div><button class="primary" type="submit">保存设定</button></form>`);$('#project-form').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target);if(f.getAll('styles').length<1||f.getAll('styles').length>3)return toast('请选择 1–3 种文学风格。');for(const k of ['title','idea','type','world','constraints','plan','color'])p[k]=String(f.get(k)||'');for(const k of ['styles','tags','characters','scenes','knowledge'])p[k]=f.getAll(k);p.target=Number(f.get('target'));p.chapterCount=p.chapters.length;p.updated=Date.now();save();closeModal();render();};}
 function tokenize(s){const t=String(s).toLowerCase();const set=new Set(t.match(/[a-z0-9]{2,}/g)||[]);const han=(t.match(/[\u3400-\u9fff]+/g)||[]);for(const seg of han){for(let i=0;i<seg.length-1;i++)set.add(seg.slice(i,i+2));}return set;}
@@ -734,7 +1273,11 @@ function graphOrder(project) {
       if (degree.get(id) === 0) ordered.push(chapters.get(id));
     }
   }
-  if (ordered.length !== project.chapters.length) throw Error('分支存在循环；自动生成需要无环结构，请拆出不同节点后继续。');
+  if (ordered.length !== project.chapters.length) {
+    const error = Error('分支存在循环；自动生成需要无环结构，请拆出不同节点后继续。');
+    error.code = 'CYCLIC_BRANCHES';
+    throw error;
+  }
   return ordered;
 }
 function ancestors(project, id) {
@@ -793,8 +1336,8 @@ function contextFor(project, chapter) {
   };
 }
 function updateJob(p,message,progress){p.job.log.push(message);p.job.status=message;p.job.progress=progress??p.job.progress;save();if(view==='editor'&&current()?.id===p.id){const old=$('#job-box');if(old)old.outerHTML=jobBox(p);}}
-async function api(task,data,model){const r=await fetch('/api/agent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({task,model:model||state.settings.model,...data})});let j;try{j=await r.json();}catch{throw Error('生成服务不可用。离线版可编辑与发布；在线版需要服务器连接。');}if(!r.ok||j.error)throw Error(j.error||`请求失败 ${r.status}`);return j;}
-async function checkAPI(){try{const r=await fetch('/api/agent');const j=await r.json();apiReady=r.ok&&j.configured;toast(apiReady?'服务端密钥已配置；实际生成还取决于 API 计费、权限与网络。':'服务未配置密钥。编辑与本地发布仍可使用。');}catch{apiReady=false;toast('当前为离线模式，编辑与本地发布可用。');}if(view==='settings')render();}
+async function api(task,data,model,signal){const r=await fetch('/api/agent',{method:'POST',signal,headers:{'Content-Type':'application/json'},body:JSON.stringify({task,model:model||state.settings.model,...data})});let j;try{j=await r.json();}catch{throw Error('生成服务不可用。离线版可编辑与发布；在线版需要服务器连接。');}if(!r.ok||j.error)throw Error(j.error||`请求失败 ${r.status}`);return j;}
+async function checkAPI(){try{const r=await fetch('/api/agent');const j=await r.json();apiReady=r.ok&&j.configured;toast(apiReady?'服务端密钥已配置；实际生成还取决于 API 计费、权限与网络。':'OpenAI 服务未配置密钥。可在章节中选择离线规则或已安装的本机模型。');}catch{apiReady=false;toast('当前未连接 OpenAI 服务。可在章节中使用离线规则创作。');}if(view==='settings')render();}
 async function agent(task){const p=current();if(!p||activeRun)return;if(task==='plan'&&p.chapters.some(c=>c.text.trim()))return toast('已有正文时请在设定中修改大纲，或新建剧情集重新规划。');if(task==='write'&&!p.chapters.some(c=>c.outline))return toast('请先规划大纲，或给章节填写目标。');if(task==='review'&&!p.chapters.some(c=>c.text.trim()))return toast('请先创作正文。');activeRun=true;stopRequested=false;p.job={status:'准备创作资料',log:[],calls:0,progress:0};render();const budget=state.settings.budget,runModel=state.settings.model;async function call(t,d){if(stopRequested)throw Error('已停止，完成的内容已保留。');if(p.job.calls>=budget)throw Error('已达到本次请求数上限；已保存进度，可再次点击续写。');p.job.calls++;if(!await persistNow())throw Error('本地保存不可用，已暂停生成。请先导出备份并检查存储空间。');return api(t,d,runModel);}
 try{if(task==='plan'){updateJob(p,'正在规划大纲与章节',15);const out=await call('plan',{context:contextFor(p)});if(!Array.isArray(out.chapters)||out.chapters.length!==p.chapters.length)throw Error('模型返回的章节数与设定不符，请重试规划。');if(out.chapters.some(c=>!c.title||!c.outline))throw Error('大纲缺少标题或目标，未覆盖现有内容。');const keepRules=hasClueRules(p);if(keepRules){const issues=validateGraph(p,false);if(issues.length)throw Error(issues.join('；'));}else if(p.type==='分支互动剧情'){const check=clone(p);check.chapters=out.chapters.map((x,i)=>({...check.chapters[i],title:x.title,choices:(x.choices||[]).map(ch=>({label:ch.label,target:check.chapters[ch.targetIndex]?.id||''}))}));const problems=validateGraph(check,false);graphOrder(check);if(problems.length)throw Error('大纲分支校验失败，未替换现有设定：'+problems.join('；'));}p.plan=out.synopsis;out.chapters.forEach((x,i)=>{p.chapters[i].title=x.title;p.chapters[i].outline=x.outline;});if(!keepRules)out.chapters.forEach((x,i)=>{p.chapters[i].choices=(x.choices||[]).filter(ch=>Number.isInteger(ch.targetIndex)&&p.chapters[ch.targetIndex]).map(ch=>({label:ch.label,target:p.chapters[ch.targetIndex].id}));});updateJob(p,'大纲已生成，请检查后开始分章写作',100);
 }else if(task==='write'){const target=Math.round(p.target/p.chapters.length);if(target<200||target>8000)throw Error('每章目标需在 200–8,000 字符之间，请调整总量或章节数。');const graphErrors=validateGraph(p,false);if(graphErrors.length)throw Error(graphErrors.join('；'));const ordered=graphOrder(p);for(let i=0;i<ordered.length;i++){const c=ordered[i];if(c.text&&!c.generated)continue;if(c.generated?.complete)continue;c.generated=c.generated||{complete:false,parts:0};let batchParts=0;while(count(c.text)<target*.9&&batchParts<8){const remaining=Math.max(200,target-count(c.text));updateJob(p,`正在创作 ${i+1}/${p.chapters.length}：${c.title}（已写 ${count(c.text)} 字符）`,i/p.chapters.length*90);const ctx=contextFor(p,c);const result=await call('chapter',{context:ctx,chapter:{title:c.title,outline:c.outline,existing:c.text.slice(-10000),memory:c.memory,segmentTarget:Math.min(2000,remaining),isFinal:remaining<=2200,choices:c.choices.map(ch=>ch.label)}});if(!result.text?.trim())throw Error('模型未返回正文，本章保持原状。');c.text+=(c.text?'\n\n':'')+result.text.trim();c.memory=result.memory||c.memory;c.sources=[...new Map([...(c.sources||[]),...ctx.sources.map(s=>({title:s.title,source:s.source,url:s.url,offset:s.offset}))].map(x=>[x.title+'|'+x.offset,x])).values()];c.generated.parts++;batchParts++;c.generated.complete=count(c.text)>=target*.9;if(!await persistNow())throw Error('本地保存失败，已暂停生成，请立即导出备份。');if(stopRequested)throw Error('已停止，已生成的段落和事实记录已保存。');}if(!c.generated.complete&&count(c.text)<target*.9)throw Error('本章尚未达到目标篇幅，已保存；请点击续写继续。');}const words=p.chapters.reduce((n,c)=>n+count(c.text),0);updateJob(p,`本次创作结束：${words} / ${p.target} 字符（${Math.round(words/p.target*100)}%）。请审阅篇幅与结局。`,100);
@@ -828,17 +1371,17 @@ function publish() {
 }
 
 function importFile(accept,callback,max=25e6){const f=document.createElement('input');f.type='file';f.accept=accept;f.onchange=async()=>{const file=f.files[0];if(!file)return;if(file.size>max)return toast('文件过大，请拆分后导入。');try{await callback(await file.text(),file.name);}catch(e){toast('导入失败：'+e.message);}};f.click();}
-function normalizeProject(p){if(!p||typeof p!=='object'||!Array.isArray(p.chapters)||p.chapters.length>100)throw Error('项目格式不正确或章节超过 100 章');const n=emptyProject();n.clues=normalizeClueList(p.clues);const clueIds=new Set(n.clues.map(x=>x.id));['title','idea','type','pov','tone','constraints','world','plan','review','color'].forEach(k=>{if(typeof p[k]==='string')n[k]=p[k].slice(0,30000);});n.id=typeof p.id==='string'?p.id:uid();n.target=Math.max(500,Math.min(300000,Number(p.target)||6000));['styles','tags','characters','scenes','knowledge'].forEach(k=>n[k]=Array.isArray(p[k])?p[k].filter(x=>typeof x==='string').slice(0,300):n[k]);n.chapters=p.chapters.map(c=>({id:typeof c.id==='string'?c.id:uid(),title:String(c.title||'未命名章节').slice(0,160),text:String(c.text||'').slice(0,300000),outline:String(c.outline||'').slice(0,15000),memory:String(c.memory||'').slice(0,8000),choices:Array.isArray(c.choices)?c.choices.map(ch=>normalizeStoryChoice(ch,clueIds)):[],sources:Array.isArray(c.sources)?c.sources.slice(0,100).map(x=>({title:String(x.title||''),source:String(x.source||''),url:safeURL(x.url)?x.url:'',offset:Number(x.offset)||0})):[],generated:c.generated&&typeof c.generated==='object'?{complete:!!c.generated.complete,parts:Number(c.generated.parts)||0}:null}));if(new Set(n.chapters.map(c=>c.id)).size!==n.chapters.length)throw Error('章节 ID 重复');n.chapterCount=n.chapters.length;return n;}
+function normalizeProject(p){if(!p||typeof p!=='object'||!Array.isArray(p.chapters)||p.chapters.length>100)throw Error('项目格式不正确或章节超过 100 章');const n=emptyProject();n.clues=normalizeClueList(p.clues);const clueIds=new Set(n.clues.map(x=>x.id));['title','idea','type','pov','tone','constraints','world','plan','review','color'].forEach(k=>{if(typeof p[k]==='string')n[k]=p[k].slice(0,30000);});n.id=typeof p.id==='string'?p.id:uid();n.target=Math.max(500,Math.min(300000,Number(p.target)||6000));['styles','tags','characters','scenes','knowledge'].forEach(k=>n[k]=Array.isArray(p[k])?p[k].filter(x=>typeof x==='string').slice(0,300):n[k]);n.chapters=p.chapters.map(c=>({id:typeof c.id==='string'?c.id:uid(),title:String(c.title||'未命名章节').slice(0,160),text:String(c.text||'').slice(0,300000),outline:String(c.outline||'').slice(0,15000),memory:String(c.memory||'').slice(0,8000),choices:Array.isArray(c.choices)?c.choices.map(ch=>normalizeStoryChoice(ch,clueIds)):[],sources:Array.isArray(c.sources)?c.sources.slice(0,100).map(x=>({title:String(x.title||''),source:String(x.source||''),url:safeURL(x.url)?x.url:'',offset:Number(x.offset)||0})):[],...(savedProposal(c.writingDraft)?{writingDraft:savedProposal(c.writingDraft)}:{}),generated:c.generated&&typeof c.generated==='object'?{complete:!!c.generated.complete,parts:Number(c.generated.parts)||0}:null}));if(new Set(n.chapters.map(c=>c.id)).size!==n.chapters.length)throw Error('章节 ID 重复');n.chapterCount=n.chapters.length;return n;}
 function mergeBackup(raw){if(!raw||typeof raw!=='object')throw Error('不是有效的数据对象');const projects=(raw.projects||(raw.chapters?[raw]:[])).map(normalizeProject);const publications=Array.isArray(raw.publications)?raw.publications.map(normalizeProject):[];if(!projects.length&&!raw.characters&&!raw.scenes&&!raw.knowledge&&!raw.publications)throw Error('未找到可导入内容');for(const k of ['characters','scenes','knowledge']){if(!Array.isArray(raw[k]))continue;const remap=Object.create(null);for(const item of raw[k]){if(!item||typeof item!=='object'||!item.id)continue;const copy={};if(k==='knowledge')copy.citations=cleanCitations(item.citations);for(const[key,value]of Object.entries(item)){if(typeof value==='string'&&key!=='__proto__'&&key!=='constructor')copy[key]=value;}if(k==='knowledge'&&(!copy.title||!copy.content))continue;if(k!=='knowledge'&&!copy.name)continue;const original=copy.id;if(state[k].some(x=>x.id===copy.id)){copy.id=uid();remap[original]=copy.id;}state[k].push(copy);}for(const p of projects)p[k]=p[k].map(id=>remap[id]||id);}
 for(const p of projects){if(state.projects.some(x=>x.id===p.id)){p.id=uid();p.title+='（导入副本）';}state.projects.unshift(p);}if(publications.length){for(const p of publications){p.id=uid();p.snapshot=true;state.publications.push(p);}}if(projects[0])state.active=projects[0].id;save();render();toast(`已导入 ${projects.length} 个项目，现有作品已保留。`);}
 function importChaptersModal(){modal('导入章节正文',`<p class="muted">粘贴工具导出的章节 JSON，或使用 Markdown 二级标题（## 标题）分章。内容会追加到当前剧情集。</p><textarea id="chapter-import" class="mt" style="min-height:280px" placeholder='{"chapters":[{"title":"第一章","text":"正文……"}]}'></textarea>`,button('取消','close')+button('追加导入','confirm-import-chapters','primary'));}
-async function dispatch(action,b){const p=current(),c=p?.chapters.find(c=>c.id===chapterId),id=b.dataset.id;const locked=['clue-manager','clue-demo','project-settings','add-chapter','delete-chapter','add-choice','delete-choice','chapter-up','chapter-down','import-chapters','import-backup','confirm-import-chapters','new','add-asset','edit-asset','delete-asset','add-knowledge','edit-knowledge','delete-knowledge','research','save-research'];if(activeRun&&locked.includes(action))return toast('请先停止生成任务，再修改设定。');switch(action){case'new':go('create');break;case'all-projects':go('projects');break;case'close':closeModal();break;case'clue-manager':clueManager(p);break;case'clue-demo':{let demo=state.projects.find(x=>x.id===CLUE_EXAMPLE.id);if(!demo){demo=clone(CLUE_EXAMPLE);state.projects.unshift(demo);save();}readerId=demo.id;readerSession=null;go('reader');break;}case'edit-project':state.active=id;chapterId='';save();go('editor');break;case'chapter':chapterId=id;render();break;case'project-settings':projectSettings();break;case'read-current':readerId=p.id;readerSession=null;go('reader');break;case'read-project':case'read-pub':readerId=id;readerSession=null;go('reader');break;case'add-chapter':if(p.chapters.length>=100)return toast('最多 100 个章节。');const n={id:uid(),title:`第 ${p.chapters.length+1} 章`,outline:'',text:'',choices:[],memory:''};p.chapters.push(n);p.chapterCount=p.chapters.length;chapterId=n.id;save();render();break;case'delete-chapter':modal('删除章节',`<p>删除“${esc(c.title)}”后，正文无法自动恢复。指向它的选项需要重新设置。建议先导出备份。</p>`,button('取消','close')+button('确认删除','confirm-delete-chapter','danger'));break;case'confirm-delete-chapter':p.chapters=p.chapters.filter(x=>x.id!==chapterId);p.chapterCount=p.chapters.length;chapterId='';save();closeModal();render();break;case'chapter-up':case'chapter-down':{const i=p.chapters.indexOf(c),j=i+(action==='chapter-up'?-1:1);if(j>=0&&j<p.chapters.length){[p.chapters[i],p.chapters[j]]=[p.chapters[j],p.chapters[i]];save();render();}break;}case'add-choice':c.choices.push({label:'新的选择',target:''});save();render();break;case'delete-choice':c.choices.splice(+b.dataset.index,1);save();render();break;case'tab-characters':case'tab-scenes':assetTab=action.slice(4);search='';render();break;case'add-asset':assetModal();break;case'edit-asset':assetModal(id);break;case'delete-asset':modal('移除设定',`<p>移除后会同时解除剧情集的绑定，正文不受影响。</p>`,button('取消','close')+button('确认移除','confirm-delete-asset','danger',`data-id="${esc(id)}"`));break;case'confirm-delete-asset':state[assetTab]=state[assetTab].filter(x=>x.id!==id);state.projects.forEach(p=>p[assetTab]=p[assetTab].filter(x=>x!==id));save();closeModal();render();break;case'research':researchModal();break;case'save-research':if(researchResult){state.knowledge.unshift(researchResult);researchResult=null;await persistNow();closeModal();go('knowledge');toast('研究资料已保存，可在剧情集设定中绑定。');}break;case'add-knowledge':knowledgeModal();break;case'edit-knowledge':knowledgeModal(id);break;case'delete-knowledge':modal('移除资料',`<p>仅移除此工具中的资料卡，并解除剧情集的资料绑定。</p>`,button('取消','close')+button('确认移除','confirm-delete-knowledge','danger',`data-id="${esc(id)}"`));break;case'confirm-delete-knowledge':state.knowledge=state.knowledge.filter(x=>x.id!==id);state.projects.forEach(p=>p.knowledge=p.knowledge.filter(x=>x!==id));save();closeModal();render();break;case'import-knowledge':importFile('.txt,.md',async(text,name)=>knowledgeModal(null,{title:name,content:text,category:'自有资料',source:name}),1e6);break;case'agent-plan':await agent('plan');break;case'agent-write':await agent('write');break;case'agent-review':await agent('review');break;case'stop-agent':stopRequested=true;toast('当前请求完成后停止，不丢弃已经生成的段落。');break;case'dismiss-job':p.job=null;save();render();break;case'export-prompt':exportPrompt();break;case'export-md':download(p.title+'.md',md(p));break;case'export-project':download(p.title+'.json',JSON.stringify({schemaVersion:2,projects:[p],characters:state.characters.filter(x=>p.characters.includes(x.id)),scenes:state.scenes.filter(x=>p.scenes.includes(x.id)),knowledge:state.knowledge.filter(x=>p.knowledge.includes(x.id))},null,2),'application/json');break;case'backup':await persistNow();download('叙事工坊_完整备份_'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify(state,null,2),'application/json');toast('备份已导出。');break;case'import-backup':importFile('.json',async text=>mergeBackup(JSON.parse(text)));break;case'import-chapters':importChaptersModal();break;case'confirm-import-chapters':{try{const raw=$('#chapter-import').value.trim();let arr;if(raw.startsWith('{')||raw.startsWith('[')){const j=JSON.parse(raw);arr=Array.isArray(j)?j:j.chapters;}else{arr=raw.split(/^##\s+/m).filter(Boolean).map(block=>{const i=block.indexOf('\n');return{title:i<0?block:block.slice(0,i),text:i<0?'':block.slice(i+1).trim()};});}if(!Array.isArray(arr)||!arr.length||p.chapters.length+arr.length>100)throw Error('格式错误或章节总数超过 100');appendChapterDrafts(p,arr);save();closeModal();render();toast('已追加章节。');}catch(e){toast('导入失败：'+e.message);}break;}case'publish':publish();break;case'confirm-publish':{if(validateGraph(p).length)return toast('仍有正文或分支问题，请先修正。');const pub=clone(p);pub.id=uid();pub.snapshot=true;pub.updated=Date.now();pub.job=null;state.publications.unshift(pub);if(!await persistNow()){state.publications=state.publications.filter(x=>x.id!==pub.id);return toast('发布版未能保存，请先导出备份并检查存储空间。');}closeModal();go('published');toast('发布版已保存在本地书架。');break;}case'export-pub':{const pub=state.publications.find(x=>x.id===id);download(pub.title+'_阅读版.html',readerHTML(pub),'text/html;charset=utf-8');break;}case'reader-choice':case'reader-back':case'restart-reader':previewAction(action,b);break;case'font-minus':readerFont=Math.max(14,readerFont-1);render();break;case'font-plus':readerFont=Math.min(30,readerFont+1);render();break;case'check-api':await checkAPI();break;}}
+async function dispatch(action,b){const p=current(),c=p?.chapters.find(c=>c.id===chapterId),id=b.dataset.id;if(WRITING_ACTIONS.has(action))return writingAction(action,p,c);const locked=['clue-manager','clue-demo','project-settings','add-chapter','delete-chapter','add-choice','delete-choice','chapter-up','chapter-down','import-chapters','import-backup','confirm-import-chapters','new','add-asset','edit-asset','delete-asset','add-knowledge','edit-knowledge','delete-knowledge','research','save-research'];if(activeRun&&locked.includes(action))return toast('请先停止生成任务，再修改设定。');switch(action){case'new':go('create');break;case'all-projects':go('projects');break;case'close':closeModal();break;case'clue-manager':clueManager(p);break;case'clue-demo':{let demo=state.projects.find(x=>x.id===CLUE_EXAMPLE.id);if(!demo){demo=clone(CLUE_EXAMPLE);state.projects.unshift(demo);save();}readerId=demo.id;readerSession=null;go('reader');break;}case'edit-project':state.active=id;chapterId='';save();go('editor');break;case'chapter':chapterId=id;render();break;case'project-settings':projectSettings();break;case'read-current':readerId=p.id;readerSession=null;go('reader');break;case'read-project':case'read-pub':readerId=id;readerSession=null;go('reader');break;case'add-chapter':if(p.chapters.length>=100)return toast('最多 100 个章节。');const n={id:uid(),title:`第 ${p.chapters.length+1} 章`,outline:'',text:'',choices:[],memory:''};p.chapters.push(n);p.chapterCount=p.chapters.length;chapterId=n.id;save();render();break;case'delete-chapter':modal('删除章节',`<p>删除“${esc(c.title)}”后，正文无法自动恢复。指向它的选项需要重新设置。建议先导出备份。</p>`,button('取消','close')+button('确认删除','confirm-delete-chapter','danger'));break;case'confirm-delete-chapter':p.chapters=p.chapters.filter(x=>x.id!==chapterId);p.chapterCount=p.chapters.length;chapterId='';save();closeModal();render();break;case'chapter-up':case'chapter-down':{const i=p.chapters.indexOf(c),j=i+(action==='chapter-up'?-1:1);if(j>=0&&j<p.chapters.length){[p.chapters[i],p.chapters[j]]=[p.chapters[j],p.chapters[i]];save();render();}break;}case'add-choice':c.choices.push({label:'新的选择',target:''});save();render();break;case'delete-choice':c.choices.splice(+b.dataset.index,1);save();render();break;case'tab-characters':case'tab-scenes':assetTab=action.slice(4);search='';render();break;case'add-asset':assetModal();break;case'edit-asset':assetModal(id);break;case'delete-asset':modal('移除设定',`<p>移除后会同时解除剧情集的绑定，正文不受影响。</p>`,button('取消','close')+button('确认移除','confirm-delete-asset','danger',`data-id="${esc(id)}"`));break;case'confirm-delete-asset':state[assetTab]=state[assetTab].filter(x=>x.id!==id);state.projects.forEach(p=>p[assetTab]=p[assetTab].filter(x=>x!==id));save();closeModal();render();break;case'research':researchModal();break;case'save-research':if(researchResult){state.knowledge.unshift(researchResult);researchResult=null;await persistNow();closeModal();go('knowledge');toast('研究资料已保存，可在剧情集设定中绑定。');}break;case'add-knowledge':knowledgeModal();break;case'edit-knowledge':knowledgeModal(id);break;case'delete-knowledge':modal('移除资料',`<p>仅移除此工具中的资料卡，并解除剧情集的资料绑定。</p>`,button('取消','close')+button('确认移除','confirm-delete-knowledge','danger',`data-id="${esc(id)}"`));break;case'confirm-delete-knowledge':state.knowledge=state.knowledge.filter(x=>x.id!==id);state.projects.forEach(p=>p.knowledge=p.knowledge.filter(x=>x!==id));save();closeModal();render();break;case'import-knowledge':importFile('.txt,.md',async(text,name)=>knowledgeModal(null,{title:name,content:text,category:'自有资料',source:name}),1e6);break;case'agent-plan':await agent('plan');break;case'agent-write':await agent('write');break;case'agent-review':await agent('review');break;case'stop-agent':stopRequested=true;toast('当前请求完成后停止，不丢弃已经生成的段落。');break;case'dismiss-job':p.job=null;save();render();break;case'export-prompt':exportPrompt();break;case'export-md':download(p.title+'.md',md(p));break;case'export-project':download(p.title+'.json',JSON.stringify({schemaVersion:2,projects:[p],characters:state.characters.filter(x=>p.characters.includes(x.id)),scenes:state.scenes.filter(x=>p.scenes.includes(x.id)),knowledge:state.knowledge.filter(x=>p.knowledge.includes(x.id))},null,2),'application/json');break;case'backup':await persistNow();download('叙事工坊_完整备份_'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify(state,null,2),'application/json');toast('备份已导出。');break;case'import-backup':importFile('.json',async text=>mergeBackup(JSON.parse(text)));break;case'import-chapters':importChaptersModal();break;case'confirm-import-chapters':{try{const raw=$('#chapter-import').value.trim();let arr;if(raw.startsWith('{')||raw.startsWith('[')){const j=JSON.parse(raw);arr=Array.isArray(j)?j:j.chapters;}else{arr=raw.split(/^##\s+/m).filter(Boolean).map(block=>{const i=block.indexOf('\n');return{title:i<0?block:block.slice(0,i),text:i<0?'':block.slice(i+1).trim()};});}if(!Array.isArray(arr)||!arr.length||p.chapters.length+arr.length>100)throw Error('格式错误或章节总数超过 100');appendChapterDrafts(p,arr);save();closeModal();render();toast('已追加章节。');}catch(e){toast('导入失败：'+e.message);}break;}case'publish':publish();break;case'confirm-publish':{if(validateGraph(p).length)return toast('仍有正文或分支问题，请先修正。');const pub=clone(p);pub.id=uid();pub.snapshot=true;pub.updated=Date.now();pub.job=null;for(const ch of pub.chapters)delete ch.writingDraft;state.publications.unshift(pub);if(!await persistNow()){state.publications=state.publications.filter(x=>x.id!==pub.id);return toast('发布版未能保存，请先导出备份并检查存储空间。');}closeModal();go('published');toast('发布版已保存在本地书架。');break;}case'export-pub':{const pub=state.publications.find(x=>x.id===id);download(pub.title+'_阅读版.html',readerHTML(pub),'text/html;charset=utf-8');break;}case'reader-choice':case'reader-back':case'restart-reader':previewAction(action,b);break;case'font-minus':readerFont=Math.max(14,readerFont-1);render();break;case'font-plus':readerFont=Math.min(30,readerFont+1);render();break;case'check-api':await checkAPI();break;}}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-action],[data-view]');if(!b)return;if(b.dataset.view){go(b.dataset.view);return;}Promise.resolve(dispatch(b.dataset.action,b)).catch(err=>toast(err.message||'操作未完成。'));});
-document.addEventListener('input',e=>{if(['asset-search','knowledge-search'].includes(e.target.id)){const id=e.target.id,pos=e.target.selectionStart;search=e.target.value;render();const el=$('#'+id);el.focus();el.setSelectionRange(pos,pos);}});
-document.addEventListener('change',e=>{if(e.target.id==='reader-project'){readerId=e.target.value;readerSession=null;render();}if(e.target.id==='reader-theme'){readerTheme=e.target.value;render();}if(e.target.id==='reader-mode'){readerMode=e.target.value;render();}});
+document.addEventListener('input',e=>{editWritingCandidate(e.target);if(['asset-search','knowledge-search'].includes(e.target.id)){const id=e.target.id,pos=e.target.selectionStart;search=e.target.value;render();const el=$('#'+id);el.focus();el.setSelectionRange(pos,pos);}});
+document.addEventListener('change',e=>{writingChange(e.target);if(e.target.id==='reader-project'){readerId=e.target.value;readerSession=null;render();}if(e.target.id==='reader-theme'){readerTheme=e.target.value;render();}if(e.target.id==='reader-mode'){readerMode=e.target.value;render();}});
 document.addEventListener('keydown',e=>{const m=$('.modal');if(e.key==='Escape'&&m)closeModal();if(m&&e.key==='Tab'){const list=[...m.querySelectorAll('button:not(:disabled),input,textarea,select,a[href]')];const first=list[0],last=list.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus();}}if((e.ctrlKey||e.metaKey)&&e.key==='s'){e.preventDefault();persistNow().then(ok=>{if(ok)toast('已保存。');});}});
 window.addEventListener('beforeunload',e=>{if(activeRun){e.preventDefault();e.returnValue='生成尚未完成';}});
-async function init(){try{db=await openDB();state=await readDB();}catch(e){storageError='浏览器存储不可用，请及时导出备份。';}if(!state)state=seed();state.schemaVersion=2;if(!state.knowledgeRevision){for(const k of KNOWLEDGE_SEED){if(!state.knowledge.some(x=>x.id===k.id))state.knowledge.push(clone(k));}state.knowledgeRevision=1;}state.settings=state.settings||{model:'gpt-5.4-mini',budget:30};state.publications=state.publications||[];for(const p of state.projects){if(p.job&&p.job.progress<100)p.job.status='上次任务已中断，已完成内容保留，可点击续写';}render();await persistNow();if(location.protocol==='file:')return;try{const r=await fetch('/api/agent');if(r.ok){const j=await r.json();apiReady=!!j.configured;}}catch{}}
+async function init(){try{db=await openDB();state=await readDB();}catch(e){storageError='浏览器存储不可用，请及时导出备份。';}if(!state)state=seed();state.schemaVersion=2;if(!state.knowledgeRevision){for(const k of KNOWLEDGE_SEED){if(!state.knowledge.some(x=>x.id===k.id))state.knowledge.push(clone(k));}state.knowledgeRevision=1;}state.settings=state.settings||{model:'gpt-5.4-mini',budget:30};state.publications=state.publications||[];for(const p of state.projects){if(p.job&&p.job.progress<100)p.job.status='上次任务已中断，已完成内容保留，可点击续写';}render();await persistNow();if(location.protocol==='file:')return;void detectWriterModels();try{const r=await fetch('/api/agent');if(r.ok){const j=await r.json();apiReady=!!j.configured;refreshWriterControls();}}catch{}}
 init();
 
 })();</script></body></html>

@@ -1,7 +1,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 
 const read = relative => readFileSync(new URL(relative, import.meta.url), 'utf8');
-const files = ['knowledge.js', 'branches.js', 'clue-editor.js', 'reader.js', 'app.js'];
+const files = ['knowledge.js', 'branches.js', 'clue-editor.js', 'reader.js', 'writing.js', 'writing-editor.js', 'app.js'];
 const sample = JSON.stringify(JSON.parse(read('../examples/story/Clue_Counter.json')))
   .replaceAll('<', '\\u003c').replaceAll('\u2028', '\\u2028').replaceAll('\u2029', '\\u2029');
 const script = 'const CLUE_EXAMPLE = ' + sample + ';\n' + files.map(read).join('\n');
