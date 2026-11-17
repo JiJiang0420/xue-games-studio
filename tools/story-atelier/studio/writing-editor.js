@@ -3,6 +3,7 @@ const WRITING_ACTIONS = new Set(['spark-story','continue-story','generate-writin
 const writingJobs = new WeakMap();
 const writingErrors = new WeakMap();
 let writerModels = [], writerBridge = false, writerModelMessage = '';
+let preferOpenAI = false, sawOpenAIConfig = false, openAIProbe = null;
 
 function writingBase(project, chapter) {
   return writingStamp(JSON.stringify([chapter.text, project.idea, chapter.outline]));
@@ -45,14 +46,16 @@ function cleanNewProse(text, source) {
 }
 
 function writerEngine() {
-  return state.settings.writerEngine || (writerModels[0] ? 'local:' + writerModels[0] : 'rules');
+  if (state.settings.writerEngine) return state.settings.writerEngine;
+  if (preferOpenAI && apiReady) return 'service';
+  return writerModels[0] ? 'local:' + writerModels[0] : 'rules';
 }
 
 function writerEngineOptions() {
   const selected = writerEngine();
   const choices = writerModels.map(model => ['local:' + model, '本机模型 · ' + model]);
   choices.push(['rules','离线规则草稿']);
-  if (apiReady || selected === 'service') choices.push(['service', '项目已配置的 OpenAI 服务']);
+  if (apiReady || selected === 'service') choices.push(['service', 'OpenAI · ' + (state.settings.model || 'gpt-5.4-mini')]);
   if (!choices.some(([value]) => value === selected)) choices.push([selected, '上次选择的模型（未连接）']);
   return choices.map(([value,label]) => `<option value="${esc(value)}"${value === selected ? ' selected' : ''}>${esc(label)}</option>`).join('');
 }
@@ -68,7 +71,7 @@ function writerNote() {
   const engine = writerEngine();
   if (engine === 'service') return '本段原稿及绑定设定会发送到项目的 OpenAI 服务。';
   if (engine.startsWith('local:')) return '原稿和设定交给这台电脑上选定的 Ollama 模型。';
-  return '离线规则按原文中的人物、物件和场景组句。' + (writerBridge ? writerModelMessage : '使用本机大模型可运行离线包里的 local-writer.mjs。');
+  return '离线规则按原文中的人物、物件和场景组句。' + (writerBridge ? writerModelMessage : '使用 OpenAI 或 Ollama 时请打开本机启动器。');
 }
 
 async function detectWriterModels() {
@@ -174,7 +177,7 @@ async function writeWithEngine(engine, input, previous, variant, signal) {
     const chapter = {title:input.chapter.title, outline:input.chapter.outline, existing:manuscript, memory:input.chapter.memory,
       segmentTarget:350, isFinal:false, direction:input.direction, previousDraft:previous.slice(-1600)};
     const out = await api('chapter',{context:{...context, pathFacts:input.commonPast},chapter},state.settings.model,signal);
-    return {text:out.text,label:'OpenAI · ' + state.settings.model};
+    return {text:out.text,label:'OpenAI · ' + (out.model || state.settings.model)};
   }
   const model = engine.slice('local:'.length);
   if (!engine.startsWith('local:') || !writerModels.includes(model)) throw Error('所选模型未连接。请重新检测，或切换到离线规则草稿。');
@@ -278,4 +281,63 @@ function editWritingCandidate(target) {
   project.updated = Date.now();
   refreshWritingGuard(project,chapter);
   save();
+}
+
+function applyOpenAIConfiguration(config) {
+  apiReady = config?.configured === true;
+  preferOpenAI = apiReady && config.preferredWriter === 'service';
+  sawOpenAIConfig = true;
+  refreshWriterControls();
+  refreshOpenAITest();
+}
+
+async function readOpenAIConfiguration() {
+  if (location.protocol === 'file:') { applyOpenAIConfiguration(null); return; }
+  try {
+    const response = await fetch('/api/agent',{cache:'no-store',signal:AbortSignal.timeout(6000)});
+    applyOpenAIConfiguration(response.ok ? await response.json() : null);
+  } catch { applyOpenAIConfiguration(null); }
+}
+
+function openAIConnectionLabel() {
+  if (apiReady) return '已读取密钥';
+  return sawOpenAIConfig ? '未读取到密钥' : '尚未检查';
+}
+
+function openAITestBox() {
+  const test = openAIProbe;
+  const label = test?.running ? '正在请求 OpenAI…' : '用示例实测 OpenAI';
+  const billingLink = test?.code === 'credit_balance_exhausted' ? '<a href="https://platform.openai.com/settings/organization/billing/overview" target="_blank" rel="noopener noreferrer">打开 OpenAI 账单页</a>' : '';
+  const result = test?.error ? `<p class="notice" role="alert">${esc(test.error)} ${billingLink}</p>` :
+    test?.text ? `<p class="tiny muted">已收到 ${esc(test.model)} 的续写</p><p class="content-note">${esc(test.text)}</p>` : '';
+  return `<div id="openai-test" class="mt"><div class="actions">${button(label,'test-openai','soft',test?.running ? 'disabled' : '')}
+    ${button('重读配置','check-api','ghost')}</div><p class="tiny muted mt">实测会发送一段内置明信片故事，使用一次所选模型。</p>
+    <div aria-live="polite">${result}</div></div>`;
+}
+
+function refreshOpenAITest() {
+  if (view !== 'settings') return;
+  const box = $('#openai-test'), indicator = $('#connection-state');
+  if (box) box.outerHTML = openAITestBox();
+  if (indicator) indicator.textContent = openAIConnectionLabel();
+}
+
+async function testOpenAI() {
+  if (openAIProbe?.running) return;
+  const model = state.settings.model || 'gpt-5.4-mini';
+  const test = {model,running:true,text:'',error:''};
+  openAIProbe = test;
+  refreshOpenAITest();
+  try {
+    await readOpenAIConfiguration();
+    if (!apiReady) throw Error(location.protocol === 'file:' ? '请从本机启动器打开工作台，再试写 OpenAI。' : '启动器尚未读取到 OPENAI_API_KEY。请检查本地配置后重新启动。');
+    const original = '顾禾把明信片翻过来。邮戳是明天的日期，收件栏里却是她刚刚想好的新名字。';
+    const output = await api('chapter',{
+      context:{mode:'续写正文',title:'明日来信',pov:'原稿人称',idea:'',type:'线性小说'},
+      chapter:{title:'第一章',existing:original,segmentTarget:200,isFinal:false,direction:'顺势推进',memory:''}
+    },model);
+    test.text = cleanNewProse(output.text, original);
+    test.model = output.model || model;
+  } catch (err) { test.error = err.message || '本次实测未收到模型正文。'; test.code = err.code; }
+  finally { test.running = false; refreshOpenAITest(); }
 }

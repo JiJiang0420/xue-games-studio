@@ -8,7 +8,7 @@ const source = files.map(file => readFileSync(new URL('../studio/' + file, impor
 const example = JSON.parse(readFileSync(new URL('../examples/story/Clue_Counter.json',import.meta.url),'utf8'));
 
 function workspace(text = '', idea = '') {
-  const ctx = vm.createContext({text,idea,CLUE_EXAMPLE:structuredClone(example),crypto:webcrypto,URL,AbortController,console,
+  const ctx = vm.createContext({text,idea,CLUE_EXAMPLE:structuredClone(example),crypto:webcrypto,URL,AbortController,AbortSignal,console,
     document:{addEventListener(){},querySelector(){return null;}},window:{addEventListener(){},scrollTo(){}},setTimeout(){},clearTimeout(){}});
   const run = code => vm.runInContext(code,ctx);
   run(source);
@@ -195,4 +195,33 @@ test('按修改过的原稿重写时清除旧候选上下文，允许重新采�
   assert.deepEqual(b.json('previousSent'),['','']);
   await b.run('acceptWriting(project,chapter)');
   assert.match(b.run('chapter.text'),/门被敲响了。$/);
+});
+
+test("本机启动器可默认选择 OpenAI，同时保留作者手动指定的创作方式",() => {
+  const b=workspace('用户手稿。');
+  b.run("applyOpenAIConfiguration({configured:true,preferredWriter:'service'});");
+  assert.equal(b.run('writerEngine()'),'service');assert.match(b.run('writerEngineOptions()'),/OpenAI/);
+  b.run("state.settings.writerEngine='rules';applyOpenAIConfiguration({configured:true,preferredWriter:'service'});");
+  assert.equal(b.run('writerEngine()'),'rules');
+  b.run("delete state.settings.writerEngine;applyOpenAIConfiguration({configured:true});");
+  assert.equal(b.run('writerEngine()'),'rules');
+});
+
+test("示例实测只发送内置文本，显示实际模型；额度耗尽保留用户手稿",async () => {
+  const b=workspace('我的私人手稿。','我的私人设定。');
+  b.run("globalThis.location={protocol:'http:'};fetch=async()=>({ok:true,json:async()=>({configured:true,preferredWriter:'service'})});let request;api=async(task,data)=>{request=data;return {text:'邮筒响了一下。',model:'returned-model'}}");
+  await b.run('testOpenAI()');
+  assert.match(b.run('openAITestBox()'),/returned-model/);assert.match(b.run('openAITestBox()'),/邮筒响了一下/);
+  assert.ok(!JSON.stringify(b.json('request')).includes('私人'));assert.match(b.run('request.chapter.existing'),/明信片/);
+  b.run("api=async()=>{throw Object.assign(Error('余额已用尽'),{code:'credit_balance_exhausted'})}");
+  await b.run('testOpenAI()');
+  assert.match(b.run('openAITestBox()'),/打开 OpenAI 账单页/);assert.match(b.run('openAITestBox()'),/余额已用尽/);
+  assert.equal(b.run('chapter.text'),'我的私人手稿。');assert.equal(b.run('Boolean(chapter.writingDraft)'),false);
+});
+
+test("仅双击离线页面时，OpenAI 实测会说明怎样打开启动器",async () => {
+  const b=workspace();
+  b.run("globalThis.location={protocol:'file:'};fetch=async()=>{throw Error('离线页面不应联网')};");
+  await b.run('testOpenAI()');
+  assert.match(b.run('openAITestBox()'),/从本机启动器打开/);assert.equal(b.run('openAIProbe.running'),false);
 });

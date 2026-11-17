@@ -2,11 +2,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
+import {runOpenAI} from '../offline/openai-agent.mjs';
 import { stripTypeScriptTypes } from 'node:module';
-const source=readFileSync(new URL('../app/api/agent/route.ts',import.meta.url),'utf8').replace("import { env } from 'cloudflare:workers';","const env=globalThis.testEnv;").replace("import { getChatGPTUser } from '../../chatgpt-auth';","const getChatGPTUser=globalThis.testUser;").replaceAll('import.meta.env.DEV','false');
+const source=readFileSync(new URL('../app/api/agent/route.ts',import.meta.url),'utf8').replace("import { env } from 'cloudflare:workers';","const env=globalThis.testEnv;").replace("import { getChatGPTUser } from '../../chatgpt-auth';","const getChatGPTUser=globalThis.testUser;").replace("import { runOpenAI } from '../../../offline/openai-agent.mjs';","const runOpenAI=globalThis.testRun;").replaceAll('import.meta.env.DEV','false');
 // Run the real handlers with the mocked Worker bindings and network calls below.
 const js = stripTypeScriptTypes(source.replace(/^export /gm, '')) + '\nObject.assign(exports, { GET, POST });';
-function setup(fetch=async()=>Response.json({status:'completed',output:[{content:[{type:'output_text',text:'{"text":"正文","memory":"事实"}'}]}]}),user={userId:'owner'}){const ctx={exports:{},testEnv:{OPENAI_API_KEY:'test-private-value'},testUser:async()=>user,process:{env:{}},Response,Request,URL,AbortSignal,fetch,console:{error(){}}};vm.runInNewContext(js,ctx);return ctx.exports;}
+function setup(fetch=async()=>Response.json({status:'completed',output:[{content:[{type:'output_text',text:'{"text":"正文","memory":"事实"}'}]}]}),user={userId:'owner'}){const ctx={exports:{},testRun:runOpenAI,testEnv:{OPENAI_API_KEY:'test-private-value'},testUser:async()=>user,process:{env:{}},Response,Request,URL,AbortSignal,fetch,console:{error(){}}};vm.runInNewContext(js,ctx);return ctx.exports;}
 const request=body=>new Request('https://studio.test/api/agent',{method:'POST',headers:{origin:'https://studio.test','Content-Type':'application/json'},body:JSON.stringify(body)});
 const chapter={task:'chapter',context:{chapterCount:1},chapter:{segmentTarget:600}};
 test('未登录用户无法调用付费服务',async()=>{let calls=0;const api=setup(async()=>{calls++;},null);assert.equal((await api.POST(request(chapter))).status,401);assert.equal(calls,0);});

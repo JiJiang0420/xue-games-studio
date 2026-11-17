@@ -57,3 +57,5 @@ yarn-error.log*
 
 # Versioned download for the offline editor
 !/offline/Story_Atelier_V1.1.zip
+!/offline/Story_Atelier_V1.2.zip
+!/offline/Story_Atelier_V1.3.zip
