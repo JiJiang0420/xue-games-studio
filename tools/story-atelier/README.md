@@ -1,19 +1,27 @@
-# 叙事工坊 · GLHF Story Atelier V1.3
+# 叙事工坊 · GLHF Story Atelier V1.4
 
 > 本目录用于源码维护，保存在 `xue-games-studio` 仓库的 `story-atelier` 分支、`tools/story-atelier/` 路径。
-> V1.3 的离线版和本机启动器在此分支维护。
+> V1.4 的离线版和本机启动器在此分支维护。
 
-## 用 OpenAI 创作
+## 用 ChatGPT Plus 续写
 
-[下载 V1.3 工具包](offline/Story_Atelier_V1.3.zip)并解压。在运行启动器的电脑上使用 Node.js 22.13 或更新版本。本机启动器读取本机的 `OPENAI_API_KEY` 环境变量，也支持同目录的 `.env.local`。从源码运行时，还会读取本工具项目根目录的 `.env.local`。新电脑需要自己的本地配置。
+[下载 V1.4 工具包](offline/Story_Atelier_V1.4.zip)并解压到电脑。安装 Node.js 22.13 或更新版本。Windows 双击 `Start_Local_Writer.cmd`，macOS 双击 `Start_Local_Writer.command`，Linux 可在解压目录运行 `node local-writer.mjs --open`。
 
-1. Windows 双击 `Start_Local_Writer.cmd`，macOS 双击 `Start_Local_Writer.command`，或在解压目录运行 `node local-writer.mjs --open`。
-2. 在「设置与备份」点「用示例实测 OpenAI」。它使用当前模型发送一段固定的明信片故事，结果只显示在测试框。初始模型是 `gpt-5.4-mini`，可在设置中更换。「已读取密钥」表示启动器找到了配置，看到模型续写才表示生成成功。
-3. 回到首页，确认「创作方式」显示 OpenAI。贴入手稿后点「接着原文写」，编辑候选段落，满意后点「接入正文」。如果曾手动选择离线规则或 Ollama，可在下拉框中改回 OpenAI。
+1. 在工坊首页点「连接 ChatGPT Plus」，或者进入「设置与备份」。点「使用 ChatGPT 继续」。
+2. 在 OpenAI 的授权页选择你的 Plus 账号和工作区，允许 **Use your ChatGPT plan**。页面会回到本机工坊。套餐模型菜单会显示这个账号可以选用的模型。
+3. 点「用示例实测 OpenAI」。出现一段续写后，回首页贴入手稿，点「接着原文写」。模型结果先作为候选，点「接入正文」才会追加到手稿。
 
-启动器把选定的手稿和设定发送到 OpenAI 的 Responses API，使用 `store: false`。密钥留在启动器进程；工作台、导出的作品与仓库分发包仅含公开代码或用户选择导出的内容。双击 HTML 文件可以直接使用离线规则。
+大纲、续写、连续性审阅和「创作知识库」中的联网研究共用所选连接。联网研究需要账号和模型支持网页搜索。设置中可查看当前账号、切换套餐模型、断开连接或[查看 ChatGPT 用量](https://chatgpt.com/settings/usage)。达到套餐限额会暂停请求。单独使用项目 API 密钥要在设置里明确选择该方式。
 
-余额错误会显示 `credit_balance_exhausted` 和账单入口。项目支出上限、模型权限和临时限流有各自的提示。账户配置调整完毕后，点示例实测即可验证。[OpenAI 用量与额度说明](https://help.openai.com/en/articles/6614457-troubleshooting-api-usage-and-spend-limits)
+浏览器和本机启动器须运行在同一台电脑。通过 OpenAI 官方授权页登录，授权回调返回本机。启动器在个人配置目录的 `glhf-story-atelier/chatgpt.sqlite` 中保存套餐授权。浏览器中的作品、导出的备份与分发包都独立于这份凭据。直接打开 HTML 可使用离线规则起草。
+
+[OpenAI 官方套餐授权说明](https://developers.openai.com/siwc/token-sharing-open-source) · [可用模型和响应流](https://developers.openai.com/siwc/token-sharing-open-source/models-and-inference)
+
+## 用项目 API 密钥创作
+
+使用 API 计费的作者可在启动器所在电脑配置 `OPENAI_API_KEY`，或从同目录的 `.env.local` 读取。源码启动时也会读取工具项目根目录的 `.env.local`。已选套餐时，需在「设置与备份」点「改用项目 API 密钥」才会切换计费方式。
+
+用项目密钥时，设置页显示「已读取密钥」。基础模型为 `gpt-5.4-mini`，可填写项目允许的模型 ID。「用示例实测 OpenAI」会发出一次真实模型请求。API 组织余额不足时，界面会显示具体原因和账单入口。[OpenAI 用量与额度说明](https://help.openai.com/en/articles/6614457-troubleshooting-api-usage-and-spend-limits)
 
 ## 从你写的内容开始
 
@@ -115,6 +123,8 @@ Ollama 接口文档见[本机对话](https://docs.ollama.com/api/chat)和[模型
 在线版基于 Sites Vinext / Cloudflare Workers。开发环境要求 Node 22.13+，使用 package.json 指定的 pnpm。安装依赖后运行 `node studio/build.mjs`、`pnpm dev`；正式构建遵循 Sites 的构建与发布流程。不要把 `.env`、`.dev.vars` 或密钥提交到代码仓库。
 
 ## 验证记录
+
+- V1.4 在 Node 24 通过 69 项测试，覆盖 Plus 授权回调、身份校验、令牌续期、账号切换、套餐额度错误、流式输出完成校验和断开时取消请求。下载包的登录表单、续写预览、手稿追加与研究引用通过模拟联测。真实授权入口返回 OpenAI 登录流程，用户 Plus 账号的授权与真实模型输出仍需在本机验证。
 
 - V1.3 在 Node 24 通过 60 项测试，覆盖本机 OpenAI 请求、密钥来源、响应保密、余额耗尽与临时限流的区分，以及用固定示例实测和保留手稿。
 

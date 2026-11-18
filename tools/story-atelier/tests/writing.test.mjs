@@ -225,3 +225,15 @@ test("仅双击离线页面时，OpenAI 实测会说明怎样打开启动器",as
   await b.run('testOpenAI()');
   assert.match(b.run('openAITestBox()'),/从本机启动器打开/);assert.equal(b.run('openAIProbe.running'),false);
 });
+
+test('套餐 UI 使用账号模型和独立计费标记，切换账号时清除旧清单', async () => {
+  const b=workspace('我打开旧怀表。');
+  b.run(`globalThis.location={protocol:'http:'}; let sent; const cfg={configured:true,preferredWriter:'service',keyAvailable:true,plan:{mode:'plan',connected:true,current:'client-a',label:'writer@example.test',accounts:[]}};
+    fetch=async(url,opts)=>{if(opts?.method==='POST'){sent=JSON.parse(opts.body);return {ok:true,json:async()=>({text:'指针转了一格。',model:'plan-a'})};}return {ok:true,json:async()=>url==='/api/plan/models'?{models:[{id:'plan-a',name:'账号模型 A'}]}:cfg};};`);
+  await b.run('readOpenAIConfiguration()');
+  assert.match(b.run('modelSettings()'),/账号模型 A/);assert.match(b.run('planSettings()'),/writer@example.test/);assert.match(b.run('writerEngineOptions()'),/ChatGPT 套餐/);
+  await b.run('testOpenAI()');assert.equal(b.run('sent.billing'),'plan');assert.equal(b.run('sent.planAccount'),'client-a');assert.equal(b.run('sent.model'),'plan-a');
+  assert.equal(b.run('state.settings.model'),'gpt-5.4-mini');assert.match(b.run('openAITestBox()'),/指针转了一格/);
+  b.run("applyOpenAIConfiguration({...cfg,plan:{...cfg.plan,current:'client-b'}})");assert.equal(b.run('planModels.length'),0);
+  b.run('applyOpenAIConfiguration(null)');assert.equal(b.run('planSettings()'),'');
+});

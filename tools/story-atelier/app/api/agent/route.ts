@@ -27,5 +27,6 @@ export async function POST(request: Request) {
   } catch {
     return response({error:'创作请求需要有效的 JSON。'},400);
   }
+  if (body?.billing === 'plan') return response({error:'请打开本机启动器使用 ChatGPT 套餐。'},409);
   return runOpenAI(body,{apiKey,signal:request.signal,callOpenAI:fetch});
 }

@@ -25,7 +25,7 @@ function failure(message, status = 400) {
   return jsonResponse({error:message}, status);
 }
 
-function validateTask(body) {
+export function validateTask(body) {
   if (!body || typeof body !== 'object' || Array.isArray(body)) return '创作请求需要一个 JSON 对象。';
   const {task,context,chapter} = body;
   if (!Object.hasOwn(schemas,task) && task !== 'research') return '未知创作任务。';
@@ -37,7 +37,7 @@ function validateTask(body) {
   return '';
 }
 
-function buildPayload(body) {
+export function buildPayload(body) {
   const {task,context,chapter,chapters} = body;
   const model = body.model || DEFAULT_STORY_MODEL;
   if (task === 'research') {
@@ -73,7 +73,7 @@ async function upstreamError(result) {
   return failure(`OpenAI 请求未完成（HTTP ${result.status}）。`,502);
 }
 
-function parseOutput(task, data) {
+export function parseOutput(task, data) {
   if (data?.status === 'incomplete') return failure('输出达到单次上限或中途结束，请缩短任务后重试。',502);
   if (!data || (data.status && data.status !== 'completed')) return failure('OpenAI 尚未返回已完成的创作结果。',502);
   const parts = (Array.isArray(data.output) ? data.output : []).flatMap(o => Array.isArray(o?.content) ? o.content : [])

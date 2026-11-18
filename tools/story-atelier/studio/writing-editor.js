@@ -55,7 +55,7 @@ function writerEngineOptions() {
   const selected = writerEngine();
   const choices = writerModels.map(model => ['local:' + model, '本机模型 · ' + model]);
   choices.push(['rules','离线规则草稿']);
-  if (apiReady || selected === 'service') choices.push(['service', 'OpenAI · ' + (state.settings.model || 'gpt-5.4-mini')]);
+  if (apiReady || selected === 'service') choices.push(['service', serviceName() + ' · ' + (serviceModel() || '账号默认模型')]);
   if (!choices.some(([value]) => value === selected)) choices.push([selected, '上次选择的模型（未连接）']);
   return choices.map(([value,label]) => `<option value="${esc(value)}"${value === selected ? ' selected' : ''}>${esc(label)}</option>`).join('');
 }
@@ -64,11 +64,12 @@ function writerControls() {
   return `<div class="writing-controls">
     <label>创作方式<select id="writer-engine">${writerEngineOptions()}</select></label>
     <label>段落走向<select id="writer-direction">${WRITING_DIRECTIONS.map(d => option(d,state.settings.writerDirection || WRITING_DIRECTIONS[0])).join('')}</select></label>
-    </div><p id="writer-note" class="tiny muted writing-note">${esc(writerNote())}</p>`;
+    </div><p id="writer-note" class="tiny muted writing-note">${esc(writerNote())}</p><span id="writer-usage" class="tiny">${usingPlan() && writerEngine() === 'service' ? planUsage : ''}</span>`;
 }
 
 function writerNote() {
   const engine = writerEngine();
+  if (engine === 'service' && usingPlan()) return '本段原稿和绑定设定将交给你授权的 ChatGPT 套餐续写。';
   if (engine === 'service') return '本段原稿及绑定设定会发送到项目的 OpenAI 服务。';
   if (engine.startsWith('local:')) return '原稿和设定交给这台电脑上选定的 Ollama 模型。';
   return '离线规则按原文中的人物、物件和场景组句。' + (writerBridge ? writerModelMessage : '使用 OpenAI 或 Ollama 时请打开本机启动器。');
@@ -93,6 +94,7 @@ function refreshWriterControls() {
   if (select) select.innerHTML = writerEngineOptions();
   const note = $('#writer-note');
   if (note) note.textContent = writerNote();
+  refreshPlanSettings();
   const refresh = $('#writer-detect');
   if (refresh) refresh.hidden = !writerBridge;
 }
@@ -102,7 +104,7 @@ function storyStartBox() {
     <h2><label for="writing-seed">从你写的这句开始</label></h2>
     <textarea id="writing-seed" rows="3" maxlength="24000" required placeholder="写一句创意，或贴上你想接着写的原文。"></textarea>
     ${writerControls()}
-    <div class="actions">${button('写成开头','spark-story','primary')}${button('接着原文写','continue-story','soft')}${button('试读《失物招领处》','clue-demo','ghost')}</div>
+    <div class="actions">${button('写成开头','spark-story','primary')}${button('接着原文写','continue-story','soft')}${button('试读《失物招领处》','clue-demo','ghost')}<button id="plan-shortcut" class="ghost" data-view="settings" ${!planConnection || (usingPlan() && planConnection.connected) ? 'hidden' : ''}>连接 ChatGPT Plus</button></div>
   </div>`;
 }
 
@@ -176,8 +178,8 @@ async function writeWithEngine(engine, input, previous, variant, signal) {
     const {manuscript, ...context} = input;
     const chapter = {title:input.chapter.title, outline:input.chapter.outline, existing:manuscript, memory:input.chapter.memory,
       segmentTarget:350, isFinal:false, direction:input.direction, previousDraft:previous.slice(-1600)};
-    const out = await api('chapter',{context:{...context, pathFacts:input.commonPast},chapter},state.settings.model,signal);
-    return {text:out.text,label:'OpenAI · ' + (out.model || state.settings.model)};
+    const out = await api('chapter',{context:{...context, pathFacts:input.commonPast},chapter},serviceModel(),signal);
+    return {text:out.text,label:serviceName() + ' · ' + (out.model || serviceModel())};
   }
   const model = engine.slice('local:'.length);
   if (!engine.startsWith('local:') || !writerModels.includes(model)) throw Error('所选模型未连接。请重新检测，或切换到离线规则草稿。');
@@ -262,7 +264,9 @@ function writingAction(action, project, chapter) {
 }
 
 function writingChange(target) {
-  if (target.id === 'writer-engine') {
+  if (target.id === 'model') { state.settings.model = target.value.trim() || 'gpt-5.4-mini'; save(); }
+  else if (target.id === 'plan-model') { state.settings.planModel = target.value; save(); refreshWriterControls(); }
+  else if (target.id === 'writer-engine') {
     state.settings.writerEngine = target.value;
     refreshWriterControls();
     save();
@@ -284,6 +288,8 @@ function editWritingCandidate(target) {
 }
 
 function applyOpenAIConfiguration(config) {
+  if (config?.plan?.current !== planConnection?.current || config?.plan?.mode !== planConnection?.mode) { planModels = []; planModelError = ''; }
+  planConnection = config?.plan || null; hasProjectKey = !!config?.keyAvailable;
   apiReady = config?.configured === true;
   preferOpenAI = apiReady && config.preferredWriter === 'service';
   sawOpenAIConfig = true;
@@ -296,10 +302,12 @@ async function readOpenAIConfiguration() {
   try {
     const response = await fetch('/api/agent',{cache:'no-store',signal:AbortSignal.timeout(6000)});
     applyOpenAIConfiguration(response.ok ? await response.json() : null);
+    await loadPlanModels();
   } catch { applyOpenAIConfiguration(null); }
 }
 
 function openAIConnectionLabel() {
+  if (usingPlan()) return planConnection.connected ? '已授权使用 ChatGPT 套餐' : '等待 ChatGPT 套餐授权';
   if (apiReady) return '已读取密钥';
   return sawOpenAIConfig ? '未读取到密钥' : '尚未检查';
 }
@@ -307,7 +315,7 @@ function openAIConnectionLabel() {
 function openAITestBox() {
   const test = openAIProbe;
   const label = test?.running ? '正在请求 OpenAI…' : '用示例实测 OpenAI';
-  const billingLink = test?.code === 'credit_balance_exhausted' ? '<a href="https://platform.openai.com/settings/organization/billing/overview" target="_blank" rel="noopener noreferrer">打开 OpenAI 账单页</a>' : '';
+  const billingLink = usingPlan() && test?.error ? planUsage : test?.code === 'credit_balance_exhausted' ? '<a href="https://platform.openai.com/settings/organization/billing/overview" target="_blank" rel="noopener noreferrer">打开 OpenAI 账单页</a>' : '';
   const result = test?.error ? `<p class="notice" role="alert">${esc(test.error)} ${billingLink}</p>` :
     test?.text ? `<p class="tiny muted">已收到 ${esc(test.model)} 的续写</p><p class="content-note">${esc(test.text)}</p>` : '';
   return `<div id="openai-test" class="mt"><div class="actions">${button(label,'test-openai','soft',test?.running ? 'disabled' : '')}
@@ -324,13 +332,14 @@ function refreshOpenAITest() {
 
 async function testOpenAI() {
   if (openAIProbe?.running) return;
-  const model = state.settings.model || 'gpt-5.4-mini';
-  const test = {model,running:true,text:'',error:''};
+  const test = {model:'',running:true,text:'',error:''};
   openAIProbe = test;
   refreshOpenAITest();
   try {
     await readOpenAIConfiguration();
+    if (!apiReady && usingPlan()) throw Error('请先允许工坊使用 ChatGPT 套餐。');
     if (!apiReady) throw Error(location.protocol === 'file:' ? '请从本机启动器打开工作台，再试写 OpenAI。' : '启动器尚未读取到 OPENAI_API_KEY。请检查本地配置后重新启动。');
+    const model = serviceModel();
     const original = '顾禾把明信片翻过来。邮戳是明天的日期，收件栏里却是她刚刚想好的新名字。';
     const output = await api('chapter',{
       context:{mode:'续写正文',title:'明日来信',pov:'原稿人称',idea:'',type:'线性小说'},
@@ -340,4 +349,73 @@ async function testOpenAI() {
     test.model = output.model || model;
   } catch (err) { test.error = err.message || '本次实测未收到模型正文。'; test.code = err.code; }
   finally { test.running = false; refreshOpenAITest(); }
+}
+
+let planConnection = null, planModels = [], planModelError = '', hasProjectKey = false;
+const planUsage = '<a href="https://chatgpt.com/settings/usage" target="_blank" rel="noopener noreferrer">查看 ChatGPT 用量</a>';
+function usingPlan() { return planConnection?.mode === 'plan'; }
+function serviceModel() {
+  if (!usingPlan()) return state.settings.model || 'gpt-5.4-mini';
+  const selected = state.settings.planModel;
+  return planModels.some(m => m.id === selected) ? selected : planModels[0]?.id || '';
+}
+function serviceName() { return usingPlan() ? 'ChatGPT 套餐' : 'OpenAI'; }
+function planSettings() {
+  if (!planConnection) return '';
+  const p = planConnection;
+  const connected = usingPlan() && p.connected;
+  const action = '/api/plan/start';
+  const others = (p.accounts || []).filter(a => a.id !== p.current);
+  const forms = others.map(a => `<form method="post" action="${action}?account=${encodeURIComponent(a.id)}"><button type="submit" class="ghost">${esc(a.label)}</button></form>`).join('');
+  return `<section class="plan-connect"><h3>使用 ChatGPT 套餐</h3>
+    <p class="tiny muted mt">${connected ? `已连接 ${esc(p.label || 'ChatGPT 账号')}。续写与联网研究使用此套餐的可用额度。` : '登录你的 Plus 账号，并在 OpenAI 授权页允许叙事工坊使用套餐。'}</p>
+    <div class="actions mt">${!connected ? `<form method="post" action="${action}"><button type="submit" class="primary">使用 ChatGPT 继续</button></form>` : planUsage}
+    ${usingPlan() && p.signedIn ? button('断开套餐连接','disconnect-plan','ghost') : ''}
+    ${usingPlan() && hasProjectKey ? button('改用项目 API 密钥','use-project-key','ghost') : ''}</div>
+    ${p.accounts?.length ? `<details class="mt"><summary>选择其他 ChatGPT 账号</summary><div class="actions mt">${forms}<form method="post" action="${action}?account=new"><button type="submit" class="ghost">添加账号</button></form></div></details>` : ''}
+    </section><div class="subtle-rule"></div>`;
+}
+function modelSettings() {
+  if (!usingPlan()) return `<label for="model">模型 ID</label><input id="model" value="${esc(state.settings.model)}" placeholder="gpt-5.4-mini">`;
+  const options = planModels.map(m => `<option value="${esc(m.id)}"${m.id === serviceModel() ? ' selected' : ''}>${esc(m.name)}</option>`).join('');
+  return `<label for="plan-model">套餐模型</label><select id="plan-model" ${options ? '' : 'disabled'}>${options || '<option>等待可用模型</option>'}</select>
+    ${planModelError ? `<p class="tiny muted" role="status">${esc(planModelError)}</p>` : ''}`;
+}
+function refreshPlanSettings() {
+  const box = $('#plan-settings'), field = $('#service-model');
+  if (box) box.innerHTML = planSettings();
+  if (field && (usingPlan() || !$('#model'))) field.innerHTML = modelSettings();
+  const shortcut = $('#plan-shortcut');
+  if (shortcut) shortcut.hidden = !planConnection || (usingPlan() && planConnection.connected);
+  const usage = $('#writer-usage');
+  if (usage) usage.innerHTML = usingPlan() && writerEngine() === 'service' ? planUsage : '';
+}
+async function loadPlanModels() {
+  if (!usingPlan() || !planConnection.connected) return;
+  const client = planConnection.current;
+  try {
+    const r = await fetch('/api/plan/models',{cache:'no-store',signal:AbortSignal.timeout(25000)});
+    const body = await r.json();
+    if (!r.ok) throw Error(body.error || '暂时无法读取套餐模型。');
+    if (usingPlan() && planConnection.current === client) { planModels = body.models || []; planModelError = ''; }
+  } catch (err) { if (usingPlan() && planConnection.current === client) planModelError = err.message; }
+  refreshWriterControls(); refreshPlanSettings();
+}
+async function changePlan(action) {
+  if (activeRun || openAIProbe?.running) return toast('请等待当前生成结束。');
+  const r = await fetch('/api/plan/' + (action === 'disconnect-plan' ? 'disconnect' : 'use-key'),{method:'POST'});
+  const result = await r.json();
+  if (!r.ok) throw Error(result.error || '操作未完成。');
+  openAIProbe = null; await readOpenAIConfiguration();
+  toast(action === 'use-project-key' ? '后续在线请求将使用项目 API 密钥。' : result.revoked ? '已断开套餐连接。' : '已在本机退出，远程撤销尚未确认。可到 ChatGPT 设置中断开工坊。');
+}
+function finishPlanReturn(outcome) {
+  if (!outcome) return;
+  window.history.replaceState(null,'',location.pathname);
+  if (['welcome','connected'].includes(outcome) && planConnection?.connected) {
+    state.settings.writerEngine = 'service'; save(); refreshWriterControls();
+    if (outcome === 'welcome') modal('已连接 ChatGPT 套餐',`<p>工坊的在线创作将使用你授权的套餐额度。${planUsage}</p>`,button('开始使用','close','primary'));
+    else toast('已连接 ChatGPT 套餐。');
+  } else if (outcome === 'permission') toast('已登录。请允许使用 ChatGPT 套餐后再续写。');
+  else if (outcome === 'cancelled') toast('已取消本次授权。');
 }
