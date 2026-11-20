@@ -1,8 +1,9 @@
 import test from 'node:test';
 import {get} from 'node:http';
 import assert from 'node:assert/strict';
-import {createWriterServer, loadLocalOpenAIKey} from '../offline/local-writer.mjs';
-import {mkdir, mkdtemp, rm, writeFile} from 'node:fs/promises';
+import {createWriterServer, loadLocalOpenAIKey, startLocalWriter} from '../offline/local-writer.mjs';
+import {createChatGPTPlan} from '../offline/chatgpt-plan.mjs';
+import {mkdir, mkdtemp, rm, writeFile, stat} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {pathToFileURL} from 'node:url';
@@ -15,6 +16,36 @@ async function bridge(t, callOllama, options = {}) {
   const post = (body,headers = {}) => fetch(url + '/api/atelier/draft',{method:'POST',headers:{'Content-Type':'application/json',...headers},body:JSON.stringify(body)});
   return {url,post};
 }
+
+test('个人启动器固定回环地址，恢复套餐模式，端口冲突不会重置原连接',async t=>{
+  const directory=await mkdtemp(join(tmpdir(),'atelier-personal-'));
+  const filename=join(directory,'connection.sqlite');
+  const saved=createChatGPTPlan({filename});
+  await saved.useKey();saved.close();
+  const server=await startLocalWriter({personal:true,port:0,planFilename:filename});
+  t.after(async()=>{
+    await new Promise(resolve=>{server.close(resolve);server.closeAllConnections();});
+    await rm(directory,{recursive:true,force:true});
+  });
+  assert.equal(server.address().address,'127.0.0.1');
+  const base='http://127.0.0.1:'+server.address().port;
+  const status=await (await fetch(base+'/api/agent')).json();
+  assert.equal(status.personalOnly,true);assert.equal(status.keyAvailable,false);
+  assert.equal(status.plan.mode,'plan');assert.equal(status.configured,false);
+  const other=createChatGPTPlan({filename});
+  await other.useKey();
+  try {
+    await assert.rejects(startLocalWriter({personal:true,port:server.address().port,planFilename:filename}),/已被占用/);
+    assert.equal((await other.status()).mode,'api-key');
+  } finally { other.close(); }
+});
+
+test('无效本机端口不会创建个人授权文件',async t=>{
+  const directory=await mkdtemp(join(tmpdir(),'atelier-port-'));
+  t.after(()=>rm(directory,{recursive:true,force:true}));
+  await assert.rejects(startLocalWriter({personal:true,port:NaN,planFilename:join(directory,'unused.sqlite')}),/端口无效/);
+  await assert.rejects(stat(join(directory,'unused.sqlite')),{code:'ENOENT'});
+});
 
 test("本机启动器提供完整工作台，只枚举本地模型", async t => {
   const {url}=await bridge(t,async address=>{

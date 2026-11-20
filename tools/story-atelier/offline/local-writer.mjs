@@ -53,7 +53,8 @@ export async function loadLocalOpenAIKey(env = process.env, launcher = import.me
   return '';
 }
 
-export function createWriterServer({page = new URL('./Story_Atelier_Offline.html', import.meta.url), callOllama = fetch, openAIKey = '', callOpenAI = fetch, plan = null} = {}) {
+export function createWriterServer({page = new URL('./Story_Atelier_Offline.html', import.meta.url), callOllama = fetch, openAIKey = '', callOpenAI = fetch, plan = null, personalOnly = false} = {}) {
+  if (personalOnly && !plan) throw Error('个人版需要启用 ChatGPT 登录模块。');
   const ollama = 'http://127.0.0.1:11434';
   const planRequests = new Set();
   function stopPlanRequests() {
@@ -109,6 +110,7 @@ export function createWriterServer({page = new URL('./Story_Atelier_Offline.html
           stopPlanRequests();
           return sendJSON(res,200,{revoked:await plan.disconnect()});
         }
+        if (url.pathname === '/api/plan/use-key' && personalOnly) return sendJSON(res,403,{error:'个人版仅使用你授权的 ChatGPT 套餐。'});
         if (url.pathname === '/api/plan/use-key' && openAIKey) {
           stopPlanRequests();
           await plan.useKey();
@@ -118,10 +120,10 @@ export function createWriterServer({page = new URL('./Story_Atelier_Offline.html
       }
       if (url.pathname === '/api/agent') {
         const planState = plan ? await plan.status() : null;
-        const usePlan = planState?.mode === 'plan';
+        const usePlan = personalOnly || planState?.mode === 'plan';
         const configured = usePlan ? planState.connected : !!openAIKey;
         if (req.method === 'GET') return sendJSON(res,200,{configured,provider:usePlan ? 'ChatGPT 套餐' : 'OpenAI',preferredWriter:configured ? 'service' : '',
-          version:'1.4',...(planState ? {plan:planState,keyAvailable:!!openAIKey} : {})});
+          version:'1.4.1',personalOnly,...(planState ? {plan:{...planState,mode:usePlan ? 'plan' : planState.mode},keyAvailable:!personalOnly && !!openAIKey} : {})});
         if (req.method !== 'POST') return sendJSON(res,405,{error:'请使用 POST 提交创作请求。'});
         if (!configured) return sendJSON(res,usePlan ? 401 : 503,{error:usePlan ? '请在设置中连接 ChatGPT 并允许使用套餐。' : '启动器未读取到 OPENAI_API_KEY，请连接 ChatGPT 套餐或配置项目密钥。'});
         if (!/^application\/json(?:;|$)/i.test(req.headers['content-type'] || '')) return sendJSON(res,415,{error:'创作请求需要 JSON 格式。'});
@@ -186,16 +188,34 @@ function openLocally(address) {
   child.unref();
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const port = Number(process.env.STORY_ATELIER_PORT || 4178);
-  const openAIKey = await loadLocalOpenAIKey();
-  const plan = createChatGPTPlan();
-  const server = createWriterServer({openAIKey,plan});
+export async function startLocalWriter({personal = false, port = Number(process.env.STORY_ATELIER_PORT || 4178), openBrowser = false, planFilename} = {}) {
+  if (!Number.isInteger(port) || port < 0 || port > 65535) throw Error('本机端口无效，请将 STORY_ATELIER_PORT 设为 1 至 65535 的整数，或清除该设置以使用 4178。');
+  const openAIKey = personal ? '' : await loadLocalOpenAIKey();
+  const plan = createChatGPTPlan({filename:planFilename});
+  const server = createWriterServer({openAIKey,plan,personalOnly:personal});
   server.once('close',() => plan.close());
-  server.on('error', error => { console.error('本机工作台启动失败：' + error.message); process.exitCode = 1; });
-  server.listen(port, '127.0.0.1', () => {
-    const address = 'http://127.0.0.1:' + server.address().port + '/';
-    console.log('叙事工坊已在本机启动。请打开 ' + address + ' ，按 Ctrl+C 结束。');
-    if (process.argv.includes('--open')) openLocally(address);
-  });
+  try {
+    await new Promise((resolve,reject) => {
+      const failed = error => reject(error);
+      server.once('error',failed);
+      server.listen(port,'127.0.0.1',() => { server.off('error',failed); resolve(); });
+    });
+  } catch (error) {
+    plan.close();
+    if (error.code === 'EADDRINUSE') throw Error(`端口 ${port} 已被占用。如果工坊已打开，请继续使用原窗口；否则请关闭占用此端口的程序后再启动。`);
+    throw error;
+  }
+  try { if (personal) await plan.usePlan(); }
+  catch (error) { await new Promise(resolve => server.close(resolve)); throw error; }
+  const address = 'http://127.0.0.1:' + server.address().port + '/';
+  console.log('叙事工坊已在本机启动：' + address);
+  if (personal) console.log('个人使用模式：在「设置与备份」选择「使用 ChatGPT 继续」，完成登录后即可试写。');
+  console.log('请保持此窗口打开。结束使用时按 Ctrl+C；作品请定期导出完整备份。');
+  if (openBrowser) openLocally(address);
+  return server;
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  startLocalWriter({personal:process.argv.includes('--personal'),openBrowser:process.argv.includes('--open')})
+    .catch(error => { console.error('本机工作台启动失败：' + error.message); process.exitCode = 1; });
 }

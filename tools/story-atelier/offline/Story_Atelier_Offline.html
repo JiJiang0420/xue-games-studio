@@ -965,6 +965,7 @@ function cleanNewProse(text, source) {
 
 function writerEngine() {
   if (state.settings.writerEngine) return state.settings.writerEngine;
+  if (personalUse) return 'service';
   if (preferOpenAI && apiReady) return 'service';
   return writerModels[0] ? 'local:' + writerModels[0] : 'rules';
 }
@@ -987,7 +988,7 @@ function writerControls() {
 
 function writerNote() {
   const engine = writerEngine();
-  if (engine === 'service' && usingPlan()) return '本段原稿和绑定设定将交给你授权的 ChatGPT 套餐续写。';
+  if (engine === 'service' && usingPlan()) return apiReady ? '本段原稿和绑定设定将交给你授权的 ChatGPT 套餐续写。' : '请先点「连接 ChatGPT Plus」，在官方页面登录并允许使用套餐。';
   if (engine === 'service') return '本段原稿及绑定设定会发送到项目的 OpenAI 服务。';
   if (engine.startsWith('local:')) return '原稿和设定交给这台电脑上选定的 Ollama 模型。';
   return '离线规则按原文中的人物、物件和场景组句。' + (writerBridge ? writerModelMessage : '使用 OpenAI 或 Ollama 时请打开本机启动器。');
@@ -1208,6 +1209,7 @@ function editWritingCandidate(target) {
 function applyOpenAIConfiguration(config) {
   if (config?.plan?.current !== planConnection?.current || config?.plan?.mode !== planConnection?.mode) { planModels = []; planModelError = ''; }
   planConnection = config?.plan || null; hasProjectKey = !!config?.keyAvailable;
+  personalUse = !!config?.personalOnly;
   apiReady = config?.configured === true;
   preferOpenAI = apiReady && config.preferredWriter === 'service';
   sawOpenAIConfig = true;
@@ -1269,7 +1271,7 @@ async function testOpenAI() {
   finally { test.running = false; refreshOpenAITest(); }
 }
 
-let planConnection = null, planModels = [], planModelError = '', hasProjectKey = false;
+let planConnection = null, planModels = [], planModelError = '', hasProjectKey = false, personalUse = false;
 const planUsage = '<a href="https://chatgpt.com/settings/usage" target="_blank" rel="noopener noreferrer">查看 ChatGPT 用量</a>';
 function usingPlan() { return planConnection?.mode === 'plan'; }
 function serviceModel() {
@@ -1286,6 +1288,7 @@ function planSettings() {
   const others = (p.accounts || []).filter(a => a.id !== p.current);
   const forms = others.map(a => `<form method="post" action="${action}?account=${encodeURIComponent(a.id)}"><button type="submit" class="ghost">${esc(a.label)}</button></form>`).join('');
   return `<section class="plan-connect"><h3>使用 ChatGPT 套餐</h3>
+    ${personalUse ? '<p class="tiny muted mt">个人本机版：使用你授权的 ChatGPT 套餐。作品保存在当前浏览器，生成时会把相关原稿与设定发送给 OpenAI。</p>' : ''}
     <p class="tiny muted mt">${connected ? `已连接 ${esc(p.label || 'ChatGPT 账号')}。续写与联网研究使用此套餐的可用额度。` : '登录你的 Plus 账号，并在 OpenAI 授权页允许叙事工坊使用套餐。'}</p>
     <div class="actions mt">${!connected ? `<form method="post" action="${action}"><button type="submit" class="primary">使用 ChatGPT 继续</button></form>` : planUsage}
     ${usingPlan() && p.signedIn ? button('断开套餐连接','disconnect-plan','ghost') : ''}
@@ -1365,7 +1368,7 @@ function closeModal(){$('#modal-root').innerHTML='';focusReturn?.focus();}
 const button=(text,action,cls='',extra='')=>`<button class="${cls}" data-action="${action}" ${extra}>${text}</button>`;
 const option=(v,c)=>`<option value="${esc(v)}" ${v===c?'selected':''}>${esc(v)}</option>`;
 function card(p,pub=false){const wc=p.chapters.reduce((n,c)=>n+count(c.text),0);return`<div class="book-card"><div class="cover ${esc(p.color)}"><span class="cover-badge">${pub?'本地发布版':p.id==='sample-rain'?'内置原创示例':'创作中'}</span><small>STORIES WORTH TELLING</small><h3>${esc(p.title)}</h3><small>${esc(p.type)} · ${p.chapters.length} 章</small></div><div class="book-info"><div class="between"><strong>${esc(p.title)}</strong><span class="pill">${esc(p.styles?.[0]||'自定义')}</span></div><p>${esc((p.idea||'一个故事，正在这里生长。').slice(0,48))}${(p.idea||'').length>48?'…':''}</p><div class="between tiny muted"><span>${wc.toLocaleString()} / ${(p.target||0).toLocaleString()} 字符</span><span>${new Date(p.updated||p.created).toLocaleDateString('zh-CN')}</span></div><div class="progress"><i style="width:${Math.min(100,wc/(p.target||1)*100)}%"></i></div><div class="between">${button(pub?'打开阅读':'继续创作',pub?'read-pub':'edit-project','small soft',`data-id="${esc(p.id)}"`)}${button(pub?'导出阅读页':'试读 →',pub?'export-pub':'read-project','small ghost',`data-id="${esc(p.id)}"`)}</div></div></div>`;}
-function shell(){const navs=[['home','home','创作工作台'],['projects','book','我的剧情集'],['assets','people','角色与场景'],['knowledge','knowledge','创作知识库'],['published','scene','本地发布'],['reader','reader','阅读模拟器'],['settings','gear','设置与备份']];return`<div class="app"><aside class="sidebar"><div class="brand"><div class="brandmark">N</div><div><strong>叙事工坊</strong><small>GLHF · STORY ATELIER</small></div></div>${button('＋ 开始新故事','new','primary new')}<div class="side-label">你的创作空间</div><nav>${navs.map(([v,i,l])=>`<button class="nav ${view===v?'active':''}" data-view="${v}">${icon(i)}<span>${l}</span></button>`).join('')}</nav><div class="side-bottom"><div class="sidebar-note">每一个世界，<br>都从一个念头开始。</div><div class="flex mt"><div class="avatar">G</div><div><strong class="tiny">GLHF 创作空间</strong><div class="tiny muted">版本 1.4 · 私人工作台</div></div></div></div></aside><section class="workspace"><header class="top"><div class="crumb">我的工作室 <span style="padding:0 12px">/</span><b>${navs.find(n=>n[0]===view)?.[2]||(view==='create'?'创作入口':'章节编辑')}</b></div><div class="flex"><span class="tiny badge-dot" id="save-status">${storageError?'保存异常':'浏览器本地保存'}</span>${button('备份','backup','small ghost')}</div></header><main class="main" id="main"></main></section></div>`;}
+function shell(){const navs=[['home','home','创作工作台'],['projects','book','我的剧情集'],['assets','people','角色与场景'],['knowledge','knowledge','创作知识库'],['published','scene','本地发布'],['reader','reader','阅读模拟器'],['settings','gear','设置与备份']];return`<div class="app"><aside class="sidebar"><div class="brand"><div class="brandmark">N</div><div><strong>叙事工坊</strong><small>GLHF · STORY ATELIER</small></div></div>${button('＋ 开始新故事','new','primary new')}<div class="side-label">你的创作空间</div><nav>${navs.map(([v,i,l])=>`<button class="nav ${view===v?'active':''}" data-view="${v}">${icon(i)}<span>${l}</span></button>`).join('')}</nav><div class="side-bottom"><div class="sidebar-note">每一个世界，<br>都从一个念头开始。</div><div class="flex mt"><div class="avatar">G</div><div><strong class="tiny">GLHF 创作空间</strong><div class="tiny muted">版本 1.4.1 · 私人工作台</div></div></div></div></aside><section class="workspace"><header class="top"><div class="crumb">我的工作室 <span style="padding:0 12px">/</span><b>${navs.find(n=>n[0]===view)?.[2]||(view==='create'?'创作入口':'章节编辑')}</b></div><div class="flex"><span class="tiny badge-dot" id="save-status">${storageError?'保存异常':'浏览器本地保存'}</span>${button('备份','backup','small ghost')}</div></header><main class="main" id="main"></main></section></div>`;}
 function render(){$('#app').innerHTML=shell();const funcs={home:homeView,projects:projectsView,create:createView,editor:editorView,assets:assetsView,knowledge:knowledgeView,published:publishedView,reader:readerView,settings:settingsView};$('#main').innerHTML=(funcs[view]||homeView)();if(storageError)$('#main').insertAdjacentHTML('afterbegin',`<div class="notice">${esc(storageError)}</div>`);if(view==='create')bindCreate();if(view==='editor')bindEditor();if(view==='settings')bindSettings();}
 function homeView(){const words=state.projects.reduce((n,p)=>n+p.chapters.reduce((m,c)=>m+count(c.text),0),0);return`<div class="between heading"><div><div class="eyebrow">A PLACE FOR YOUR IMAGINATION</div><h1 style="margin-top:6px">今天，写下一个好故事。</h1><p>让灵感有落点，让人物有去处。</p></div><span class="pill warm">${today()} · 创作日</span></div><section class="hero writing-hero">${storyStartBox()}<svg class="hero-art" viewBox="0 0 320 280" aria-hidden="true"><circle cx="180" cy="135" r="102" fill="none" stroke="#b9c8af"/><circle cx="180" cy="135" r="89" fill="none" stroke="#b9c8af" stroke-dasharray="2 10"/><path d="M55 210Q105 182 163 213V92Q112 59 55 84Z" fill="#fbfaf2" stroke="#9dad91"/><path d="M163 213Q215 183 270 203V80Q213 60 163 92Z" fill="#e1e6d4" stroke="#9dad91"/><path d="M163 213v18M60 222q50-27 103 9 60-35 111-17M72 105q40-14 72 7M72 125q40-14 72 7M72 145q40-14 72 7M184 112l61-11M184 132l61-11" fill="none" stroke="#b9c5ab"/><path d="M198 176Q207 86 283 31Q296 118 198 176Z" fill="#6d8b67"/><path d="m197 191 69-127" stroke="#f3f0da" stroke-width="2"/></svg></section><div class="quick-grid"><button class="quick" data-view="assets"><span class="icon">${icon('people')}</span><div><h3>让角色鲜活起来</h3><p>动机、秘密与成长弧线</p></div></button><button class="quick" data-view="knowledge"><span class="icon">${icon('knowledge')}</span><div><h3>给灵感一些养分</h3><p>写作方法与可追溯的资料</p></div></button><button class="quick" data-view="reader"><span class="icon">${icon('reader')}</span><div><h3>走进读者的视角</h3><p>试读文本，走通每个分支</p></div></button></div><div class="between section-head"><h2>正在生长的故事 <span class="tiny muted"> / ${state.projects.length}</span></h2>${button('查看全部 →','all-projects','small ghost')}</div><div class="books">${state.projects.slice(0,3).map(p=>card(p)).join('')}</div><div class="between mt tiny muted"><span>已落笔 ${words.toLocaleString()} 字符 · ${state.characters.length} 位角色 · ${state.scenes.length} 个场景</span><span>你的草稿由你掌握</span></div>`;}
 function projectsView(){return`<div class="between heading"><div><h1>我的剧情集</h1><p>长篇、短篇与互动故事，都有自己的生长节奏。</p></div>${button('＋ 新建剧情集','new','primary')}</div><div class="books">${state.projects.map(p=>card(p)).join('')||'<div class="empty">从新建剧情集开始。</div>'}</div>`;}

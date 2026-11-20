@@ -202,5 +202,6 @@ export function createChatGPTPlan({filename = defaultPath(), fetcher = fetch} = 
     });
   }
   async function useKey() { pending = undefined; return transaction(state => { delete state.attempt; state.mode = 'api-key'; }); }
-  return {status,begin,finish,credentials,models,disconnect,useKey,close(){database?.close();}};
+  async function usePlan() { pending = undefined; return transaction(state => { delete state.attempt; state.mode = 'plan'; }); }
+  return {status,begin,finish,credentials,models,disconnect,useKey,usePlan,close(){database?.close();}};
 }

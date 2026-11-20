@@ -47,6 +47,7 @@ function cleanNewProse(text, source) {
 
 function writerEngine() {
   if (state.settings.writerEngine) return state.settings.writerEngine;
+  if (personalUse) return 'service';
   if (preferOpenAI && apiReady) return 'service';
   return writerModels[0] ? 'local:' + writerModels[0] : 'rules';
 }
@@ -69,7 +70,7 @@ function writerControls() {
 
 function writerNote() {
   const engine = writerEngine();
-  if (engine === 'service' && usingPlan()) return '本段原稿和绑定设定将交给你授权的 ChatGPT 套餐续写。';
+  if (engine === 'service' && usingPlan()) return apiReady ? '本段原稿和绑定设定将交给你授权的 ChatGPT 套餐续写。' : '请先点「连接 ChatGPT Plus」，在官方页面登录并允许使用套餐。';
   if (engine === 'service') return '本段原稿及绑定设定会发送到项目的 OpenAI 服务。';
   if (engine.startsWith('local:')) return '原稿和设定交给这台电脑上选定的 Ollama 模型。';
   return '离线规则按原文中的人物、物件和场景组句。' + (writerBridge ? writerModelMessage : '使用 OpenAI 或 Ollama 时请打开本机启动器。');
@@ -290,6 +291,7 @@ function editWritingCandidate(target) {
 function applyOpenAIConfiguration(config) {
   if (config?.plan?.current !== planConnection?.current || config?.plan?.mode !== planConnection?.mode) { planModels = []; planModelError = ''; }
   planConnection = config?.plan || null; hasProjectKey = !!config?.keyAvailable;
+  personalUse = !!config?.personalOnly;
   apiReady = config?.configured === true;
   preferOpenAI = apiReady && config.preferredWriter === 'service';
   sawOpenAIConfig = true;
@@ -351,7 +353,7 @@ async function testOpenAI() {
   finally { test.running = false; refreshOpenAITest(); }
 }
 
-let planConnection = null, planModels = [], planModelError = '', hasProjectKey = false;
+let planConnection = null, planModels = [], planModelError = '', hasProjectKey = false, personalUse = false;
 const planUsage = '<a href="https://chatgpt.com/settings/usage" target="_blank" rel="noopener noreferrer">查看 ChatGPT 用量</a>';
 function usingPlan() { return planConnection?.mode === 'plan'; }
 function serviceModel() {
@@ -368,6 +370,7 @@ function planSettings() {
   const others = (p.accounts || []).filter(a => a.id !== p.current);
   const forms = others.map(a => `<form method="post" action="${action}?account=${encodeURIComponent(a.id)}"><button type="submit" class="ghost">${esc(a.label)}</button></form>`).join('');
   return `<section class="plan-connect"><h3>使用 ChatGPT 套餐</h3>
+    ${personalUse ? '<p class="tiny muted mt">个人本机版：使用你授权的 ChatGPT 套餐。作品保存在当前浏览器，生成时会把相关原稿与设定发送给 OpenAI。</p>' : ''}
     <p class="tiny muted mt">${connected ? `已连接 ${esc(p.label || 'ChatGPT 账号')}。续写与联网研究使用此套餐的可用额度。` : '登录你的 Plus 账号，并在 OpenAI 授权页允许叙事工坊使用套餐。'}</p>
     <div class="actions mt">${!connected ? `<form method="post" action="${action}"><button type="submit" class="primary">使用 ChatGPT 继续</button></form>` : planUsage}
     ${usingPlan() && p.signedIn ? button('断开套餐连接','disconnect-plan','ghost') : ''}

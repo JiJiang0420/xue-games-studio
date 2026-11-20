@@ -55,7 +55,8 @@ async function fixture(t, overrides = {}) {
     throw new Error('unexpected test endpoint');
   }
   const plan = createChatGPTPlan({filename:file,fetcher:provider});
-  const server = createWriterServer({plan,callOpenAI:provider,openAIKey:'fixture-project-key'});
+  if (overrides.personalOnly) await plan.usePlan();
+  const server = createWriterServer({plan,callOpenAI:provider,openAIKey:'fixture-project-key',personalOnly:!!overrides.personalOnly});
   server.listen(0,'127.0.0.1'); await once(server,'listening');
   const origin='http://127.0.0.1:'+server.address().port;
   t.after(async()=>{server.closeAllConnections();await new Promise(resolve=>server.close(resolve));plan.close();await rm(dir,{recursive:true,force:true});});
@@ -70,6 +71,30 @@ async function fixture(t, overrides = {}) {
   async function approve() {const cb=await start();const res=await fetch(cb,{redirect:'manual'});assert.equal(res.status,303);return res.headers.get('location');}
   return {sim,plan,provider,file,origin,get,post,start,approve};
 }
+
+test('Personal mode requires plan consent, blocks API billing, and resumes saved authorization',async t=>{
+  const f=await fixture(t,{personalOnly:true});
+  const initial=await (await f.get('/api/agent')).json();
+  assert.equal(initial.personalOnly,true);assert.equal(initial.plan.mode,'plan');
+  assert.equal(initial.configured,false);assert.equal(initial.keyAvailable,false);
+  assert.equal((await f.post('/api/plan/use-key')).status,403);
+  assert.equal((await f.post('/api/agent',chapter)).status,401);
+  assert.equal(f.sim.requests.length,0);
+  await f.approve();
+  assert.equal((await f.post('/api/agent',{...chapter,billing:'api-key'})).status,409);
+  assert.equal((await f.post('/api/agent',{...chapter,billing:'plan'})).status,200);
+  assert.equal(f.sim.requests[0].bearer,'Bearer '+creds.access);
+  // Another ordinary launcher cannot make this personal process charge a key.
+  await f.plan.useKey();
+  assert.equal((await f.post('/api/agent',chapter)).status,401);
+  assert.equal(f.sim.requests.length,1);
+  await f.plan.usePlan();
+  assert.equal((await f.plan.status()).connected,true);
+  assert.equal((await f.post('/api/agent',chapter)).status,200);
+  assert.equal((await f.post('/api/plan/disconnect')).status,200);
+  assert.equal((await f.post('/api/agent',chapter)).status,401);
+  assert.equal(f.sim.requests.length,2);
+});
 
 test('Plus completes PKCE on loopback, lists account models and writes via the subscription',async t=>{
   const f=await fixture(t);assert.equal((await (await f.get('/api/agent')).json()).plan.mode,'api-key');

@@ -1,7 +1,17 @@
-# 叙事工坊 · GLHF Story Atelier V1.4
+# 叙事工坊 · GLHF Story Atelier 本地版 V1.4.1
 
 > 本目录用于源码维护，保存在 `xue-games-studio` 仓库的 `story-atelier` 分支、`tools/story-atelier/` 路径。
 > V1.4 的离线版和本机启动器在此分支维护。
+
+## 个人本地版：使用自己的 ChatGPT 套餐
+
+[下载 V1.4.1 个人本地包](offline/Story_Atelier_Personal_V1.4.1.zip)，完整解压。Windows 安装 [Node.js 24 LTS 或更新的 LTS 版本](https://nodejs.org/en/download)后，双击 **启动叙事工坊.cmd**。浏览器打开 `http://127.0.0.1:4178/`，进入「连接 ChatGPT Plus」→「使用 ChatGPT 继续」，在 OpenAI 官方页登录并允许使用套餐，然后用设置里的示例实测确认生成成功。
+
+个人入口默认选择 ChatGPT 套餐，不读取 API 密钥，也不提供 API 计费切换。macOS 使用 `Start_Personal_Writer.command`，Linux 运行 `node start-personal.mjs`。工作台仅在本机监听，作品保存在当前浏览器；使用 ChatGPT 生成时仍需联网，相关手稿和设定会发送给 OpenAI。真实使用资格、模型与限额以授权账号为准。
+
+在线版旧作可先导出「完整备份 JSON」，再在本地「设置与备份」导入。固定使用同一浏览器和地址，定期备份。详见包内「先读我_个人版使用说明.txt」。本包无需安装项目依赖或本地模型。
+
+开发者打包：先运行 `node studio/build.mjs`，再运行 `python3 scripts/package-personal.py`。打包脚本采用明确文件清单，不包含授权文件、环境配置或用户作品。
 
 ## 用 ChatGPT Plus 续写
 
@@ -123,6 +133,8 @@ Ollama 接口文档见[本机对话](https://docs.ollama.com/api/chat)和[模型
 在线版基于 Sites Vinext / Cloudflare Workers。开发环境要求 Node 22.13+，使用 package.json 指定的 pnpm。安装依赖后运行 `node studio/build.mjs`、`pnpm dev`；正式构建遵循 Sites 的构建与发布流程。不要把 `.env`、`.dev.vars` 或密钥提交到代码仓库。
 
 ## 验证记录
+
+- V1.4.1 在 Linux / Node 24.22.3 通过 72 项自动化测试，新增个人模式禁止 API 计费切换、已存套餐连接恢复、回环地址与端口冲突检查。下载包通过 ZIP 完整性、运行检查与凭据排除检查；未在 Windows 上实际双击验证，真实 Plus 登录与生成仍需在使用者本机完成。
 
 - V1.4 在 Node 24 通过 69 项测试，覆盖 Plus 授权回调、身份校验、令牌续期、账号切换、套餐额度错误、流式输出完成校验和断开时取消请求。下载包的登录表单、续写预览、手稿追加与研究引用通过模拟联测。真实授权入口返回 OpenAI 登录流程，用户 Plus 账号的授权与真实模型输出仍需在本机验证。
 
